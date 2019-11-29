@@ -26,24 +26,6 @@
 
 出生日期：birthday-date
 
-建表代码：
-
-```mysql
-use BBS;
-create table user(
-userId integer primary key auto_increment,
-password varchar(45) not null,
-userName varchar(80) not null,
-sex integer default 0,
-credit integer default 0,
-telephone varchar(45) unique,
-profilePhoto varchar(45),
-briefIntro varchar(600),
-location varchar(100),
-type integer default 0,
-birthday date
-)
-```
 
 #### 2.帖子表post
 
@@ -67,25 +49,6 @@ birthday date
 
 帖子所在栏目：postCategoryId-integer-NOT NULL,FOREIGN KEY REFERENCES category(categoryId) 
 
-建表代码：
-
-```mysql
-use BBS;
-create table post(
-postId integer primary key not null auto_increment,
-postTitle varchar(100) not null,
-postContent varchar(500) not null,
-postScore integer default 0,
-postUserId integer not null,
-postPhoto varchar(100),
-highlight integer not null,
-postTime datetime not null,
-postType integer default 0,
-postCategoryId integer not null,
-foreign key (postCategoryId) references category(categoryId)  
-foreign key (postUserId) references user(userId)
-)
-```
 
 #### 3.栏目表category
 
@@ -95,17 +58,6 @@ foreign key (postUserId) references user(userId)
 
 栏目版主：categoryUserId-integer-NOT NULL,FOREIGN KEY REFERENCES user(userId) 
 
-建表代码：
-
-```mysql
-use BBS;
-create table category(
-categoryId integer primary key not null,
-categoryName varchar(45) not null,
-categoryUserId integer not null,
-foreign key (categoryUserId) references user(userId)  
-)
-```
 
 #### 4.回复表comment
 
@@ -123,21 +75,4 @@ foreign key (categoryUserId) references user(userId)
 
 回复时间：commentTime-datetime-NOT NULL
 
-建表代码：
-
-```mysql
-use BBS;
-create table comment(
-commentId integer primary key auto_increment,
-commentUserId integer not null,
-commentToId integer,
-commentToUserId integer not null,
-commentContent varchar(100) not null,
-commentPostId integer not null,
-commentTime datetime not null,
-foreign key (commentUserId) references user(userId),
-foreign key (commentToUserId) references user(userId),
-foreign key (commentPostId) references post(postId)
-)
-```
 
