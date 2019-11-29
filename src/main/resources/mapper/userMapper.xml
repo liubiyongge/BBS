@@ -6,4 +6,7 @@
     <select id="listUser" resultType="User">
         select * from user
     </select>
+    <select id="findByUsername" parameterType="String" resultType="User">
+        select * from user where userName = #{userName}
+    </select>
 </mapper>
