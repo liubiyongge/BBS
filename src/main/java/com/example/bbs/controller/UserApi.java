@@ -20,6 +20,10 @@ public class UserApi {
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
         JSONObject jsonObject = new JSONObject();
+        if(loginUser.getUserName() == null || loginUser.getPassword() == null){
+            jsonObject.put("message","表单错误");
+            return jsonObject;
+        }
         User userForBase =userDao.findByUsername(loginUser.getUserName());
         if(userForBase == null){
             jsonObject.put("message","登录失败,用户不存在");

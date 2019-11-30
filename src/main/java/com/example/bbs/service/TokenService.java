@@ -31,7 +31,7 @@ public class TokenService {
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
                 .getBody();
-//        Date timeExpiration = new Date((long)claims.get("time"));
+//        Date timeExpiration = new Date((long)claims.get("timeExpiration"));
 //        String userName = (String) claims.get("userName");
 //        int type = (int) claims.get("type");
         return claims;
