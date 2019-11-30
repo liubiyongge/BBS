@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/customer")
-public class customerAPi {
+public class CustomerAPi {
     @RequestMapping("/test")
     public Object test(){
         JSONObject jsonObject = new JSONObject();

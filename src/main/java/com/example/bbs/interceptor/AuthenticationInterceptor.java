@@ -29,32 +29,41 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }else {
             if(token == null){
-                return false;
+                throw new RuntimeException("无token，请重新登录");
             }
-            Claims claims = tokenService.parseToken(token);
+            Claims claims;
+            try {
+                claims = tokenService.parseToken(token);
+            }catch (Exception e){
+                throw new RuntimeException("401");
+            }
+
+
             Date timeExpiration = new Date((long)claims.get("timeExpiration"));
             if( new Date().after(timeExpiration)){
-                return false;
+                throw new RuntimeException("token已过期");
             }
+
             int type = (int) claims.get("type");
+
             if(request.getRequestURI().substring(0, 18).equals("/bbs_war/customer/")){
                 if(type >= 0){
                     return true;
                 }else {
-                    return false;
+                    throw new RuntimeException("权限不够");
                 }
 
             }else if(request.getRequestURI().substring(0, 19).equals("/bbs_war/webmaster/")){
                 if(type >= 1){
                     return true;
                 }else {
-                    return false;
+                    throw new RuntimeException("权限不够");
                 }
             }else if(request.getRequestURI().substring(0, 15).equals("/bbs_war/admin/")){
                 if(type >= 2){
                     return true;
                 }else {
-                    return false;
+                    throw new RuntimeException("权限不够");
                 }
 
             }
