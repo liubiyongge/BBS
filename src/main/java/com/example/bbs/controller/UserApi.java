@@ -6,6 +6,7 @@ import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.User;
 import com.example.bbs.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,8 @@ public class UserApi {
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
         JSONObject jsonObject = new JSONObject();
+        System.out.println(loginUser.getUserName());
+        System.out.println(loginUser.getPassword());
         if(loginUser.getUserName() == null || loginUser.getPassword() == null){
             jsonObject.put("message","表单错误");
             return jsonObject;
