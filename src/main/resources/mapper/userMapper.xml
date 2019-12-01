@@ -6,7 +6,14 @@
     <select id="listUser" resultType="User">
         select * from user
     </select>
+
     <select id="findByUsername" parameterType="String" resultType="User">
         select * from user where userName = #{userName}
     </select>
+
+    <insert id="addUser" parameterType="String">
+     insert into user(userName,password) values("${userName}","${password}")
+    </insert>
 </mapper>
+
+

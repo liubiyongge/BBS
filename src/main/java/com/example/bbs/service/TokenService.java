@@ -15,12 +15,24 @@ public class TokenService {
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
     private static int expiration = 3600 * 2;
 
+    //登录成功后，将用户的用户名和用户类型写入token
     public String getToken(User user){
         String token = "";
         token = Jwts.builder()
                 .claim("timeExpiration", new Date(System.currentTimeMillis() + expiration * 1000))
                 .claim("userName", user.getUserName())
                 .claim("type", user.getType())
+                .signWith(signatureAlgorithm, SECRET)
+                .compact();
+        return token;
+    }
+
+    //将增加用户的人数写入token
+    public String getToken(int i){
+        String token="";
+        token=Jwts.builder()
+                .claim("timeExpiration", new Date(System.currentTimeMillis() + expiration * 1000))
+                .claim("addUser",i)
                 .signWith(signatureAlgorithm, SECRET)
                 .compact();
         return token;
