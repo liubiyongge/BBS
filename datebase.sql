@@ -30,6 +30,7 @@ postPhoto varchar(100),
 highlight integer not null,
 postTime datetime not null,
 postType integer default 0,
+top integer default 0,
 postCategoryId integer not null,
 foreign key (postCategoryId) references category(categoryId)  
 foreign key (postUserId) references user(userId)
