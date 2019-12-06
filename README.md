@@ -45,7 +45,9 @@
 
 发帖时间：postTime-datetime()-NOT NULL
 
-帖子类别：postType-integer-NOT NULL,default(0)  0:普通贴 1:需求贴 2:置顶帖 
+帖子类别：postType-integer-NOT NULL,default(0)  0:普通贴 1:需求贴 
+
+是否置顶：top-integer-NOT NULL,default(0)  0:不置顶 1:置顶 
 
 帖子所在栏目：postCategoryId-integer-NOT NULL,FOREIGN KEY REFERENCES category(categoryId) 
 
