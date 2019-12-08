@@ -7,8 +7,9 @@
         select * from user
     </select>
 
-    <select id="findByUsername" parameterType="String" resultType="User">
-        select * from user where userName = #{userName}
+    <select id="findByUsername" parameterType="String" resultType="User">--
+<!-- 普通用户登录，不能是管理员 -->
+        select * from user where userName = #{userName} and type!=1
     </select>
 
     <insert id="addUser" parameterType="String">
