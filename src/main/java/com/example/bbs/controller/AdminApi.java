@@ -1,15 +1,20 @@
 package com.example.bbs.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.bbs.dao.UserDao;
+import com.example.bbs.entity.Column;
 import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.User;
 import com.example.bbs.dao.AdminDao;
+import com.example.bbs.service.ColumnService;
 import com.example.bbs.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -19,6 +24,10 @@ public class AdminApi {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private ColumnService columnService;
+
     @RequestMapping("/test")
     public Object test(){
         JSONObject jsonObject = new JSONObject();
@@ -47,5 +56,18 @@ public class AdminApi {
                 return jsonObject;
             }
         }
+    }
+
+    @RequestMapping("/categoryArrange")
+    public Object columnArrange(){
+        JSONObject jsonObject=new JSONObject();
+        List<Column> allColumn=columnService.findAllColumn();
+        JSONArray jsonArray=new JSONArray();
+        System.out.println(allColumn.get(0).getColumnId());
+        List<String> tokenList=tokenService.getToken(allColumn);
+        for(int i=0;i<allColumn.size();i++) {
+            jsonObject.put("columnId"+i,allColumn.get(i));
+        }
+        return jsonObject;
     }
 }

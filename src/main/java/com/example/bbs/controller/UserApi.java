@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 
 @RestController
+@RequestMapping("/User")
 public class UserApi {
     @Autowired
     private UserDao userDao;

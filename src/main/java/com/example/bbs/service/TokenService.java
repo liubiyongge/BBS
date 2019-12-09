@@ -1,12 +1,15 @@
 package com.example.bbs.service;
 
+import com.example.bbs.entity.Column;
 import com.example.bbs.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Service("TokenService")
@@ -38,6 +41,22 @@ public class TokenService {
         return token;
     }
 
+    public List<String> getToken(List<Column> columns){
+        List<String> tokenList=new ArrayList<>();
+        for(int i=0;i<columns.size();i++){
+            String token="";
+            System.out.println(columns.get(i).getColumnName());
+            token+=Jwts.builder()
+                    .claim("timeExpiration", new Date(System.currentTimeMillis() + expiration * 1000))
+                    .claim("columnId"+i,columns.get(i).getColumnId())
+                    .claim("columnName"+i,columns.get(i).getColumnName())
+                    .signWith(signatureAlgorithm, SECRET)
+                    .compact();
+            tokenList.add(token);
+        }
+        return tokenList;
+
+    }
     public Claims parseToken(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(SECRET)
