@@ -4,6 +4,6 @@
 
 <mapper namespace="com.example.bbs.dao.AdminDao">
     <select id="findByAdminName" parameterType="String" resultType="User">
-        select * from user where userName = #{userName} and type=1
+        select * from user where userName = #{userName} and type=2
     </select>
 </mapper>
