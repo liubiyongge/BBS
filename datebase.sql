@@ -17,7 +17,7 @@ create table category(
 categoryId integer primary key not null,
 categoryName varchar(45) not null unique,
 categoryUserId integer not null,
-foreign key (categoryUserId) references user(userId)  
+foreign key (categoryUserId) references user(userId) on delete cascade on update cascade
 )
 //帖子表
 create table post(
@@ -32,8 +32,8 @@ postTime datetime not null,
 postType integer default 0,
 top integer default 0,
 postCategoryId integer not null,
-foreign key (postCategoryId) references category(categoryId)  
-foreign key (postUserId) references user(userId)
+foreign key (postCategoryId) references category(categoryId) on delete cascade on update cascade,
+foreign key (postUserId) references user(userId) on delete cascade on update cascade
 )
 //回复表
 create table comment(
@@ -44,7 +44,7 @@ commentToUserId integer not null,
 commentContent varchar(100) not null,
 commentPostId integer not null,
 commentTime datetime not null,
-foreign key (commentUserId) references user(userId),
-foreign key (commentToUserId) references user(userId),
-foreign key (commentPostId) references post(postId)
+foreign key (commentUserId) references user(userId) on delete cascade on update cascade,
+foreign key (commentToUserId) references user(userId) on delete cascade on update cascade,
+foreign key (commentPostId) references post(postId) on delete cascade on update cascade
 )
