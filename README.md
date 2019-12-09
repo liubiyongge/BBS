@@ -56,7 +56,7 @@
 
 栏目ID：categoryId-integer-PRIMARY KEY, NOT NULL
 
-栏目名：categoryName-varchar(45)-NOT NULL
+栏目名：categoryName-varchar(45)-NOT NULL,UNIQUE
 
 栏目版主：categoryUserId-integer-NOT NULL,FOREIGN KEY REFERENCES user(userId) 
 
