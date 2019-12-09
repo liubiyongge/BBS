@@ -15,7 +15,7 @@ birthday date
 //栏目表
 create table category(
 categoryId integer primary key not null,
-categoryName varchar(45) not null,
+categoryName varchar(45) not null unique,
 categoryUserId integer not null,
 foreign key (categoryUserId) references user(userId)  
 )
