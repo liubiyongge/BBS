@@ -103,7 +103,7 @@
                 "password": ""+password
             }),
             success: function (jsonData,result) {
-                console.log("data is :" + result);
+                console.log("data is :" + result)
                 if (jsonData["token"]) {
                     localStorage.setItem("bbsNCU",jsonData["token"]);
                     window.location.href = "admin.html";

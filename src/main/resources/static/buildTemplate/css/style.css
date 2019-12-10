@@ -1,7 +1,7 @@
 /*---------------------------------------*/
 /*--------   Table of contents   --------*/
 /*
-���ྫƷģ������ʣ�http://www.bootstrapmb.com
+���ྫƷģ������ʣ�http://www.bootstrapmb.com
 1. External module
 	1.1 Bootstrap
 	1.2 Magnific Popup
@@ -50,6 +50,44 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+/*上传头像按钮*/
+.fileinput-button {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.fileinput-button input{
+  position:absolute;
+  right: 0px;
+  top:0px;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=10)';
+  font-size: 200px;
+}
+/*圆形头像*/
+/*第二行显示的头像较小*/
+.login_img1{
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+/*个人信息处显示的头像较大*/
+.login_img2{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+/*除个人信息及第二行之外的所有头像格式*/
+.login_img3{
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+/*报错*/
+.error{
+    color:red;
+}
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -3556,11 +3594,91 @@ textarea:focus::-moz-placeholder {
 
 textarea:focus:-ms-input-placeholder {
   color: transparent; }
-
 /*
     Default form
 */
-.form-default {
+.self-form{
+  position: relative;
+  /* Custom Input Search */ }
+.self-form .form-group {
+  margin-bottom: 13px; }
+.self-form .form-group label:not(.error) {
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  color: #182730;
+  padding-bottom: 14px;
+  margin-bottom: 0;
+  letter-spacing: 0.01em; }
+.self-form .form-control {
+  font-family: "Krub", sans-serif;
+  background: #e2e7ea;
+  color: #666f74;
+  font-size: 16px;
+  line-height: 25px;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  width: 100%;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: 3px;
+  border: 1px solid #e2e7ea;
+  -webkit-transition: border-color 0.2s linear;
+  transition: border-color 0.2s linear; }
+.self-form .tt-note {
+  color: #666f74;
+  font-size: 14px;
+  margin-top: 5px;
+  letter-spacing: 0.01em; }
+.self-form .form-control:not(textarea) {
+  padding: 7px 12px 10px 13px;
+  height: 39px; }
+.self-form input.form-control,
+.self-form textarea.form-control {
+  -webkit-appearance: none; }
+.self-form textarea.form-control {
+  padding: 20px 30px 23px 28px; }
+.self-form select.form-control {
+  padding: 7px 12px 10px 10px;
+  cursor: pointer; }
+.self-form .form-control.error {
+  border-color: red; }
+.self-form .form-control:focus {
+  border-color: #2172cd; }
+.self-form .pt-required {
+  display: inline-block;
+  float: right;
+  position: relative;
+  top: 4px;
+  color: #777777;
+  padding-left: 5px;
+  font-size: 14px;
+  line-height: 22px; }
+.self-form .tt-value-wrapper {
+  position: relative; }
+.self-form .tt-value-wrapper .tt-value-input {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #666f74;
+  font-size: 14px;
+  line-height: 18px;
+  pointer-events: none; }
+.self-form .form-control.pt-customInputSearch {
+  padding-left: 48px; }
+.self-form .pt-customInputIcon {
+  position: absolute;
+  top: 5px;
+  left: 15px; }
+.self-form .pt-customInputIcon svg {
+  width: 18px;
+  height: 18px;
+  fill: #666f74; }
+
+
+.form-default{
   position: relative;
   /* Custom Input Search */ }
   .form-default .form-group {

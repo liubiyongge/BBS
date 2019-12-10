@@ -10,6 +10,10 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/style.css">
+  <script src="js/jquery-1.12.4.min.js"></script>
+  <script src="//at.alicdn.com/t/font_1538444_pqibl78vxvm.js"></script>
+  <script src="js/index.js"></script>
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 <!-- tt-mobile menu -->
@@ -30,177 +34,159 @@
     </div>
 </nav>
 <header id="tt-header">
-    <div class="container">
-        <div class="row tt-row no-gutters">
-            <div class="col-auto">
-                <!-- toggle mobile menu -->
-                <a class="toggle-mobile-menu" href="#">
-                    <svg class="tt-icon">
-                      <use xlink:href="#icon-menu_icon"></use>
-                    </svg>
-                </a>
-                <!-- /toggle mobile menu -->
-                <!-- logo -->
-                <div class="tt-logo">
-                    <a href="index.html"><img src="images/logo.png" alt=""></a>
-                </div>
-                <!-- /logo -->
-                <!-- desctop menu -->
-                  <div class="tt-desktop-menu">
-                    <nav>
-                        <ul>
-                            <li><a href="page-categories.html"><span>Categories</span></a></li>
-                            <li><a href="page-tabs.html"><span>Trending</span></a></li>
-                            <li><a href="page-create-topic.html"><span>New</span></a></li>
-                            <li>
-                                <a href="page-single-user.html"><span>Pages</span></a>
-                                <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="page-single-topic.html">Single Topic</a></li>
-                                    <li><a href="page-create-topic.html">Create Topic</a></li>
-                                    <li><a href="page-single-user.html">Single User Activity</a></li>
-                                    <li><a href="page-single_threads.html">Single User Threads</a></li>
-                                    <li><a href="page-single_replies.html">Single User Replies</a></li>
-                                    <li><a href="page-single_followers.html">Single User Followers</a></li>
-                                    <li><a href="page-single_categories.html">Single User Categories</a></li>
-                                    <li><a href="page-single_settings.html">Single User Settings</a></li>
-                                    <li><a href="page-signup.html">Sign up</a></li>
-                                    <li><a href="page-login.html">Log in</a></li>
-                                    <li><a href="page-categories.html">Categories</a></li>
-                                    <li><a href="page-categories-single.html">Single Category</a></li>
-                                    <li><a href="page-tabs.html">About</a></li>
-                                    <li><a href="page-tabs_guidelines.html">Guidelines</a></li>
-                                    <li><a href="_demo_modal-advancedSearch.html">Advanced Search</a></li>
-                                    <li><a href="error404.html">Error 404</a></li>
-                                    <li><a href="_demo_modal-age-confirmation.html">Age Verification</a></li>
-                                    <li><a href="_demo_modal-level-up.html">Level up Notification</a></li>
-                                    <li><a href="messages-page.html">Message</a></li>
-                                    <li><a href="messages-compose.html">Message Compose</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- /desctop menu -->
-                <!-- tt-search -->
-                <div class="tt-search">
-                    <!-- toggle -->
-                    <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
-                       <svg class="tt-icon">
-                          <use xlink:href="#icon-search"></use>
-                        </svg>
-                    </button>
-                    <!-- /toggle -->
-                    <form class="search-wrapper">
-                        <div class="search-form">
-                            <input type="text" class="tt-search__input" placeholder="Search">
-                            <button class="tt-search__btn" type="submit">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#icon-search"></use>
-                                </svg>
-                            </button>
-                             <button class="tt-search__close">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#cancel"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="search-results">
-                            <div class="tt-search-scroll">
-                                <ul>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>
-                                            <div class="tt-description">
-                                               Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
-                                            <div class="tt-description">
-                                                You can find these easter eggs in Red Dea..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>
-                                            <div class="tt-description">
-                                               Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
-                                            <div class="tt-description">
-                                                You can find these easter eggs in Red Dea..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <button type="button" class="tt-view-all" data-toggle="modal" data-target="#modalAdvancedSearch">Advanced Search</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /tt-search -->
-            </div>
-            <div class="col-auto ml-auto">
-                 <div class="tt-user-info d-flex justify-content-center">
-                    <a href="#" class="tt-btn-icon">
-                         <i class="tt-icon"><svg><use xlink:href="#icon-notification"></use></svg></i>
-                    </a>
-                    <div class="tt-avatar-icon tt-size-md">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>
-                    </div>
-                    <div class="custom-select-01">
-                        <select>
-                            <option value="Default Sorting">azyrusmax</option>
-                            <option value="value 01">value 01</option>
-                            <option value="value 02">value 02</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row tt-row no-gutters">
+      <div class="col-auto">
+        <!-- toggle mobile menu -->
+        <a class="toggle-mobile-menu" href="#">
+          <svg class="tt-icon">
+            <use xlink:href="#icon-menu_icon"></use>
+          </svg>
+        </a>
+        <!-- /toggle mobile menu -->
+        <!-- logo -->
+        <div class="tt-logo">
+          <a href="javascript:;"><img src="images/logo.png" alt=""></a>
         </div>
+        <!-- /logo -->
+        <!-- desctop menu -->
+        <div class="tt-desktop-menu">
+          <nav>
+            <ul>
+              <li ><a href="page-categories.html" class="to-all-column"><span>所有栏目</span></a></li>
+              <!--  <li><a href="page-tabs.html"><span>Trending</span></a></li>-->
+              <li><a href="page-create-topic.html" class="to-create-post"><span>发表帖子</span></a></li>
+              <li><a href="index.html" class="to-home"><span>主页</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <!-- /desctop menu -->
+        <!-- tt-search -->
+        <div class="tt-search">
+          <!-- toggle -->
+          <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
+            <svg class="tt-icon">
+              <use xlink:href="#icon-search"></use>
+            </svg>
+          </button>
+          <!-- /toggle -->
+          <form class="search-wrapper">
+            <div class="search-form">
+              <input type="text" class="tt-search__input" placeholder="Search">
+              <button class="tt-search__btn" type="submit">
+                <svg class="tt-icon">
+                  <use xlink:href="#icon-search"></use>
+                </svg>
+              </button>
+              <button class="tt-search__close">
+                <svg class="tt-icon">
+                  <use xlink:href="#cancel"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="search-results">
+              <div class="tt-search-scroll">
+                <ul>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Rdr2 secret easter eggs</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
+                      <div class="tt-description">
+                        You can find these easter eggs in Red Dea..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Rdr2 secret easter eggs</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
+                      <div class="tt-description">
+                        You can find these easter eggs in Red Dea..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <button type="button" class="tt-view-all" data-toggle="modal" data-target="#modalAdvancedSearch">Advanced Search</button>
+            </div>
+          </form>
+        </div>
+        <!-- /tt-search -->
+      </div>
+      <div class="col-auto ml-auto">
+        <div class="tt-account-btn sign-in-up">
+          <a href="page-login.html" class="btn btn-primary">登录</a>
+          <a href="page-signup.html" class="btn btn-secondary">注册</a>
+        </div>
+        <div class="tt-user-info d-flex justify-content-center ">
+          <div class="tt-avatar-icon tt-size-md user-settings"><!--用户头像-->
+            <!--<i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>-->
+            <img src="images/defaultUserHeader.jpg" alt="defaultUserHeader" class="defaultUserHeader">
+          </div>
+          <div class="custom-select-01 user-settings">
+            <!--<select>
+              <option value="Default Sorting">用户名</option>
+              <option value="value 01 user-center">个人中心</option>
+              <option value="value 02 log-out">退出登录</option>
+            </select>-->
+            <div class="userName"><a href="javascript:;">用户名</a></div>
+            <ul class="toUserCenter">
+              <li class="user-center-bt"><a href="#">个人中心</a></li>
+              <li class="log-out-bt"><a href="javascript:;">退出登录</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </header>
 <main id="tt-pageContent">
     <div class="container">
         <div class="tt-wrapper-inner">
             <h1 class="tt-title-border">
-                Create New Topic
+               发表新的帖子
             </h1>
             <form class="form-default form-create-topic">
                 <div class="form-group">
-                    <label for="inputTopicTitle">Topic Title</label>
+                    <label for="inputTopicTitle">标题</label>
                     <div class="tt-value-wrapper">
-                        <input type="text" name="name" class="form-control" id="inputTopicTitle" placeholder="Subject of your topic">
-                        <span class="tt-value-input">99</span>
+                        <input type="text" name="name" class="form-control" id="inputTopicTitle" placeholder="编辑标题">
+                        <!--<span class="tt-value-input">99</span>-->
                     </div>
-                    <div class="tt-note">Describe your topic well, while keeping the subject as short as possible.</div>
+                    <div class="tt-note">提示：好的标题可以吸引更多的人</div>
                 </div>
                 <div class="form-group">
-                    <label>Topic Type</label>
+                    <label>所属栏目</label>
                     <div class="tt-js-active-btn tt-wrapper-btnicon">
                         <div class="row tt-w410-col-02">
                             <div class="col-4 col-lg-3 col-xl-2">
@@ -210,17 +196,67 @@
                                             <use xlink:href="#icon-discussion"></use>
                                         </svg>
                                     </span>
-                                    <span class="tt-text">Discussion</span>
+                                    <span class="tt-text">校园</span>
                                 </a>
                             </div>
                             <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                    <span class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-discussion"></use>
+                                        </svg>
+                                    </span>
+                              <span class="tt-text">娱乐</span>
+                            </a>
+                          </div>
+                            <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                    <span class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-discussion"></use>
+                                        </svg>
+                                    </span>
+                              <span class="tt-text">学习</span>
+                            </a>
+                          </div>
+                            <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                    <span class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-discussion"></use>
+                                        </svg>
+                                    </span>
+                              <span class="tt-text">生活</span>
+                            </a>
+                          </div>
+                            <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                    <span class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-discussion"></use>
+                                        </svg>
+                                    </span>
+                              <span class="tt-text">游戏</span>
+                            </a>
+                          </div>
+                            <div class="col-4 col-lg-3 col-xl-2">
+                            <a href="#" class="tt-button-icon">
+                                    <span class="tt-icon">
+                                        <svg>
+                                            <use xlink:href="#icon-discussion"></use>
+                                        </svg>
+                                    </span>
+                              <span class="tt-text">社会</span>
+                            </a>
+                          </div>
+                           <!-- <div class="col-4 col-lg-3 col-xl-2">
                                 <a href="#" class="tt-button-icon">
                                     <span class="tt-icon">
                                          <svg>
                                             <use xlink:href="#Question"></use>
                                         </svg>
                                     </span>
-                                    <span class="tt-text">Question</span>
+                                    <span class="tt-text">学习</span>
                                 </a>
                             </div>
                             <div class="col-4 col-lg-3 col-xl-2">
@@ -230,7 +266,7 @@
                                             <use xlink:href="#Poll"></use>
                                         </svg>
                                     </span>
-                                    <span class="tt-text">Poll</span>
+                                    <span class="tt-text"></span>
                                 </a>
                             </div>
                             <div class="col-4 col-lg-3 col-xl-2">
@@ -262,16 +298,16 @@
                                     </span>
                                     <span class="tt-text">Other</span>
                                 </a>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
                 <div class="pt-editor">
-                    <h6 class="pt-title">Topic Body</h6>
+                    <h6 class="pt-title">内容编辑</h6>
                     <div class="pt-row">
                         <div class="col-left">
                             <ul class="pt-edit-btn">
-                                <li><button type="button" class="btn-icon">
+                                <!--<li><button type="button" class="btn-icon">
                                     <svg class="tt-icon">
                                       <use xlink:href="#icon-quote"></use>
                                     </svg>
@@ -301,13 +337,14 @@
                                       <use xlink:href="#icon-performatted"></use>
                                     </svg>
                                 </button></li>
-                                <li class="hr"></li>
+                                <li class="hr"></li>-->
                                 <li><button type="button" class="btn-icon">
                                     <svg class="tt-icon">
                                       <use xlink:href="#icon-upload_files"></use>
                                     </svg>
+                                  <span class="tt-text">上传图片</span>
                                 </button></li>
-                                <li><button type="button" class="btn-icon">
+                                <!--<li><button type="button" class="btn-icon">
                                     <svg class="tt-icon">
                                       <use xlink:href="#icon-bullet_list"></use>
                                     </svg>
@@ -336,43 +373,43 @@
                                     <svg class="tt-icon">
                                       <use xlink:href="#icon-color_picker"></use>
                                     </svg>
-                                </button></li>
+                                </button></li>-->
                             </ul>
                         </div>
                     </div>
                     <div class="form-group">
-                        <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                        <textarea name="message" class="form-control" rows="5" placeholder="编辑内容"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="inputTopicTitle">Category</label>
+                                <label for="inputTopicTitle">类型</label>
                                 <select class="form-control">
-                                    <option value="Select">Select</option>
-                                    <option value="Value 01">Value 01</option>
-                                    <option value="Value 02">Value 02</option>
+                                    <option value="Select">普通帖</option>
+                                    <option value="Value 01">需求贴</option>
+                                   <!-- <option value="Value 02">Value 02</option>-->
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="inputTopicTags">Tags</label>
-                                <input type="text" name="name" class="form-control" id="inputTopicTags" placeholder="Use comma to separate tags">
+                                <label for="inputTopicTags">积分</label>
+                                <input type="text" name="name" class="form-control" id="inputTopicTags" placeholder="需求帖需要设置赏金">
                             </div>
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-auto ml-md-auto">
-                            <a href="#" class="btn btn-secondary btn-width-lg">Create Post</a>
+                            <a href="#" class="btn btn-secondary btn-width-lg">发表</a>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="tt-topic-list tt-offset-top-30">
+       <!-- <div class="tt-topic-list tt-offset-top-30">
             <div class="tt-list-search">
                 <div class="tt-title">Suggested Topics</div>
-                <!-- tt-search -->
+                &lt;!&ndash; tt-search &ndash;&gt;
                 <div class="tt-search">
                     <form class="search-wrapper">
                         <div class="search-form">
@@ -390,7 +427,7 @@
                         </div>
                     </form>
                 </div>
-                <!-- /tt-search -->
+                &lt;!&ndash; /tt-search &ndash;&gt;
             </div>
             <div class="tt-list-header tt-border-bottom">
                 <div class="tt-col-topic">Topic</div>
@@ -552,7 +589,7 @@
                     </svg>
                 </button>
             </div>
-        </div>
+        </div>-->
     </div>
 </main>
 <div id="js-popup-settings" class="tt-popup-settings">

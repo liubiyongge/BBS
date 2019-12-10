@@ -6,10 +6,10 @@
 }
 
 .sign-in-up{
-  display: block;/*登录前显示*/
+  display: none;
 }
 .user-settings{
-  display: block;/*登录后显示*/
+  display: none;
 }
 /*登录后显示头像以及个人中心入口*/
 .currentShow{
@@ -63,4 +63,13 @@
 .content-photo{
   width: 300px;
   height: 300px;
+}
+/*栏目分类页的栏目图标*/
+.saveCategoryId{
+  color: #ffd04c !important;
+}
+/*帖子列表中的用户头像*/
+.postUserHeader{
+  width: 50px;
+  height: 44px;
 }

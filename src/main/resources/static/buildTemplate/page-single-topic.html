@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Forum - Responsive HTML5 Template</title>
+    <title>BBS</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Forum - Responsive HTML5 Template">
     <meta name="author" content="Forum">
@@ -10,6 +10,10 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/style.css">
+   <script src="js/jquery-1.12.4.min.js"></script>
+   <script src="//at.alicdn.com/t/font_1538444_pqibl78vxvm.js"></script>
+   <script src="js/index.js"></script>
+   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 <!-- tt-mobile menu -->
@@ -30,190 +34,175 @@
     </div>
 </nav>
 <header id="tt-header">
-    <div class="container">
-        <div class="row tt-row no-gutters">
-            <div class="col-auto">
-                <!-- toggle mobile menu -->
-                <a class="toggle-mobile-menu" href="#">
-                    <svg class="tt-icon">
-                      <use xlink:href="#icon-menu_icon"></use>
-                    </svg>
-                </a>
-                <!-- /toggle mobile menu -->
-                <!-- logo -->
-                <div class="tt-logo">
-                    <a href="index.html"><img src="images/logo.png" alt=""></a>
-                </div>
-                <!-- /logo -->
-                <!-- desctop menu -->
-                  <div class="tt-desktop-menu">
-                    <nav>
-                        <ul>
-                            <li><a href="page-categories.html"><span>Categories</span></a></li>
-                            <li><a href="page-tabs.html"><span>Trending</span></a></li>
-                            <li><a href="page-create-topic.html"><span>New</span></a></li>
-                            <li>
-                                <a href="page-single-user.html"><span>Pages</span></a>
-                                <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="page-single-topic.html">Single Topic</a></li>
-                                    <li><a href="page-create-topic.html">Create Topic</a></li>
-                                    <li><a href="page-single-user.html">Single User Activity</a></li>
-                                    <li><a href="page-single_threads.html">Single User Threads</a></li>
-                                    <li><a href="page-single_replies.html">Single User Replies</a></li>
-                                    <li><a href="page-single_followers.html">Single User Followers</a></li>
-                                    <li><a href="page-single_categories.html">Single User Categories</a></li>
-                                    <li><a href="page-single_settings.html">Single User Settings</a></li>
-                                    <li><a href="page-signup.html">Sign up</a></li>
-                                    <li><a href="page-login.html">Log in</a></li>
-                                    <li><a href="page-categories.html">Categories</a></li>
-                                    <li><a href="page-categories-single.html">Single Category</a></li>
-                                    <li><a href="page-tabs.html">About</a></li>
-                                    <li><a href="page-tabs_guidelines.html">Guidelines</a></li>
-                                    <li><a href="_demo_modal-advancedSearch.html">Advanced Search</a></li>
-                                    <li><a href="error404.html">Error 404</a></li>
-                                    <li><a href="_demo_modal-age-confirmation.html">Age Verification</a></li>
-                                    <li><a href="_demo_modal-level-up.html">Level up Notification</a></li>
-                                    <li><a href="messages-page.html">Message</a></li>
-                                    <li><a href="messages-compose.html">Message Compose</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- /desctop menu -->
-                <!-- tt-search -->
-                <div class="tt-search">
-                    <!-- toggle -->
-                    <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
-                       <svg class="tt-icon">
-                          <use xlink:href="#icon-search"></use>
-                        </svg>
-                    </button>
-                    <!-- /toggle -->
-                    <form class="search-wrapper">
-                        <div class="search-form">
-                            <input type="text" class="tt-search__input" placeholder="Search">
-                            <button class="tt-search__btn" type="submit">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#icon-search"></use>
-                                </svg>
-                            </button>
-                             <button class="tt-search__close">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#cancel"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="search-results">
-                            <div class="tt-search-scroll">
-                                <ul>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>
-                                            <div class="tt-description">
-                                               Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
-                                            <div class="tt-description">
-                                                You can find these easter eggs in Red Dea..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>
-                                            <div class="tt-description">
-                                               Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
-                                            <div class="tt-description">
-                                                You can find these easter eggs in Red Dea..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                       <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <button type="button" class="tt-view-all" data-toggle="modal" data-target="#modalAdvancedSearch">Advanced Search</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /tt-search -->
-            </div>
-            <div class="col-auto ml-auto">
-                 <div class="tt-user-info d-flex justify-content-center">
-                    <a href="#" class="tt-btn-icon">
-                         <i class="tt-icon"><svg><use xlink:href="#icon-notification"></use></svg></i>
-                    </a>
-                    <div class="tt-avatar-icon tt-size-md">
-                        <i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>
-                    </div>
-                    <div class="custom-select-01">
-                        <select>
-                            <option value="Default Sorting">azyrusmax</option>
-                            <option value="value 01">value 01</option>
-                            <option value="value 02">value 02</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row tt-row no-gutters">
+      <div class="col-auto">
+        <!-- toggle mobile menu -->
+        <a class="toggle-mobile-menu" href="#">
+          <svg class="tt-icon">
+            <use xlink:href="#icon-menu_icon"></use>
+          </svg>
+        </a>
+        <!-- /toggle mobile menu -->
+        <!-- logo -->
+        <div class="tt-logo">
+          <a href="javascript:;"><img src="images/logo.png" alt=""></a>
         </div>
+        <!-- /logo -->
+        <!-- desctop menu -->
+        <div class="tt-desktop-menu">
+          <nav>
+            <ul>
+              <li ><a href="page-categories.html" class="to-all-column"><span>所有栏目</span></a></li>
+              <!--  <li><a href="page-tabs.html"><span>Trending</span></a></li>-->
+              <li><a href="page-create-topic.html" class="to-create-post"><span>发表帖子</span></a></li>
+              <li><a href="index.html" class="to-home"><span>主页</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <!-- /desctop menu -->
+        <!-- tt-search -->
+        <div class="tt-search">
+          <!-- toggle -->
+          <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
+            <svg class="tt-icon">
+              <use xlink:href="#icon-search"></use>
+            </svg>
+          </button>
+          <!-- /toggle -->
+          <form class="search-wrapper">
+            <div class="search-form">
+              <input type="text" class="tt-search__input" placeholder="Search">
+              <button class="tt-search__btn" type="submit">
+                <svg class="tt-icon">
+                  <use xlink:href="#icon-search"></use>
+                </svg>
+              </button>
+              <button class="tt-search__close">
+                <svg class="tt-icon">
+                  <use xlink:href="#cancel"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="search-results">
+              <div class="tt-search-scroll">
+                <ul>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Rdr2 secret easter eggs</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
+                      <div class="tt-description">
+                        You can find these easter eggs in Red Dea..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Rdr2 secret easter eggs</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
+                      <div class="tt-description">
+                        You can find these easter eggs in Red Dea..
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="page-single-topic.html">
+                      <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
+                      <div class="tt-description">
+                        Here’s what I’ve found in Red Dead Redem..
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <button type="button" class="tt-view-all" data-toggle="modal" data-target="#modalAdvancedSearch">Advanced Search</button>
+            </div>
+          </form>
+        </div>
+        <!-- /tt-search -->
+      </div>
+      <div class="col-auto ml-auto">
+        <div class="tt-account-btn sign-in-up">
+          <a href="page-login.html" class="btn btn-primary">登录</a>
+          <a href="page-signup.html" class="btn btn-secondary">注册</a>
+        </div>
+        <div class="tt-user-info d-flex justify-content-center ">
+          <div class="tt-avatar-icon tt-size-md user-settings"><!--用户头像-->
+            <!--<i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>-->
+            <img src="images/defaultUserHeader.jpg" alt="defaultUserHeader" class="defaultUserHeader">
+          </div>
+          <div class="custom-select-01 user-settings">
+            <!--<select>
+              <option value="Default Sorting">用户名</option>
+              <option value="value 01 user-center">个人中心</option>
+              <option value="value 02 log-out">退出登录</option>
+            </select>-->
+            <div class="userName"><a href="javascript:;">用户名</a></div>
+            <ul class="toUserCenter">
+              <li class="user-center-bt"><a href="#">个人中心</a></li>
+              <li class="log-out-bt"><a href="javascript:;">退出登录</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </header>
 <main id="tt-pageContent">
     <div class="container">
         <div class="tt-single-topic-list">
+          <!--帖子内容-->
             <div class="tt-item">
                  <div class="tt-single-topic">
                     <div class="tt-item-header">
                         <div class="tt-item-info info-top">
                             <div class="tt-avatar-icon">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-ava-d"></use></svg></i>
+                               <!-- <i class="tt-icon"><svg><use xlink:href="#icon-ava-d"></use></svg></i>-->
+                              <!--头像-->
+                              <img src="images/defaultUserHeader.jpg" alt="defaultUserHeader" class="defaultUserHeader">
                             </div>
                             <div class="tt-avatar-title">
-                               <a href="#">dylan89</a>
+                               <a href="#">积分(普通帖时此处不显示)</a>
                             </div>
                             <a href="#" class="tt-info-time">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
+                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>发帖时间
                             </a>
                         </div>
                         <h3 class="tt-item-title">
-                            <a href="#">Web Hosting Packages for ThemeForest WordPress</a>
+                            <a href="#">帖子标题</a>
                         </h3>
                         <div class="tt-item-tag">
                             <ul class="tt-list-badge">
-                                <li><a href="#"><span class="tt-color03 tt-badge">exchange</span></a></li>
-                                <li><a href="#"><span class="tt-badge">themeforest</span></a></li>
-                                <li><a href="#"><span class="tt-badge">elements</span></a></li>
+                                <li><a href="#"><span class="tt-color03 tt-badge">帖子所在栏目</span></a></li>
+                                <li><a href="#"><span class="tt-badge">是否精华帖</span></a></li>
+                                <li><a href="#"><span class="tt-badge">需求贴/普通帖</span></a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="tt-item-description">
-                        <h6 class="tt-title">Get ready for Movember!</h6>
+                        <!--<h6 class="tt-title">Get ready for Movember!</h6>
                         <p>
                             It’s time to channel your inner Magnum P.I., Ron Swanson or Hercule Poroit! It’s the time that all guys (or gals) love and all our
                             partners hate It’s Movember!
@@ -222,38 +211,47 @@
                             Throughout November we will be inviting all community members to help raise awareness and funds for the lives of men affected
                             by cancer and mental health problems via the Movember Foundation 10.
                         </p>
-                        <h6 class="tt-title">How Does it Work?</h6>
+                        <h6 class="tt-title">How Does it Work?</h6>-->
                         <p>
-                            Authors and customers with facial hair unite! Simply grow, groom, and share your facial hair during November! Even females can enter if they desire (be creative, ladies!). Be inspired by checking out last year’s highlights 28.
+                            帖子正文
                         </p>
+                      <img src="images/defaultUserHeader.jpg" alt="photo" class="content-photo">
                     </div>
+                   <!--点赞数，收藏数,回复等-->
                     <div class="tt-item-info info-bottom">
                         <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span class="tt-text">671</span>
+                            <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-huifu1"></use></svg></i>
+                            <span class="tt-text">20</span><!--显示回复数-->
                         </a>
                         <a href="#" class="tt-icon-btn">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                            <span class="tt-text">39</span>
+                             <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-yduibianxie"></use></svg></i>
+                            <span class="tt-text">修改</span><!--作者和管理员可见-->
                         </a>
-                        <a href="#" class="tt-icon-btn">
+                        <!--<a href="#" class="tt-icon-btn">
                              <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
                             <span class="tt-text">12</span>
-                        </a>
+                        </a>-->
                         <div class="col-separator"></div>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                       <!-- <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                        </a>
+                        </a>-->
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+                            <i class="tt-icon"><svg><use xlink:href="#icon-jingpin"></use></svg></i>
+                            <span class="tt-text">设为精华帖</span><!--普通用户不可见-->
                         </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                      <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <i class="tt-icon"><svg><use xlink:href="#icon-shanchu"></use></svg></i>
+                        <span class="tt-text">删除此帖</span><!--普通用户不可见-->
+                      </a>
+                      <!--回复图标-->
+                        <a href="#writeComment" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                             <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-huifu"></use></svg></i>
+                             <span class="tt-text">回复</span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="tt-item">
+           <!-- <div class="tt-item">
                 <div class="tt-info-box">
                     <h6 class="tt-title">Thread Status</h6>
                     <div class="tt-row-icon">
@@ -352,53 +350,9 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="tt-item">
-                 <div class="tt-single-topic">
-                    <div class="tt-item-header pt-noborder">
-                        <div class="tt-item-info info-top">
-                            <div class="tt-avatar-icon">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-ava-t"></use></svg></i>
-                            </div>
-                            <div class="tt-avatar-title">
-                               <a href="#">tesla02</a>
-                            </div>
-                            <a href="#" class="tt-info-time">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                            </a>
-                        </div>
-                    </div>
-                    <div class="tt-item-description">
-                        Finally!<br>
-                        Are there any special recommendations for design or an updated guide that includes new preview sizes, including retina displays?
-                    </div>
-                    <div class="tt-item-info info-bottom">
-                        <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span class="tt-text">671</span>
-                        </a>
-                        <a href="#" class="tt-icon-btn">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                            <span class="tt-text">39</span>
-                        </a>
-                        <a href="#" class="tt-icon-btn">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                            <span class="tt-text">12</span>
-                        </a>
-                        <div class="col-separator"></div>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                        </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                        </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="tt-item">
+            </div>-->
+
+           <!-- <div class="tt-item">
                  <div class="tt-single-topic">
                     <div class="tt-item-header pt-noborder">
                         <div class="tt-item-info info-top">
@@ -447,8 +401,8 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="tt-item">
+            </div>-->
+           <!-- <div class="tt-item">
                  <div class="tt-single-topic">
                     <div class="tt-item-header pt-noborder">
                         <div class="tt-item-info info-top">
@@ -496,8 +450,8 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="tt-item">
+            </div>-->
+           <!-- <div class="tt-item">
                  <div class="tt-single-topic">
                     <div class="tt-item-header pt-noborder">
                         <div class="tt-item-info info-top">
@@ -555,54 +509,112 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>-->
+          <!--回复列表-->
             <div class="tt-item tt-wrapper-success">
-                 <div class="tt-single-topic">
-                    <div class="tt-item-header pt-noborder">
-                        <div class="tt-item-info info-top">
-                            <div class="tt-avatar-icon">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-ava-t"></use></svg></i>
-                            </div>
-                            <div class="tt-avatar-title">
-                               <a href="#">tesla02</a>
-                               <span class="tt-color13 tt-badge">best answer</span>
-                            </div>
-                            <a href="#" class="tt-info-time">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                            </a>
-                        </div>
+              <div class="tt-single-topic">
+                <div class="tt-item-header pt-noborder">
+                  <div class="tt-item-info info-top">
+                    <div class="tt-avatar-icon">
+                      <!-- <i class="tt-icon"><svg><use xlink:href="#icon-ava-t"></use></svg></i>-->
+                      <!--头像-->
+                      <img src="images/defaultUserHeader.jpg" alt="defaultUserHeader" class="defaultUserHeader">
                     </div>
-                    <div class="tt-item-description">
-                        Finally!<br>
-                        Are there any special recommendations for design or an updated guide that includes new preview sizes, including retina displays?
+                    <div class="tt-avatar-title">
+                      <a href="#">@被回复的用户名</a>
                     </div>
-                    <div class="tt-item-info info-bottom">
-                        <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span class="tt-text">671</span>
-                        </a>
-                        <a href="#" class="tt-icon-btn">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                            <span class="tt-text">39</span>
-                        </a>
-                        <a href="#" class="tt-icon-btn">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                            <span class="tt-text">12</span>
-                        </a>
-                        <div class="col-separator"></div>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                        </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                        </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                        </a>
-                    </div>
+                    <a href="#" class="tt-info-time">
+                      <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>回复时间
+                    </a>
+                  </div>
                 </div>
+                <div class="tt-item-description">
+                  回复的内容（回复数最多）
+                </div>
+                <div class="tt-item-info info-bottom">
+                  <a href="#" class="tt-icon-btn">
+                    <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-huifu1"></use></svg></i>
+                    <span class="tt-text">20</span><!--显示回复数-->
+                  </a>
+                  <!--<a href="#" class="tt-icon-btn">
+                       <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-dislike"></use></svg></i>
+                      <span class="tt-text">39</span>
+                  </a>
+                  <a href="#" class="tt-icon-btn">
+                       <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
+                      <span class="tt-text">12</span>
+                  </a>-->
+                  <div class="col-separator"></div>
+                  <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <i class="tt-icon"><svg><use xlink:href="#icon-shanchu"></use></svg></i>
+                    <span class="tt-text">删除此回复</span><!--普通用户不可见-->
+                  </a>
+                  <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                    <span class="tt-text">采纳</span><!--楼主可见-->
+                  </a>
+                  <!--回复图标-->
+                  <a href="#writeComment" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                    <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-huifu"></use></svg></i>
+                    <span class="tt-text">回复</span>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="tt-item tt-wrapper-danger">
+            <div class="tt-item">
+          <div class="tt-single-topic">
+            <div class="tt-item-header pt-noborder">
+              <div class="tt-item-info info-top">
+                <div class="tt-avatar-icon">
+                  <!-- <i class="tt-icon"><svg><use xlink:href="#icon-ava-t"></use></svg></i>-->
+                  <!--头像-->
+                  <img src="images/defaultUserHeader.jpg" alt="defaultUserHeader" class="defaultUserHeader">
+                </div>
+                <div class="tt-avatar-title">
+                  <a href="#">@被回复的用户名</a>
+                </div>
+                <a href="#" class="tt-info-time">
+                  <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>回复时间
+                </a>
+              </div>
+            </div>
+            <div class="tt-item-description">
+              回复的内容
+            </div>
+            <div class="tt-item-info info-bottom">
+              <a href="#" class="tt-icon-btn">
+                <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-huifu1"></use></svg></i>
+                <span class="tt-text">20</span><!--显示回复数-->
+              </a>
+              <!--<a href="#" class="tt-icon-btn">
+                   <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-dislike"></use></svg></i>
+                  <span class="tt-text">39</span>
+              </a>
+              <a href="#" class="tt-icon-btn">
+                   <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
+                  <span class="tt-text">12</span>
+              </a>-->
+              <div class="col-separator"></div>
+              <!-- <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                   <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+               </a>-->
+              <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                <i class="tt-icon"><svg><use xlink:href="#icon-shanchu"></use></svg></i>
+                <span class="tt-text">删除此回复</span><!--普通用户不可见-->
+              </a>
+              <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                <span class="tt-text">采纳</span><!--楼主可见-->
+              </a>
+              <!--回复图标-->
+              <a href="#writeComment" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                <i class="tt-icon"><svg class="icon"><use xlink:href="#icon-huifu"></use></svg></i>
+                <span class="tt-text">回复</span>
+              </a>
+            </div>
+          </div>
+        </div>
+           <!-- <div class="tt-item tt-wrapper-danger">
                  <div class="tt-single-topic">
                     <div class="tt-item-header pt-noborder">
                         <div class="tt-item-info info-top">
@@ -634,8 +646,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="tt-item">
+            </div>-->
+            <!--<div class="tt-item">
                  <div class="tt-single-topic">
                     <div class="tt-item-header pt-noborder">
                         <div class="tt-item-info info-top">
@@ -704,12 +716,12 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div class="tt-wrapper-inner">
-            <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
+            <h4 class="tt-title-separator"><span>我是有底线的</span></h4>
         </div>
-        <div class="tt-topic-list">
+       <!-- <div class="tt-topic-list">
             <div class="tt-item tt-item-popup">
                 <div class="tt-col-avatar">
                     <svg class="tt-icon">
@@ -729,14 +741,15 @@
                     </button>
                 </div>
             </div>
-        </div>
-        <div class="tt-wrapper-inner">
+        </div>-->
+      <!--编辑回复的区域-->
+        <div class="tt-wrapper-inner" id="writeComment">
             <div class="pt-editor form-default">
-                <h6 class="pt-title">Post Your Reply</h6>
+                <h6 class="pt-title">编辑回复</h6>
                  <div class="pt-row">
                     <div class="col-left">
                         <ul class="pt-edit-btn">
-                                        <li><button type="button" class="btn-icon">
+                                       <!-- <li><button type="button" class="btn-icon">
                                             <svg class="tt-icon">
                                               <use xlink:href="#icon-quote"></use>
                                             </svg>
@@ -766,13 +779,14 @@
                                               <use xlink:href="#icon-performatted"></use>
                                             </svg>
                                         </button></li>
-                                        <li class="hr"></li>
+                                        <li class="hr"></li>-->
                                         <li><button type="button" class="btn-icon">
                                             <svg class="tt-icon">
                                               <use xlink:href="#icon-upload_files"></use>
                                             </svg>
+                                          <span class="tt-text">上传图片</span>
                                         </button></li>
-                                        <li><button type="button" class="btn-icon">
+                                        <!--<li><button type="button" class="btn-icon">
                                             <svg class="tt-icon">
                                               <use xlink:href="#icon-bullet_list"></use>
                                             </svg>
@@ -801,37 +815,37 @@
                                             <svg class="tt-icon">
                                               <use xlink:href="#icon-color_picker"></use>
                                             </svg>
-                                        </button></li>
+                                        </button></li>-->
                                     </ul>
                     </div>
                     <div class="col-right tt-hidden-mobile">
-                        <a href="#" class="btn btn-primary">Preview</a>
+                        <a href="#" class="btn btn-primary">回顾</a>
                     </div>
                 </div>
                 <div class="form-group">
-                    <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                    <textarea name="message" class="form-control" rows="5" placeholder="编辑回复内容"></textarea>
                 </div>
                 <div class="pt-row">
                     <div class="col-auto">
-                        <div class="checkbox-group">
+                        <!--<div class="checkbox-group">
                             <input type="checkbox" id="checkBox21" name="checkbox" checked="">
                             <label for="checkBox21">
                                 <span class="check"></span>
                                 <span class="box"></span>
                                 <span class="tt-text">Subscribe to this topic.</span>
                             </label>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="col-auto">
-                        <a href="#" class="btn btn-secondary btn-width-lg">Reply</a>
+                        <a href="#" class="btn btn-secondary btn-width-lg">发送</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tt-topic-list tt-ofset-30">
+      <!--  <div class="tt-topic-list tt-ofset-30">
             <div class="tt-list-search">
                 <div class="tt-title">Suggested Topics</div>
-                <!-- tt-search -->
+                &lt;!&ndash; tt-search &ndash;&gt;
                 <div class="tt-search">
                     <form class="search-wrapper">
                         <div class="search-form">
@@ -849,7 +863,7 @@
                         </div>
                     </form>
                 </div>
-                <!-- /tt-search -->
+                &lt;!&ndash; /tt-search &ndash;&gt;
             </div>
             <div class="tt-list-header tt-border-bottom">
                 <div class="tt-col-topic">Topic</div>
@@ -1011,7 +1025,7 @@
                     </svg>
                 </button>
             </div>
-        </div>
+        </div>-->
     </div>
 </main>
 <div id="js-popup-settings" class="tt-popup-settings">
