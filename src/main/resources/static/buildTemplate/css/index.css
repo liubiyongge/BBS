@@ -1,0 +1,66 @@
+.icon {
+  width: 2em; height: 2em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.sign-in-up{
+  display: block;/*登录前显示*/
+}
+.user-settings{
+  display: block;/*登录后显示*/
+}
+/*登录后显示头像以及个人中心入口*/
+.currentShow{
+  display: block;
+}
+.notShow{
+  display: none;
+}
+/*首页帖子列表*/
+.tt-list-header{
+  font-size: 20px!important;
+}
+.wirte-time{
+  width: 150px!important;
+}
+/*默认用户头像*/
+.defaultUserHeader{
+  width: 50px;
+  height: 44px;
+}
+.user-settings{
+  position: relative;
+  padding-right: 20px;
+ /* padding-top: 15px;*/
+}
+.user-settings .userName{
+  margin-top: 8px;
+}
+.user-settings .userName a{
+  color: #182730;
+}
+.toUserCenter{
+  width: 75px;
+  height: 65px;
+  position: absolute;
+  top: 40px;
+  padding-left: 0px;
+  background-color: #f8f9fb;
+  display: none;
+}
+.showToUserCenter{
+  display: block;
+}
+.toUserCenter li{
+  list-style: none;
+}
+.toUserCenter li a{
+  color: #182730;
+}
+/*帖子内容中的图片*/
+.content-photo{
+  width: 300px;
+  height: 300px;
+}
