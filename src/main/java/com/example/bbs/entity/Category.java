@@ -2,15 +2,15 @@ package com.example.bbs.entity;
 
 public class Category {
     private int categoryId;
-    private String cateGoryName;
-    private int cateGoryUserId;
+    private String categoryName;
+    private int categoryUserId;
 
     @Override
     public String toString() {
         return "Category{" +
                 "categoryId=" + categoryId +
-                ", cateGoryName='" + cateGoryName + '\'' +
-                ", cateGoryUserId=" + cateGoryUserId +
+                ", categoryName='" + categoryName + '\'' +
+                ", categoryUserId=" + categoryUserId +
                 '}';
     }
 
@@ -22,19 +22,19 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public String getCateGoryName() {
-        return cateGoryName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCateGoryName(String cateGoryName) {
-        this.cateGoryName = cateGoryName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public int getCateGoryUserId() {
-        return cateGoryUserId;
+    public int getCategoryUserId() {
+        return categoryUserId;
     }
 
-    public void setCateGoryUserId(int cateGoryUserId) {
-        this.cateGoryUserId = cateGoryUserId;
+    public void setCategoryUserId(int categoryUserId) {
+        this.categoryUserId = categoryUserId;
     }
 }

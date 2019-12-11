@@ -35,7 +35,17 @@ FROM `comment`
     </select>
 
     <select id="findPostByPostId" resultType="Post">
-        SELECT * FROM `post` WHERE postId=#{postId}
+        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
+FROM `comment`,`post`
+WHERE commentPostId=postId and postCategoryId=#{postId}
+GROUP BY commentPostId
+ORDER BY COUNT(commentId) DESC limit 999999)
+union
+(SELECT *
+FROM `post` WHERE postCategoryId=#{postId} and postId not in(
+SELECT commentPostId
+FROM `comment`
+))
     </select>
 
     <delete id="deletePostByPostId">

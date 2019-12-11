@@ -31,7 +31,13 @@ public class CategoryApi {
     }
     @RequestMapping("/findAll")
     public List<Category> findAll(){
-        System.out.println(categoryService.findAll().get(0).toString());
+        //System.out.println(categoryService.findAll().get(0).toString());
         return categoryService.findAll();
+    }
+    @RequestMapping("/getCategoryUserId")
+    public String getCategoryUserId(@RequestParam(value = "categoryId")int categoryId){
+        JSONObject result=new JSONObject();
+        result.put("categoryUserId",categoryService.getCategoryUserId(categoryId));
+        return result.toJSONString();
     }
 }
