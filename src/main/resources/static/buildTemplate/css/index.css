@@ -11,13 +11,7 @@
 .user-settings{
   display: none;
 }
-/*登录后显示头像以及个人中心入口*/
-.currentShow{
-  display: block;
-}
-.notShow{
-  display: none;
-}
+
 /*首页帖子列表*/
 .tt-list-header{
   font-size: 20px!important;
@@ -45,7 +39,7 @@
   width: 75px;
   height: 65px;
   position: absolute;
-  top: 40px;
+  /*top: 40px;*/
   padding-left: 0px;
   background-color: #f8f9fb;
   display: none;
@@ -72,4 +66,11 @@
 .postUserHeader{
   width: 50px;
   height: 44px;
+}
+/*登录后显示头像以及个人中心入口*/
+.currentShow{
+  display: block!important;
+}
+.notShow{
+  display: none!important;
 }

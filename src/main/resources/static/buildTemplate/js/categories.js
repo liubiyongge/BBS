@@ -40,7 +40,7 @@ function showAllCategories() {
     cache:false,
     async:false,
     url:"./sources/categories.json",
-    type:"post",
+    type:"get",
     dataType:"json",
     success:function (data) {
       //console.log(data);

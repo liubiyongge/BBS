@@ -5,12 +5,10 @@ import com.example.bbs.dao.UserDao;
 import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.User;
 import com.example.bbs.service.TokenService;
+import com.example.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
@@ -22,6 +20,9 @@ public class UserApi {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
@@ -62,5 +63,12 @@ public class UserApi {
             jsonObject.put("message","注册失败");
             return jsonObject;
         }
+    }
+
+    @RequestMapping("/getByUserName")
+    public  User getByUserName(@RequestParam(value="userName")String userName){
+        //JSONObject result=new JSONObject();
+       // System.out.println(userName);
+        return userService.findByUserName(userName);
     }
 }

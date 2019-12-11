@@ -1,18 +1,22 @@
 var user={};
 var token;
-$(function () {
 
-  //testJson();
-  var s=encodeStr("userId=111");/*&userName=12d&profilePhoto=defaultUserHeader.jpg*/
-  console.log(s);
+$(function () {
+  /*获取token*/
+  token=localStorage.getItem("bbsNCU");
+  console.log("token:");
+  console.log(token);
+  /*//testJson();
+  var s=encodeStr("userId=111");/!*&userName=12d&profilePhoto=defaultUserHeader.jpg*!/
+  console.log(s);*/
 
   /*1.鼠标移入移出右上角*/
-  $(".user-settings").mouseenter(function () {
+  $(".user-settings1").mouseenter(function () {
    // alert("123");
-    $(".toUserCenter").addClass("showToUserCenter");
+    $(".toUserCenter").removeClass("notShow").addClass("currentShow");//
   }).mouseleave(function () {
    // alert("321");
-    $(".toUserCenter").removeClass("showToUserCenter");
+    $(".toUserCenter").removeClass("currentShow").addClass("notShow");//
   });
   /*管理权限显示*/
   $(".manage").hide();
@@ -20,28 +24,22 @@ $(function () {
 
   /*判断是否为未登录用户*/
   var p=GetRequest();
-  var $userId=p["userId"];   /*在路径中获取用户ID*/
-  token=localStorage.getItem("bbsNCU");
-  if (token==null){
-    user.userId="undefined";
-    user.userName="undefined";
-    user.sex="undefined";
-    user.credit="undefined";
-    user.telephone="undefined";
-    user.profilePhoto="undefined";
-    user.briefIntro="undefined";
-    user.location="undefined";
-    user.type="undefined";
-    user.birthday="undefined";
-  }
-   $userId=user.userId;
-  if (typeof ($userId)=="undefined"||$userId==="undefined"){//未登录
+  var $userName=p["userName"];   /*在路径中获取用户ID*/
+  var $userId;
+  //console.log($userName);
+  if (typeof ($userName)=="undefined"||$userName==="undefined"){//未登录
     console.log("未登录");
     $(".sign-in-up").addClass("currentShow").removeClass("notShow");/*显示登录-注册*/
     $(".user-settings").removeClass("currentShow").addClass("notShow");/*隐藏个人中心入口和头像*/
   }else{            //已登录
-    getUserInfo($userId);      /*ajax请求获取用户信息，存放在user全局变量*/
+    getUserInfo($userName);      /*ajax请求获取用户信息，存放在user全局变量*/
     //setTimeout(showHeader,100);/*等待ajax请求完成再执行*/
+    $userId=user.userId;
+    //console.log("header:"+user.profilePhoto);
+    if (user.profilePhoto==null){
+      //console.log("1");
+      user.profilePhoto="defaultUserHeader.jpg";
+    }
     showHeader();
   }
   /*点击 所有栏目 按钮*/
@@ -90,6 +88,7 @@ $(function () {
   });
   /*点击 退出登录 按钮*/
   $(".log-out-bt").click(function () {
+    localStorage.setItem("bbsNCU",null);
     window.location.href="index.html";
   });
   /*显示所有帖子的列表*/
@@ -99,13 +98,13 @@ $(function () {
   /*帖子管理权限*/
   //setTimeout(function () {
     //alert(user.userId);
-    if (user.type==="0"||user.type==="1"||user.userId==="undefined"||typeof (user.userId)=="undefined"){
-      //alert("111");
-      $(".manage").hide();
-      $(".manage-content").hide();
-    }else {
-      $(".manage").show();
-      $(".manage-content").show();
+  //console.log(user.type);
+  if (user.type===2){
+    $(".manage").show();
+    $(".manage-content").show();
+  } else {
+    $(".manage").hide();
+    $(".manage-content").hide();
     }
   //},50);
   /*点击帖子进入详情*/
@@ -156,16 +155,19 @@ function showHeader() {
   $(".defaultUserHeader").attr("src",path);/*显示头像*/
 }
 /*获取用户信息*/
-function getUserInfo($userId) {
+function getUserInfo($userName) {
   //console.log("getUSerInfo:");
   $.ajax({
     async:false,
     cache:false,
-    url:"./sources/user.json",/*1*/
+    headers:{
+      'token':token,
+    },
+    url:"http://localhost:8080/User/getByUserName",/*1*/
     type:"post",         /*2*/
     dataType:"json",
     data:{
-      'userId':$userId,
+      'userName':$userName,
     },
     success:function (data) {
       //console.log("success");
@@ -219,7 +221,8 @@ function getAllPosts()  {
                 post.postUserName=getUserName(post.postUserId);
               //},20);
                 post.postUserHeader=getUserHeader(post.postUserId);
-                //console.log(post.postUserHeader);
+           //console.log("header:" + post.postUserHeader);
+        //console.log(post.postUserHeader);
         post.postCategoryId=data[i].postCategoryId;/*所属栏目的id*/
               //setTimeout(function () {
                 post.postCategoryName=getCategoryName(post.postCategoryId);/*所属栏目的名称*/
@@ -266,7 +269,8 @@ function getAllPosts()  {
 function addPostToList(post) {
   /*是否是置顶帖*/
   //let $top="";
-  if (post.top==="1"){
+  if (post.top===1){
+    //console.log("top:"+post.top);
     //$top="tt-itemselect";
     let $html=" <div class=\"tt-item tt-itemselect\" id=\"\">\n" +
       "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
@@ -333,7 +337,7 @@ function addPostToList(post) {
 /*通过categoryId获取categoryName*/
 function getCategoryName($categoryId) {
   //console.log("categoryId:"+$categoryId);
-  console.log("111:::"+$categoryId);
+  //console.log("111:::"+$categoryId);
   let $categoryName="你好";
   $.ajax({
     cache:false,
@@ -370,7 +374,7 @@ function getCommentsNum($postId) {
     },
     success:function (data) {
       $commentsNum=data.commentsNum;
-      console.log($commentsNum);
+      //console.log($commentsNum);
       return $commentsNum;
     },
     error:function () {
@@ -381,16 +385,21 @@ function getCommentsNum($postId) {
 /*每条帖子：通过userId获取userName*/
 function getUserName($userId) {
   let $userName=0;
+ // console.log($userId);
   $.ajax({
+   /* headers:{
+      'token':token,
+    },*/
     cache:false,
     async:false,
-    url:"./sources/user.json",
+    url:"http://localhost:8080/post/getPostUserName",
     type:"post",
     dataType:"json",
-    date:{
+    data:{
       'userId':$userId,
     },
     success:function (data) {
+     // console.log("userName:"+data.userName);
       $userName=data.userName;
       //console.log($userName);
       return $userName;
@@ -406,7 +415,7 @@ function getUserHeader($userId) {
   $.ajax({
     cache:false,
     async:false,
-    url:"./sources/user.json",
+    url:"http://localhost:8080/post/getHeader",
     type:"post",
     dataType:"json",
     data:{
@@ -414,10 +423,14 @@ function getUserHeader($userId) {
     },
     success:function (data) {
       $userHeader=data.profilePhoto;
+      if ($userHeader==="undefined"||typeof ($userHeader)=="undefined"){
+        $userHeader="defaultUserHeader.jpg";
+      }
       return $userHeader;
     },
     error:function () {
-      console.log("获取用户头像失败");
+      //console.log("获取用户头像失败");
+      return $userHeader;
     }
   });
   return $userHeader;
@@ -428,7 +441,7 @@ function deletePost($postId) {
     cache:false,
     sync:false,
     url:"./sources/user.json",
-    type:"post",
+    type:"get",
     dataType:"json",
     data:{
       'postId':$postId,
@@ -446,7 +459,7 @@ function toTop($postId) {
     cache:false,
     sync:false,
     url:"./sources/user.json",
-    type:"post",
+    type:"get",
     dataType:"json",
     data:{
       'postId':$postId,
@@ -464,7 +477,7 @@ function toHighlight($postId) {
     cache:false,
     sync:false,
     url:"./sources/user.json",
-    type:"post",
+    type:"get",
     dataType:"json",
     data:{
       'postId':$postId,
@@ -493,10 +506,10 @@ function showPostListHeader() {
 function GetRequest() {
   var url = location.search; //获取url中"?"符后的字串
 
-  var b = new Base64();
-  var para=url.split("?")[1];/*获取参数*/
-  para=b.decode(para);/*解码参数*/
-  url="?"+para;/*真正路径*/
+  /*var b = new Base64();
+  var para=url.split("?")[1];/!*获取参数*!/
+  para=b.decode(para);/!*解码参数*!/
+  url="?"+para;/!*真正路径*!/*/
 
   var theRequest = new Object();
   if (url.indexOf("?") != -1) {
@@ -622,26 +635,5 @@ function Base64() {
   }
 }
 
-function testJson() {
-  console.log("testJson:");
-  $.ajax({
-    //async:false,
-    url:"./sources/test.json",
-    type:"post",
-    dataType:"json",
-    success: function (jsonData,result) {
-      console.log(jsonData);
-      if(typeof(jsonData) == "object" && Object.prototype.toString.call(jsonData).toLowerCase() == "[object object]" && !jsonData.length){
-
-        //alert('是JSON对象');
-
-      }
-      console.log(jsonData.columnId1.columnName);
-
-    }
-
-
-  });
-}
 
 

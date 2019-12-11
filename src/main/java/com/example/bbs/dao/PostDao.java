@@ -20,5 +20,12 @@ public interface PostDao {
     void deletePostByPostId(@Param("postId")int postID);
     /*置顶一条帖子*/
     void toTop(@Param("postId")int postId);
+    /*给帖子加精*/
     void toHighlight(@Param("postId")int postId);
+    /*通过帖子id查询该帖子的回复数*/
+    int countCommentsNum(@Param("postId")int postId);
+    /*通过userId获取帖子所属的用户名*/
+    String getUserName(@Param("userId")int userId);
+    /*通过帖子id获取帖子所属用户的头像*/
+    String getPostUserHeader(@Param("userId")int userId);
 }

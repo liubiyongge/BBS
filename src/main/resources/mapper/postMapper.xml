@@ -47,4 +47,15 @@ FROM `comment`
     <update id="toHighlight">
         UPDATE post set highlight=1 WHERE postId=#{postId}
     </update>
+
+    <select id="countCommentsNum" resultType="int">
+        SELECT COUNT(commentPostId) from `comment` WHERE commentPostId=#{postId}
+    </select>
+    <select id="getUserName" resultType="String">
+        SELECT userName FROM `user` WHERE userId=#{userId}
+    </select>
+
+    <select id="getPostUserHeader" resultType="String">
+        SELECT profilePhoto FROM `user` WHERE userId=#{userId}
+    </select>
 </mapper>
