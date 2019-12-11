@@ -33,7 +33,7 @@ function showAllCategories() {
     type:"post",
     dataType:"json",
     success:function (data) {
-      console.log(data);
+      //console.log(data);
       for (let i=0;i<data.length;i++){
         let category={};
         category.categoryId=data[i].categoryId;

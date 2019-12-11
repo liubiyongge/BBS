@@ -132,7 +132,13 @@ function getCategoryPosts($categoryId) {
 function addCategoryPostToList(post) {
   /*需求贴、普通帖*/
   var $postType="";
-  if (post.postType===1){
+  if (post.top===1){
+    $postType="置顶帖";
+    post.icon_2="08";
+  }else if (post.highlight===1){
+    $postType="精华帖";
+    post.icon_2="16";
+  }else if (post.postType===1){
     $postType="积分贴";
     post.icon_2="20";
   }else {
@@ -169,7 +175,8 @@ function addCategoryPostToList(post) {
         "                </div>\n" +
         "            </div>"
     $(".topArea1").append($html);
-  }else {
+  }
+  else {
     let $html=" <div class=\"tt-item \" id=\"\">\n" +
         "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
         "                <div class=\"tt-col-description\">\n" +

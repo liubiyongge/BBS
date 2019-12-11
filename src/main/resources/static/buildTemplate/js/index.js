@@ -8,10 +8,10 @@ $(function () {
     clearUserInfo();
    // console.log("token null");
   }*/
-  console.log("token:");
+ // console.log("token:");
   console.log(token);
-  console.log("user:");
-  console.log(user);
+  //console.log("user:");
+  //console.log(user);
   /*1.鼠标移入移出右上角*/
   $(".user-settings").mouseenter(function () {
    // alert("123");
@@ -101,8 +101,8 @@ $(function () {
   getAllPosts();
   /*置顶帖置顶显示*/
 
-  /*帖子管理权限*/
-  /*if (user.type===2){
+  /*/!*帖子管理权限*!/
+  if (user.type===2){
     $(".manage").show();
     $(".manage-content").show();
   } else {
@@ -118,8 +118,29 @@ $(function () {
     let path=page+para;
     $(".tt-col-description a").attr("href",path);
   });
-  /*帖子管理-版主和管理员可操作*/
- /* /!*删除*!/
+
+ /* $(".index-post-list").delegate(".tt-col-category","click",function (evt) {
+    let $id=$(evt.target).parents(".tt-item").find(".saveCategoryId").attr("id");
+    let $categoryId=$id.substr(1);
+    //alert("saveCategoryId:"+$categoryId);
+    let page="page-categories-single.html?";
+    let para="userName="+user.userName+"&categoryId="+$categoryId;
+    let path=page+para;
+    window.location.href=path;
+  });*/
+  /*点击栏目图标*/
+  $(".tt-col-category").click(function (evt) {
+   let $id=$(evt.target).parents(".tt-item").find(".saveCategoryId").attr("id");
+    let $categoryId=$id.substr(1);
+    //alert("saveCategoryId:"+$categoryId);
+    let page="page-categories-single.html?";
+    let para="userName="+user.userName+"&categoryId="+$categoryId;
+    let path=page+para;
+    window.location.href=path;
+  });
+  
+ /* /!*帖子管理-版主和管理员可操作*!/
+  /!*删除*!/
   $(".index-post-list").delegate(".manage-content a.delete","click",function (evt) {
     let $postId=$(evt.target).parent().siblings(".tt-col-description").find(".tt-value").text();
     //console.log($postId);
@@ -305,7 +326,7 @@ function addPostToList(post) {
       "                        <div class=\"col-1 ml-auto show-mobile\"><div class=\"tt-value\">"+post.postId+"</div></div>\n" +
       "                    </div>\n" +
       "                </div>\n" +
-      "                <div class=\"tt-col-category\"><span class=\"tt-color"+post.icon_2+" tt-badge\">"+post.postCategoryName+"</span></div>\n" +
+      "                <div class=\"tt-col-category\"><span id='a"+post.postCategoryId+"' class=\"tt-color"+post.icon_2+" tt-badge saveCategoryId\">"+post.postCategoryName+"</span></div>\n" +
       "                <div class=\"tt-col-value  hide-mobile\"></div>\n" +
       "                <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
       "                <div class=\"tt-col-value  hide-mobile wirte-time\">"+post.postTime+"</div>\n" +
@@ -327,7 +348,7 @@ function addPostToList(post) {
       "                    <div class=\"row align-items-center no-gutters\">\n" +
       "                        <div class=\"col-11\">\n" +
       "                            <ul class=\"tt-list-badge\">\n" +
-      "                                <li class=\"show-mobile\"><a href=\"#\"><span class=\"tt-color05 tt-badge\">"+post.postCategoryName+"</span></a></li>\n" +
+      "                                <li class=\"show-mobile\"><a href=\"#\"><span  class=\"tt-color05 tt-badge\">"+post.postCategoryName+"</span></a></li>\n" +
       "                                <li><a href=\"#\"><span class=\"tt-badge\">"+post.postUserName+"</span></a></li>\n" +
       "                                <li><a href=\"#\"><span class=\"tt-badge\">"+post.postContentBrief+"</span></a></li>\n" +
       "                            </ul>\n" +
@@ -335,7 +356,7 @@ function addPostToList(post) {
       "                        <div class=\"col-1 ml-auto show-mobile\"><div class=\"tt-value\">"+post.postId+"</div></div>\n" +
       "                    </div>\n" +
       "                </div>\n" +
-      "                <div class=\"tt-col-category\"><span class=\"tt-color"+post.icon_2+" tt-badge\">"+post.postCategoryName+"</span></div>\n" +
+      "                <div class=\"tt-col-category\"><span id='a"+post.postCategoryId+"' class=\"tt-color"+post.icon_2+" tt-badge saveCategoryId\">"+post.postCategoryName+"</span></div>\n" +
       "                <div class=\"tt-col-value  hide-mobile\"></div>\n" +
       "                <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
       "                <div class=\"tt-col-value  hide-mobile wirte-time\">"+post.postTime+"</div>\n" +
@@ -455,15 +476,20 @@ function getUserHeader($userId) {
 function deletePost($postId) {
   $.ajax({
     cache:false,
-    sync:false,
-    url:"./sources/user.json",
-    type:"get",
+    async:false,
+    headers:{
+      'token':token,
+    },
+    url:"http://localhost:8080/User/deletePost",
+    type:"post",
     dataType:"json",
     data:{
       'postId':$postId,
     },
-    success:function () {
+    success:function (data) {
+      //console.log(data);
       alert("删除帖子成功！");
+      getAllPosts();
     },error:function () {
       alert("操作失败，请重试...");
     },
@@ -473,15 +499,19 @@ function deletePost($postId) {
 function toTop($postId) {
   $.ajax({
     cache:false,
-    sync:false,
-    url:"./sources/user.json",
-    type:"get",
+    async:false,
+    headers:{
+      'token':token,
+    },
+    url:"http://localhost:8080/User/toTop",
+    type:"post",
     dataType:"json",
     data:{
       'postId':$postId,
     },
     success:function () {
       alert("置顶成功！");
+      getAllPosts();
     },error:function () {
       alert("操作失败，请重试...");
     },
@@ -491,15 +521,19 @@ function toTop($postId) {
 function toHighlight($postId) {
   $.ajax({
     cache:false,
-    sync:false,
-    url:"./sources/user.json",
-    type:"get",
+    async:false,
+    headers:{
+      'token':token,
+    },
+    url:"http://localhost:8080/User/toHighlight",
+    type:"post",
     dataType:"json",
     data:{
       'postId':$postId,
     },
     success:function () {
       alert("加精成功！");
+      getAllPosts();
     },error:function () {
       alert("操作失败，请重试...");
     },

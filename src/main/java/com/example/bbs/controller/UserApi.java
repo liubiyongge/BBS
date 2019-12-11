@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.dao.UserDao;
 import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.User;
+import com.example.bbs.service.PostService;
 import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class UserApi {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PostService postService;
 
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
@@ -71,4 +75,30 @@ public class UserApi {
        // System.out.println(userName);
         return userService.findByUserName(userName);
     }
+
+    /*权限操作：删除帖子，参数：postId*/
+    @RequestMapping("/deletePost")
+    public String deletePostByPostId(@RequestParam(value = "postId")int postId){
+        postService.deletePostByPostId(postId);
+        JSONObject result=new JSONObject();
+        result.put("state","delete successfully");
+        System.out.println(postId+": delete successfully");
+        return  result.toJSONString();
+    }
+    @RequestMapping("/toHighlight")
+    public String toHighlight(@RequestParam(value = "postId")int postId){
+        postService.toHighlight(postId);
+        JSONObject result=new JSONObject();
+        result.put("state","Highlight successfully");
+        return result.toJSONString();
+    }
+
+    @RequestMapping("/toTop")
+    public String toTop(@RequestParam(value = "postId")int postId){
+        postService.toTop(postId);
+        JSONObject result=new JSONObject();
+        result.put("state","toTop successfully");
+        return result.toJSONString();
+    }
+
 }

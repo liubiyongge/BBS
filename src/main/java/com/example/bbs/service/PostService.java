@@ -31,7 +31,7 @@ public class PostService {
         postDao.toTop(postId);
     }
     public void toHighlight(int postId){
-        postDao.toHighlight(5);
+        postDao.toHighlight(postId);
     }
     public int countCommentsNum(int postId){
         return postDao.countCommentsNum(postId);
