@@ -39,11 +39,11 @@ function showAllCategories() {
   $.ajax({
     cache:false,
     async:false,
-    url:"./sources/categories.json",
-    type:"get",
+    url:"http://localhost:8080/category/findAll",
+    type:"post",
     dataType:"json",
     success:function (data) {
-      //console.log(data);
+      console.log(data);
       for (let i=0;i<data.length;i++){
         let category={};
         category.categoryId=data[i].categoryId;
@@ -59,6 +59,7 @@ function showAllCategories() {
                category.postTitle1=posts[0].postTitle;
              }
         category.categoryName=data[i].categoryName;
+        //console.log("categoryName:" + category.categoryName);
         category.categoryUserId=data[i].categoryUserId;
         category.categoryUserName=getUserName(category.categoryUserId);
         addCategoryToList(category);
@@ -114,7 +115,7 @@ function getPostByCategoryId($categoryId) {
   $.ajax({
     cache:false,
     async:false,
-    url:"./sources/post.json",
+    url:"http://localhost:8080/post/postInCategory",
     type: "post",
     dataType: "json",
     data:{

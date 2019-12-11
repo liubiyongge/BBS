@@ -29,6 +29,7 @@ $(function () {
   //console.log($userName);
   if (typeof ($userName)=="undefined"||$userName==="undefined"){//未登录
     console.log("未登录");
+    localStorage.setItem("bbsNCU",null);
     $(".sign-in-up").addClass("currentShow").removeClass("notShow");/*显示登录-注册*/
     $(".user-settings").removeClass("currentShow").addClass("notShow");/*隐藏个人中心入口和头像*/
   }else{            //已登录
@@ -200,13 +201,13 @@ function getAllPosts()  {
   $.ajax({
     cache:false,
     async:false,
+    headers:{
+      "token":token
+    },
     url:"http://localhost:8080/post/findAll",//"./sources/post.json",
     /*beforeSend: function(request){
       request.setRequestHeader("token",token);
     },*/
-    headers:{
-      "token":token
-    },
     type:"post",
     dataType: "json",
     success:function (data) {/*要求返回的数据data已按回复数排序*/

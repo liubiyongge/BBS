@@ -19,6 +19,9 @@ import static org.junit.Assert.*;
 public class PostServiceTest {
     @Autowired
     private PostDao postDao;
+
+    @Autowired
+    private PostService postService;
     @Test
     public void findAll() {
         List<Post> list=postDao.findAll();
@@ -57,4 +60,21 @@ public class PostServiceTest {
     }
 
 
+    @Test
+    public void countCommentsNum() {
+        int num=postDao.countCommentsNum(5);
+        System.out.println(num);
+    }
+
+    @Test
+    public void getUserName() {
+        String userName=postService.getUserName(1);
+        System.out.println(userName);
+    }
+
+    @Test
+    public void getPostUserHeader() {
+        String header=postService.getPostUserHeader(1);
+        System.out.println(header);
+    }
 }

@@ -43,4 +43,8 @@ public class PostApi {
         result.put("profilePhoto",postService.getPostUserHeader(userId));
         return result.toJSONString();
     }
+    @RequestMapping("/postInCategory")
+    public List<Post> findByCategoryId(@RequestParam(value = "categoryId")int categoryId){
+        return postService.findByCategoryId(categoryId);
+    }
 }
