@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -22,6 +23,11 @@ public interface PostDao {
     void toTop(@Param("postId")int postId);
     /*给帖子加精*/
     void toHighlight(@Param("postId")int postId);
+    /*创建帖子*/
+    void createPost(@Param("postTitle")String postTitle, @Param("postContent")String postContent,
+                    @Param("postScore")int postScore, @Param("postUserId")int postUserId, @Param("postPhoto")String postPhoto,
+                    @Param("highlight")int highlight, @Param("postTime")String postTime,@Param("postType")int postType,
+                    @Param("postCategoryId")int postCategoryId,@Param("top")int top);
     /*通过帖子id查询该帖子的回复数*/
     int countCommentsNum(@Param("postId")int postId);
     /*通过userId获取帖子所属的用户名*/

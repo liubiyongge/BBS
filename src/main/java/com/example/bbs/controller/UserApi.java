@@ -3,10 +3,12 @@ package com.example.bbs.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.dao.UserDao;
 import com.example.bbs.entity.LoginUser;
+import com.example.bbs.entity.Post;
 import com.example.bbs.entity.User;
 import com.example.bbs.service.PostService;
 import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +87,7 @@ public class UserApi {
         System.out.println(postId+": delete successfully");
         return  result.toJSONString();
     }
+    /*帖子加精*/
     @RequestMapping("/toHighlight")
     public String toHighlight(@RequestParam(value = "postId")int postId){
         postService.toHighlight(postId);
@@ -92,13 +95,30 @@ public class UserApi {
         result.put("state","Highlight successfully");
         return result.toJSONString();
     }
-
+    /*置顶*/
     @RequestMapping("/toTop")
     public String toTop(@RequestParam(value = "postId")int postId){
         postService.toTop(postId);
         JSONObject result=new JSONObject();
         result.put("state","toTop successfully");
         return result.toJSONString();
+    }
+    /*发表帖子*/
+    @RequestMapping("/creatPost")
+    public  String createPost(@RequestBody Post post){
+        /*
+        @RequestParam("postTitle")String postTitle,@RequestParam("postContent")String postContent,
+                              @RequestParam("postScore")int postScore,@RequestParam("postUserId")int postUserId,
+                              @RequestParam("postPhoto")String postPhoto, @RequestParam("highlight")int highlight,
+                              @RequestParam("postTime")String postTime,@RequestParam("postType")int postType,
+                              @RequestParam("postCategoryId")int postCategoryId, @RequestParam("top")int top
+        */
+        postService.createPost(post.getPostTitle(),post.getPostContent(),post.getPostScore(),post.getPostUserId(),post.getPostPhoto(),
+                post.getHighlight(),post.getPostTime(),post.getPostType(),post.getPostCategoryId(),post.getTop());
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        return result.toJSONString();
+
     }
 
 }

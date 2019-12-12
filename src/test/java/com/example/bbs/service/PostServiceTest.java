@@ -77,4 +77,9 @@ public class PostServiceTest {
         String header=postService.getPostUserHeader(1);
         System.out.println(header);
     }
+
+    @Test
+    public void createPost() {
+        postService.createPost("标题11","这里是11这里是11这里是11这里是11",0,3,"defaultUserHeader.jpg",0,"2019-12-03 11:00:00",0,5,0);
+    }
 }
