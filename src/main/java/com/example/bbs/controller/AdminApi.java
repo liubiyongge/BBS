@@ -94,4 +94,10 @@ public class AdminApi {
         int i=categoryService.addCategory(category.getCategoryName(),category.getCategoryUserId());
         return i;
     }
+
+    @RequestMapping("/deleteCategory")
+    public Object deleteCategory(@RequestBody Category category){
+        categoryService.deleteCategory(category.getCategoryId());
+        return true;
+    }
 }
