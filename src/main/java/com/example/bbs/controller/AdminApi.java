@@ -10,6 +10,7 @@ import com.example.bbs.service.CategoryService;
 import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.example.bbs.dao.UserDao;
 import com.example.bbs.service.AdminService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -120,5 +122,14 @@ public class AdminApi {
         return  userDao.findByUserId(id);
     }
 
+    @RequestMapping("/modifyUser")
+    public void modifyUser(@RequestBody User newUser, HttpServletResponse response){
+        try{
+            adminService.modifyUserService(newUser);
+        }catch (DataAccessException e){
+            response.setStatus(403);
+            return;
+        }
+    }
 }
 

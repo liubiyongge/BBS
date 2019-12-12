@@ -19,4 +19,5 @@ public interface UserDao {
     int countNumUserType(@Param("type")int type);
     void deleteUserById(@Param("userId")int userId) throws DataAccessException;
     User findByUserId(@Param("userId")int userId) throws DataAccessException;
+    void modifyUser(@Param("newUser") User newUser) throws DataAccessException;
 }

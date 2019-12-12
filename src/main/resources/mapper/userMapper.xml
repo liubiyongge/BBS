@@ -33,6 +33,20 @@
         delete from user where userId = #{userId}
     </delete>
 
+    <update id="modifyUser" parameterType="User">
+        update user set
+        userName = #{newUser.userName},
+        password = #{newUser.password},
+        sex = #{newUser.sex},
+        credit = #{newUser.credit},
+        telephone = #{newUser.telephone},
+        profilePhoto = #{newUser.profilePhoto},
+        briefIntro = #{newUser.briefIntro},
+        location = #{newUser.location},
+        type = #{newUser.type},
+        birthday = #{newUser.birthday}
+        where userId = #{newUser.userId}
+    </update>
 
 </mapper>
 
