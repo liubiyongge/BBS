@@ -1,5 +1,5 @@
+var post={};
 $(function () {
-    var post={};
    var p=GetRequest();
     console.log(user.userName);
     var $userName=p["userName"];
@@ -19,6 +19,21 @@ $(function () {
         let $id=$(evt.target).parents(".category-option").find(".categoryId").attr("id");
         post.postCategoryId=$id.substr(1);
         //console.log($categoryId);
+    });
+    /*图片处理*/
+    post.postPhoto=undefined;
+    /*点击 开始上传*/
+    $(".begin-upload").click(function () {
+        /*获取图片文件*/
+        let $img=$("#file-img")[0].files[0];
+        //console.log($img);
+        if (typeof ($img)=="undefined"){
+            alert("请选择图片");
+        }else {
+          uploadImg($img);
+          post.postPhoto=$img.name;
+           // console.log(post.postPhoto);
+        }
     });
 
    /*点击 发表 按钮时检测各项输入的内容*/
@@ -57,7 +72,7 @@ $(function () {
             post.highlight=0;
             post.top=0;
             post.postUserId=user.userId;
-            post.postPhoto=undefined;
+           // post.postPhoto=undefined;
             post.postTime=getTime();
             createPost(post);
         }
@@ -95,6 +110,34 @@ function getCategoriesOption() {
         },
     });
 }
+/*上传图片到服务器*/
+function uploadImg($img) {
+    var formData=new FormData();
+    formData.append("file",$img);
+    $.ajax({
+        type:"post",
+        url:"/upload/images",
+        data:formData,
+        contentType: false,
+        processData: false,
+        dataType:"json",
+        success:function(data){
+            if (data==1){
+                $(".begin-upload").text("重新上传");
+                let $html=" <div class=\"photoArea\">\n" +
+                    "                                <img src=\"\" alt=\"\" class=\"showPhoto\">\n" +
+                    "                            </div>";
+                $(".load-and-place-photo").append($html);
+                let $imgURL=window.URL.createObjectURL($img);
+                $(".showPhoto").attr("src",$imgURL);
+                alert("上传成功");
+            }
+        },
+        error:function (msg) {
+            alert("上传失败，请重新上传");
+        }
+    });
+}
 /*发表帖子*/
 function createPost(post) {
     console.log(post);
@@ -127,6 +170,7 @@ function createPost(post) {
             console.log(result.state+typeof(result.state));
             if (result.state===1){
                 alert("发表成功");
+                window.location.href="page-categories-single.html?userName="+user.userName+"&categoryId="+post.postCategoryId;
             }else {
                 alert("发表失败,请重试...");
             }

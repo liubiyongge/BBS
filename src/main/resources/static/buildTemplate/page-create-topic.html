@@ -306,7 +306,7 @@
                 <div class="pt-editor">
                     <h6 class="pt-title">内容编辑</h6>
                     <div class="pt-row">
-                        <div class="col-left">
+                        <div class="col-left load-and-place-photo">
                             <ul class="pt-edit-btn">
                                 <!--<li><button type="button" class="btn-icon">
                                     <svg class="tt-icon">
@@ -343,8 +343,12 @@
                                     <svg class="tt-icon">
                                       <use xlink:href="#icon-upload_files"></use>
                                     </svg>
-                                  <span class="tt-text">上传图片</span>
+                                  <!---->
+                                    <input type="file" id="file-img">
                                 </button></li>
+                                <li>
+                                    <a href="javascript:;" class="begin-upload">开始上传</a>
+                                </li>
                                 <!--<li><button type="button" class="btn-icon">
                                     <svg class="tt-icon">
                                       <use xlink:href="#icon-bullet_list"></use>
@@ -376,6 +380,9 @@
                                     </svg>
                                 </button></li>-->
                             </ul>
+                           <!-- <div class="photoArea">
+                                <img src="" alt="" class="showPhoto">
+                            </div>-->
                         </div>
                     </div>
                     <div class="form-group">
