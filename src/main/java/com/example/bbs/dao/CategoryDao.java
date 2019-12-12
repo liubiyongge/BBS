@@ -20,4 +20,5 @@ public interface CategoryDao {
     int getCategoryUserId(int categoryId);
     int addCategory(@Param("categoryName") String categoryName,@Param("categoryUserId") int categoryUserId);
     public int countCategory();
+    int setCategory(@Param("categoryName") String categoryName,@Param("categoryUserId") int categoryUserId, @Param("categoryId") int categoryId);
 }

@@ -19,4 +19,7 @@
     <insert id="addCategory">
         insert into category(categoryName,categoryUserId) values("${categoryName}","${categoryUserId}")
     </insert>
+    <update id="setCategory">
+        update category set categoryName="${categoryName}", categoryUserId=${categoryUserId} where categoryId=${categoryId}
+    </update>
 </mapper>

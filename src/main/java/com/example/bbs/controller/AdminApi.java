@@ -97,6 +97,12 @@ public class AdminApi {
         return i;
     }
 
+    @RequestMapping("/setCategory")
+    public Object setCategory(@RequestBody Category category){
+        int i=categoryService.setCategory(category.getCategoryName(),category.getCategoryUserId(),category.getCategoryId());
+        return i;
+    }
+
     @Autowired
     AdminService adminService;
 
