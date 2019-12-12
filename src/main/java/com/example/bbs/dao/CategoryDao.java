@@ -17,4 +17,5 @@ public interface CategoryDao {
     void deleteCategory(int categoryId);
     /*通过categoryId获取categoryUserId(版主Id)*/
     int getCategoryUserId(int categoryId);
+    public int countCategory();
 }

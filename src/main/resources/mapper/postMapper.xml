@@ -73,4 +73,16 @@ FROM `comment`
         INSERT into `post`(postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId)
                   VALUES(#{postTitle},#{postContent},${postScore},${postUserId},#{postPhoto},${highlight},#{postTime},${postType},${top},${postCategoryId})
     </insert>
+    <select id="countTopPost" resultType="int">
+        select count(*) from post where top = 1
+    </select>
+    <select id="countHightlightPost" resultType="int">
+        select count(*) from post where highlight = 1
+    </select>
+    <select id="countDemandPost" resultType="int">
+        select count(*) from post where postType = 1
+    </select>
+    <select id="countNormalPost" resultType="int">
+        select count(*) from post where postType = 0 and top = 0 and highlight = 0
+    </select>
 </mapper>

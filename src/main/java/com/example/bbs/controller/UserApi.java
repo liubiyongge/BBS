@@ -10,10 +10,9 @@ import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/User")

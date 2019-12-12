@@ -34,4 +34,8 @@ public interface PostDao {
     String getUserName(@Param("userId")int userId);
     /*通过帖子id获取帖子所属用户的头像*/
     String getPostUserHeader(@Param("userId")int userId);
+    public int countTopPost();
+    public int countHightlightPost();
+    public int countDemandPost();
+    public int countNormalPost();
 }

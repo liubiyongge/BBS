@@ -1,6 +1,5 @@
 package com.example.bbs.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.entity.Column;
@@ -11,10 +10,16 @@ import com.example.bbs.service.ColumnService;
 import com.example.bbs.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import com.example.bbs.dao.UserDao;
+import com.example.bbs.service.AdminService;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/admin")
@@ -28,12 +33,6 @@ public class AdminApi {
     @Autowired
     private ColumnService columnService;
 
-    @RequestMapping("/test")
-    public Object test(){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("admintest", "you can get customer");
-        return jsonObject;
-    }
 
     @RequestMapping("/adminLogin")
     public Object login(@RequestBody LoginUser loginUser){
@@ -70,4 +69,31 @@ public class AdminApi {
         }
         return jsonObject;
     }
+
+    @Autowired
+    AdminService adminService;
+
+    @RequestMapping("/getsummary")
+    public Object getsummary(){
+        return adminService.getsummary();
+
+    }
+    @Autowired
+    UserDao userDao;
+    @RequestMapping("/getAllUser")
+    public List<User> getAllUser(){
+        return userDao.listUser();
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    public void deleteUser(@PathVariable int id){
+        userDao.deleteUserById(id);
+    }
+    @RequestMapping("/getUserById/{id}")
+    @ResponseBody
+    public User getUserById(@PathVariable int id){
+        return  userDao.findByUserId(id);
+    }
+
 }
+

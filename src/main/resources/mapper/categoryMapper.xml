@@ -16,4 +16,7 @@
     <select id="getCategoryUserId" resultType="int">
         SELECT categoryUserId from category where categoryId=#{categoryId}
     </select>
+    <select id="countCategory" resultType="int">
+        select count(*) from category
+    </select>
 </mapper>
