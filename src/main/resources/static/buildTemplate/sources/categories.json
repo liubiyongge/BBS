@@ -1,0 +1,22 @@
+[
+  {
+    "categoryId": "01",
+    "categoryName": "校园",
+    "categoryUserId": "112"
+  },
+  {
+    "categoryId": "02",
+    "categoryName": "娱乐",
+    "categoryUserId": "113"
+  },
+  {
+    "categoryId": "03",
+    "categoryName": "学习",
+    "categoryUserId": "113"
+  },
+  {
+    "categoryId": "04",
+    "categoryName": "生活",
+    "categoryUserId": "114"
+  }
+]

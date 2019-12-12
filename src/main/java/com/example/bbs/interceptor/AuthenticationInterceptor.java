@@ -26,10 +26,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         //accessUri   ==   "/page/1231231.htm"
         //原语句是if(request.getRequestURI.equals("/bbs_war/login")，路径应该有问题
-        System.out.println(request.getRequestURI());
-        if(request.getRequestURI().equals("/login")||request.getRequestURI().equals("/register")){
+//        System.out.println(request.getRequestURI());
+        boolean isUser=request.getRequestURI().substring(0,6).equals("/user/");
+        boolean isWebMaster=request.getRequestURI().substring(0,11).equals("/webMaster/");
+        boolean isAdmin=request.getRequestURI().substring(0,7).equals("/admin/");
+        if(request.getRequestURI().equals("/admin/adminLogin")||request.getRequestURI().equals("/login")
+                ||request.getRequestURI().equals("/register")||request.getRequestURI().equals("/buildTemplate/**"))
             return true;
-        }else {
+        if(isUser||isAdmin||isWebMaster){
             if(token == null){
                 throw new RuntimeException("无token，请重新登录");
             }
@@ -47,21 +51,20 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
 
             int type = (int) claims.get("type");
-
-            if(request.getRequestURI().substring(0, 18).equals("/bbs_war/customer/")){
+            if(isUser){
                 if(type >= 0){
                     return true;
                 }else {
                     throw new RuntimeException("权限不够");
                 }
 
-            }else if(request.getRequestURI().substring(0, 19).equals("/bbs_war/webmaster/")){
+            }else if(isWebMaster){
                 if(type >= 1){
                     return true;
                 }else {
                     throw new RuntimeException("权限不够");
                 }
-            }else if(request.getRequestURI().substring(0, 15).equals("/bbs_war/admin/")){
+            }else if(isAdmin){
                 if(type >= 2){
                     return true;
                 }else {
@@ -71,10 +74,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
         }
 
-
-
-
-        return false;
+        return true;
     }
 
 

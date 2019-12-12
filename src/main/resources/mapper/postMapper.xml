@@ -3,6 +3,71 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.bbs.dao.PostDao">
+
+    <select id="findAll" resultType="Post">
+       (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
+FROM `comment`,`post`
+WHERE commentPostId=postId
+GROUP BY commentPostId
+ORDER BY COUNT(commentId) DESC limit 999999)
+union
+(SELECT *
+FROM `post` WHERE postId not in(
+SELECT commentPostId
+FROM `comment`
+))
+
+    </select>
+
+    <select id="findByCategoryId" resultType="Post">
+        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
+FROM `comment`,`post`
+WHERE commentPostId=postId and postCategoryId=#{postCategoryId}
+GROUP BY commentPostId
+ORDER BY COUNT(commentId) DESC limit 999999)
+union
+(SELECT *
+FROM `post` WHERE postCategoryId=#{postCategoryId} and postId not in(
+SELECT commentPostId
+FROM `comment`
+))
+
+    </select>
+
+    <select id="findPostByPostId" resultType="Post">
+        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
+FROM `comment`,`post`
+WHERE commentPostId=postId and postCategoryId=#{postId}
+GROUP BY commentPostId
+ORDER BY COUNT(commentId) DESC limit 999999)
+union
+(SELECT *
+FROM `post` WHERE postCategoryId=#{postId} and postId not in(
+SELECT commentPostId
+FROM `comment`
+))
+    </select>
+
+    <delete id="deletePostByPostId">
+        delete from post where postId=#{postId}
+    </delete>
+    <update id="toTop">
+        UPDATE post set top=1 WHERE postId=#{postId}
+    </update>
+    <update id="toHighlight">
+        UPDATE post set highlight=1 WHERE postId=#{postId}
+    </update>
+
+    <select id="countCommentsNum" resultType="int">
+        SELECT COUNT(commentPostId) from `comment` WHERE commentPostId=#{postId}
+    </select>
+    <select id="getUserName" resultType="String">
+        SELECT userName FROM `user` WHERE userId=#{userId}
+    </select>
+
+    <select id="getPostUserHeader" resultType="String">
+        SELECT profilePhoto FROM `user` WHERE userId=#{userId}
+    </select>
     <select id="countTopPost" resultType="int">
         select count(*) from post where top = 1
     </select>
@@ -15,7 +80,4 @@
     <select id="countNormalPost" resultType="int">
         select count(*) from post where postType = 0 and top = 0 and highlight = 0
     </select>
-
 </mapper>
-
-
