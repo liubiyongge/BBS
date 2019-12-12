@@ -19,6 +19,9 @@ import static org.junit.Assert.*;
 public class PostServiceTest {
     @Autowired
     private PostDao postDao;
+
+    @Autowired
+    private PostService postService;
     @Test
     public void findAll() {
         List<Post> list=postDao.findAll();
@@ -57,4 +60,26 @@ public class PostServiceTest {
     }
 
 
+    @Test
+    public void countCommentsNum() {
+        int num=postDao.countCommentsNum(5);
+        System.out.println(num);
+    }
+
+    @Test
+    public void getUserName() {
+        String userName=postService.getUserName(1);
+        System.out.println(userName);
+    }
+
+    @Test
+    public void getPostUserHeader() {
+        String header=postService.getPostUserHeader(1);
+        System.out.println(header);
+    }
+
+    @Test
+    public void createPost() {
+        postService.createPost("标题11","这里是11这里是11这里是11这里是11",0,3,"defaultUserHeader.jpg",0,"2019-12-03 11:00:00",0,5,0);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.bbs;
 
+import com.example.bbs.dao.PostDao;
 import com.example.bbs.service.TokenService;
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,11 @@ class BbsApplicationTests {
 
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    PostDao postDao;
     @Test
     void testparseToken(){
-        Claims claims = tokenService.parseToken("eyJhbGciOiJIUzI1NiJ9.eyJ0aW1lRXhwaXJhdGlvbiI6MTU3NTA4MjI2NzExMiwidXNlck5hbWUiOiJsaXViaXlvbmdnZSIsInR5cGUiOjJ9.kfieULwaHa0Al1PYr89Uuhi9csyffU-T4JqU_ZVj_JM");
-        System.out.println(new Date((long)claims.get("timeExpiration")));
+        System.out.println(postDao.countDemandPost());
     }
 
 }

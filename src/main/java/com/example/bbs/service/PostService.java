@@ -3,6 +3,7 @@ package com.example.bbs.service;
 import com.example.bbs.dao.PostDao;
 import com.example.bbs.dao.UserDao;
 import com.example.bbs.entity.Post;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,14 @@ public class PostService {
         postDao.toTop(postId);
     }
     public void toHighlight(int postId){
-        postDao.toHighlight(5);
+        postDao.toHighlight(postId);
+    }
+    public void createPost(String postTitle,String postContent,
+                           int postScore, int postUserId, String postPhoto,
+                           int highlight, String postTime,int postType,
+                           int postCategoryId,int top){
+        postDao.createPost(postTitle,postContent, postScore, postUserId, postPhoto,
+        highlight, postTime,postType, postCategoryId,top);
     }
     public int countCommentsNum(int postId){
         return postDao.countCommentsNum(postId);

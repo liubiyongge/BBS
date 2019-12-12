@@ -19,4 +19,5 @@ public interface CategoryDao {
     /*通过categoryId获取categoryUserId(版主Id)*/
     int getCategoryUserId(int categoryId);
     int addCategory(@Param("categoryName") String categoryName,@Param("categoryUserId") int categoryUserId);
+    public int countCategory();
 }
