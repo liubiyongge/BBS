@@ -4,11 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.dao.CategoryDao;
 import com.example.bbs.dao.PostDao;
 import com.example.bbs.dao.UserDao;
-import com.example.bbs.entity.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service("AdminService")
 public class AdminService {
