@@ -120,35 +120,36 @@
                 </ul>
 
             </nav>
+            <table>
+            <tr>
+                <td>
+                    请输入栏目名称：
+                </td>
+                <td>
+                    <input type="text" id="categoryName">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    请选择栏目版主
+                </td>
+            </tr>
+            <tr>
+                <td style="height: auto" colspan="2">
+                    <select multiple id="select">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="add">确认增加</button>
+                </td>
+            </tr>
+        </table>
         </div>
     </div>
 </div>
-    <table>
-        <tr>
-            <td>
-                请输入栏目名称：
-            </td>
-            <td>
-                <input type="text">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                请选择栏目版主
-            </td>
-        </tr>
-        <tr>
-            <td style="height: auto" colspan="2">
-                <select multiple id="select">
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button class="add">确认增加</button>
-            </td>
-        </tr>
-    </table>
+
     <script src="../js/jquery-3.1.1.min.js"></script>
 <!--显示所有用户-->
     <script>
@@ -181,16 +182,39 @@
     </script>
 <!--增加栏目-->
     <script>
-        $("#add").click(function () {
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: '/admin/categoryManage',
-                contentType: "application/json",
-                headers:{
-                    "token":token
-                },
-            })
+        $(".add").click(function () {
+            var c=0;
+            var op;
+            $("#select option:selected").each(function(){
+                c=c+1; //版主必须唯一
+                op=$(this).text();
+            });
+
+            var rs=parseInt(op);alert(rs);
+            if(c>1) {
+                alert("只能选择一个版主！");
+            }
+            else{
+                var token=localStorage.getItem("bbsNCU");
+                var categoryName=$("#categoryName").val();
+                alert(categoryName);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/admin/addCategory',
+                    contentType: "application/json",
+                    headers:{
+                        "token":token
+                    },
+                    data:JSON.stringify({
+                        "categoryName":categoryName,
+                        "categoryUserId":rs
+                    }),
+                    success: function () {
+                        window.location.href="categoryManage.html";
+                    }
+                })
+            }
         })
     </script>
 </body>
