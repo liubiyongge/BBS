@@ -480,7 +480,7 @@ function deletePost($postId) {
     headers:{
       'token':token,
     },
-    url:"http://localhost:8080/User/deletePost",
+    url:"/User/deletePost",
     type:"post",
     dataType:"json",
     data:{
@@ -503,7 +503,7 @@ function toTop($postId) {
     headers:{
       'token':token,
     },
-    url:"http://localhost:8080/User/toTop",
+    url:"/User/toTop",
     type:"post",
     dataType:"json",
     data:{
@@ -525,7 +525,7 @@ function toHighlight($postId) {
     headers:{
       'token':token,
     },
-    url:"http://localhost:8080/User/toHighlight",
+    url:"/User/toHighlight",
     type:"post",
     dataType:"json",
     data:{

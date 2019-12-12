@@ -68,6 +68,11 @@ FROM `comment`
     <select id="getPostUserHeader" resultType="String">
         SELECT profilePhoto FROM `user` WHERE userId=#{userId}
     </select>
+
+    <insert id="createPost">
+        INSERT into `post`(postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId)
+                  VALUES(#{postTitle},#{postContent},${postScore},${postUserId},#{postPhoto},${highlight},#{postTime},${postType},${top},${postCategoryId})
+    </insert>
     <select id="countTopPost" resultType="int">
         select count(*) from post where top = 1
     </select>

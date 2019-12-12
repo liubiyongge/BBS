@@ -10,7 +10,7 @@ public class Post {
     private int postUserId;
     private String postPhoto;
     private int highlight;
-    private Timestamp postTime;
+    private String postTime;
     private int postType;
     private int top;
     private int postCategoryId;
@@ -30,6 +30,14 @@ public class Post {
                 ", top=" + top +
                 ", postCategoryId=" + postCategoryId +
                 '}';
+    }
+
+    public String getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(String postTime) {
+        this.postTime = postTime;
     }
 
     public int getPostId() {
@@ -88,13 +96,13 @@ public class Post {
         this.highlight = highlight;
     }
 
-    public Timestamp getPostTime() {
+    /*public Timestamp getPostTime() {
         return postTime;
     }
 
     public void setPostTime(Timestamp postTime) {
         this.postTime = postTime;
-    }
+    }*/
 
     public int getPostType() {
         return postType;
