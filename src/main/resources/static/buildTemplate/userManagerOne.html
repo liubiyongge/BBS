@@ -253,7 +253,7 @@
             }
         });
     });
-
+    var myurl = "userManagerOne.html?id=" + getUrlParameter("id");
     function submitChange(){
         $.ajax({
             type: "POST",
@@ -275,11 +275,11 @@
             }),
             success: function (jsonData, result) {
                 if(result == "success"){
-                    window.location.href = "userManagerOne.html?id=" + getUrlParameter("id");
                     alert("修改成功");
+                    window.location.href = myurl;
                 }else {
                     alert("修改失败");
-                    window.location.href = "userManagerOne.html?id=" + getUrlParameter("id");
+                    window.location.href = myurl;
                 }
 
 
