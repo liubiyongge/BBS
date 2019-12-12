@@ -16,6 +16,10 @@
         select * from user where userId = #{userId}
     </select>
 
+    <select id="findAllUser" resultType="User">
+        select * from user where type !=2
+    </select>
+
     <insert id="addUser" parameterType="String">
      insert into user(userName,password) values("${userName}","${password}")
     </insert>
@@ -29,6 +33,20 @@
         delete from user where userId = #{userId}
     </delete>
 
+    <update id="modifyUser" parameterType="User">
+        update user set
+        userName = #{newUser.userName},
+        password = #{newUser.password},
+        sex = #{newUser.sex},
+        credit = #{newUser.credit},
+        telephone = #{newUser.telephone},
+        profilePhoto = #{newUser.profilePhoto},
+        briefIntro = #{newUser.briefIntro},
+        location = #{newUser.location},
+        type = #{newUser.type},
+        birthday = #{newUser.birthday}
+        where userId = #{newUser.userId}
+    </update>
 
 </mapper>
 

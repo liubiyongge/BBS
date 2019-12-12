@@ -15,7 +15,6 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
@@ -134,10 +133,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="sex">性别</label>
-                                <select class="form-control" id="sex">
+                                <select class="form-control" id="sex" >
                                     <option value="0">男</option>
                                     <option value="1">女</option>
-                                    <option value="2">不知</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -163,11 +161,7 @@
                                     <option value="1">版主</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="birthday">出生日期</label>
-                                <input type="text" class="form-control" id="birthday" readonly>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" onclick="submitChange()">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -212,6 +206,88 @@
 
 <!-- Page level plugins -->
 <script src="vendor/chart.js/Chart.min.js"></script>
+<script type="text/javascript">
+    function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            type: "POST",
+            url: '/admin/getUserById/' + getUrlParameter("id"),
+            contentType: "application/json",
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            success: function (jsonData, result) {
+                if(result == "success"){
+                    $("#userName").attr("placeholder",jsonData["userName"]);
+                    $("#password").attr("placeholder",jsonData["password"]);
+                    $("#sex").val(jsonData["sex"]);
+                    $("#credit").attr("value", jsonData["credit"]);
+                    if(jsonData["telephone"] != null){
+                        $("#telephone").attr("value", jsonData["telephone"]);
+                    }
+                    if(jsonData["briefIntro"] != null){
+                        $("#briefIntro").text(jsonData["briefIntro"]);
+                    }
+
+                    if(jsonData["location"] != null){
+                        $("#location").attr("value", jsonData["location"]);
+                    }
+                    $("#type").val(jsonData["type"]);
+                }
+
+
+            }
+        });
+    });
+
+    function submitChange(){
+        $.ajax({
+            type: "POST",
+            url: '/admin/modifyUser',
+            contentType: "application/json",
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            data:JSON.stringify({
+                "userId": getUrlParameter("id"),
+                "userName": $("#userName").val(),
+                "password": $("#password").val(),
+                "sex": $("#sex").val(),
+                "credit": $("#credit").val(),
+                "telephone": $("#telephone").val(),
+                "profilePhoto": "",
+                "briefIntro": $("#briefIntro").val(),
+                "location": $("#location").val(),
+                "type": $("#type").val(),
+                "birthday": ""
+            }),
+            success: function (jsonData, result) {
+                if(result == "success"){
+                    window.location.href = "userManagerOne.html?id=" + getUrlParameter("id");
+                    alert("修改成功");
+                }else {
+                    alert("修改失败");
+                    window.location.href = "userManagerOne.html?id=" + getUrlParameter("id");
+                }
+
+
+            }
+        });
+    }
+
+</script>
 <script>
     function loginout(){
         localStorage.clear();

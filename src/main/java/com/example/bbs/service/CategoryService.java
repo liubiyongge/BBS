@@ -24,4 +24,5 @@ public class CategoryService {
     public int getCategoryUserId(int categoryId){
         return  categoryDao.getCategoryUserId(categoryId);
     }
+    public int addCategory(String categoryName,int categoryUserId){return categoryDao.addCategory(categoryName,categoryUserId);};
 }
