@@ -22,7 +22,7 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public String getCateGoryName() {
+    public String getCategoryName() {
         return cateGoryName;
     }
 
@@ -30,11 +30,11 @@ public class Category {
         this.cateGoryName = cateGoryName;
     }
 
-    public int getCateGoryUserId() {
+    public int getCategoryUserId() {
         return cateGoryUserId;
     }
 
-    public void setCateGoryUserId(int cateGoryUserId) {
+    public void setCategoryUserId(int cateGoryUserId) {
         this.cateGoryUserId = cateGoryUserId;
     }
 }

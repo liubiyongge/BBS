@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.bbs.dao.CategoryDao">
     <select id="findAll" resultType="Category">
-        SELECT * FROM `category`
+        SELECT * FROM category
     </select>
     <select id="getCategoryName" resultType="String">
         SELECT categoryName FROM category WHERE categoryId=#{categoryId}
@@ -16,4 +16,7 @@
     <select id="getCategoryUserId" resultType="int">
         SELECT categoryUserId from category where categoryId=#{categoryId}
     </select>
+    <insert id="addCategory">
+        insert into category(categoryName,categoryUserId) values("${categoryName}","${categoryUserId}")
+    </insert>
 </mapper>

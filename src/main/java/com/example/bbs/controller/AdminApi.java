@@ -1,14 +1,14 @@
 package com.example.bbs.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.bbs.entity.Column;
+import com.example.bbs.entity.Category;
 import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.User;
 import com.example.bbs.dao.AdminDao;
-import com.example.bbs.service.ColumnService;
+import com.example.bbs.service.CategoryService;
 import com.example.bbs.service.TokenService;
+import com.example.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,10 @@ public class AdminApi {
     private TokenService tokenService;
 
     @Autowired
-    private ColumnService columnService;
+    private CategoryService categoryService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/test")
     public Object test(){
@@ -58,16 +61,37 @@ public class AdminApi {
         }
     }
 
-    @RequestMapping("/categoryArrange")
+    @RequestMapping("/categoryManage")
     public Object columnArrange(){
-        JSONObject jsonObject=new JSONObject();
-        List<Column> allColumn=columnService.findAllColumn();
+
+        List<Category> allCategory=categoryService.findAll();
         JSONArray jsonArray=new JSONArray();
-        System.out.println(allColumn.get(0).getColumnId());
-        List<String> tokenList=tokenService.getToken(allColumn);
-        for(int i=0;i<allColumn.size();i++) {
-            jsonObject.put("columnId"+i,allColumn.get(i));
+        for(int i=0;i<allCategory.size();i++) {
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("categoryId",allCategory.get(i).getCategoryId());
+//            System.out.println(allCategory.get(i).getCategoryId());
+            jsonObject.put("categoryName",allCategory.get(i).getCategoryName());
+            jsonObject.put("categoryUserId",allCategory.get(i).getCategoryUserId());
+            jsonArray.add(jsonObject);
         }
-        return jsonObject;
+        return jsonArray;
+    }
+
+    @RequestMapping("/findAllUser")
+    public Object findAllUser(){
+        List<User> allUser= userService.findAllUser();
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<allUser.size();i++){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("UserId",allUser.get(i).getUserId());
+            jsonObject.put("UserName",allUser.get(i).getUserName());
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
+    }
+    @RequestMapping("/addCategory")
+    public Object addCategory(@RequestBody Category category){
+        int i=categoryService.addCategory(category.getCategoryName(),category.getCategoryUserId());
+        return i;
     }
 }

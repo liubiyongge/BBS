@@ -12,6 +12,10 @@
         select * from user where userName = #{userName} and type!=2
     </select>
 
+    <select id="findAllUser" resultType="User">
+        select * from user where type !=2
+    </select>
+
     <insert id="addUser" parameterType="String">
      insert into user(userName,password) values("${userName}","${password}")
     </insert>

@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 @Mapper
 public interface UserDao {
-    List<User> listUser();
     User findByUsername(@Param("userName") String userName);
     int addUser(@Param("userName") String userName,@Param("password") String password);
+    List<User> findAllUser();
 }
