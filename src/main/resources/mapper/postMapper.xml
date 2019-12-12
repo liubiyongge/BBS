@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bbs.dao.PostDao">
+    <select id="countTopPost" resultType="int">
+        select count(*) from post where top = 1
+    </select>
+    <select id="countHightlightPost" resultType="int">
+        select count(*) from post where highlight = 1
+    </select>
+    <select id="countDemandPost" resultType="int">
+        select count(*) from post where postType = 1
+    </select>
+    <select id="countNormalPost" resultType="int">
+        select count(*) from post where postType = 0 and top = 0 and highlight = 0
+    </select>
+
+</mapper>
+
+

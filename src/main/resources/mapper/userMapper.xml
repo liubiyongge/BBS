@@ -11,9 +11,24 @@
         select * from user where userName = #{userName}
     </select>
 
+    <select id="findByUserId" parameterType="int" resultType="User">
+        select * from user where userId = #{userId}
+    </select>
+
     <insert id="addUser" parameterType="String">
      insert into user(userName,password) values("${userName}","${password}")
     </insert>
+
+    <select id="countNumUserType" resultType="int" parameterType="int">
+        select count(*) from user where type = #{type}
+    </select>
+
+
+    <delete id="deleteUserById" parameterType="int">
+        delete from user where userId = #{userId}
+    </delete>
+
+
 </mapper>
 
 
