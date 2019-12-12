@@ -54,11 +54,10 @@ $(function () {
             }
             post.postCategoryId=parseInt(post.postCategoryId);
             post.postType=parseInt(post.postType);
-
             post.highlight=0;
             post.top=0;
             post.postUserId=user.userId;
-            post.postPhoto=null;
+            post.postPhoto=undefined;
             post.postTime=getTime();
             createPost(post);
         }
@@ -99,14 +98,19 @@ function getCategoriesOption() {
 /*发表帖子*/
 function createPost(post) {
     console.log(post);
+    console.log(token);
+
     $.ajax({
-        url: "/User/createPost",
+        //cache:false,
+        //async:false,
+        type: "post",
+        dataType: "json",
         headers:{
             'token':token,
         },
-        type: "post",
-        dataType: "json",
-        data:{
+        url: "/User/creatPost",
+        contentType: "application/json",
+        data:JSON.stringify({
             "postTitle":post.postTitle,
             "postContent":post.postContent,
             "postScore":post.postScore,
@@ -117,12 +121,18 @@ function createPost(post) {
             "postType":post.postType,
             "postCategoryId":post.postCategoryId,
             "top":post.top,
-        },
-        success:function () {
-            alert("发表成功");
+        }),
+        success:function (result) {
+            //console.log(result);
+            console.log(result.state+typeof(result.state));
+            if (result.state===1){
+                alert("发表成功");
+            }else {
+                alert("发表失败,请重试...");
+            }
         },
         error:function () {
-            alert("发表失败,请重试...");
+            alert("发表失败,请重试......");
         },
     });
 }

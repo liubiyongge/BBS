@@ -113,6 +113,8 @@ public class UserApi {
                               @RequestParam("postTime")String postTime,@RequestParam("postType")int postType,
                               @RequestParam("postCategoryId")int postCategoryId, @RequestParam("top")int top
         */
+        //System.out.print("在这里.....");
+        //System.out.println(post.toString());
         postService.createPost(post.getPostTitle(),post.getPostContent(),post.getPostScore(),post.getPostUserId(),post.getPostPhoto(),
                 post.getHighlight(),post.getPostTime(),post.getPostType(),post.getPostCategoryId(),post.getTop());
         JSONObject result=new JSONObject();
