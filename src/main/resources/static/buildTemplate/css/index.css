@@ -78,3 +78,19 @@
 .notShow{
   display: none!important;
 }
+/*发表帖子页图片显示区*/
+.photoArea{
+  width: 250px;
+  height: 200px;
+}
+.showPhoto{
+  max-width: 250px;
+  max-height: 200px;
+}
+a.begin-upload{
+  color: #3b3b3b;
+  border: 0.5px solid #878787;
+  display: inline-block;
+  padding: 3px;
+  background-color: #ebebeb;
+}
