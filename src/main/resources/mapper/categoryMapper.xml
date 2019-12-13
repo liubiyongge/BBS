@@ -19,6 +19,12 @@
     <insert id="addCategory">
         insert into category(categoryName,categoryUserId) values("${categoryName}","${categoryUserId}")
     </insert>
+
+    <select id="countCategory" resultType="int">
+        select count(*) from category
+    </select>
+
+
     <update id="setCategory">
         update category set categoryName="${categoryName}", categoryUserId=${categoryUserId} where categoryId=${categoryId}
     </update>
