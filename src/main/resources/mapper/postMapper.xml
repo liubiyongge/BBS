@@ -6,16 +6,16 @@
 
     <select id="findAll" resultType="Post">
        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
-FROM `comment`,`post`
-WHERE commentPostId=postId
-GROUP BY commentPostId
-ORDER BY COUNT(commentId) DESC limit 999999)
-union
-(SELECT *
-FROM `post` WHERE postId not in(
-SELECT commentPostId
-FROM `comment`
-))
+  FROM `comment`,`post`
+  WHERE commentPostId=postId
+  GROUP BY commentPostId
+  ORDER BY COUNT(commentId) DESC limit 999999)
+  union
+  (SELECT *
+  FROM `post` WHERE postId not in(
+  SELECT commentPostId
+  FROM `comment`
+  ))
 
     </select>
 
@@ -37,15 +37,22 @@ FROM `comment`
     <select id="findPostByPostId" resultType="Post">
         (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
 FROM `comment`,`post`
-WHERE commentPostId=postId and postCategoryId=#{postId}
+WHERE commentPostId=postId and postId=#{postId}
 GROUP BY commentPostId
 ORDER BY COUNT(commentId) DESC limit 999999)
 union
 (SELECT *
-FROM `post` WHERE postCategoryId=#{postId} and postId not in(
+FROM `post` WHERE postId=#{postId} and postId not in(
 SELECT commentPostId
 FROM `comment`
 ))
+    </select>
+
+    <select id="getAllComments" resultType="Comment">
+        (select commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
+        FROM `comment`
+        WHERE commentPostId=#{postId}
+        )
     </select>
 
     <delete id="deletePostByPostId">
@@ -85,4 +92,6 @@ FROM `comment`
     <select id="countNormalPost" resultType="int">
         select count(*) from post where postType = 0 and top = 0 and highlight = 0
     </select>
+
+
 </mapper>

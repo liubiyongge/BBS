@@ -447,6 +447,7 @@ function getUserName($userId) {
   });
   return $userName;
 }
+/*通过userId查询用户头像*/
 function getUserHeader($userId) {
   let $userHeader="defaultUserHeader.jpg";
   $.ajax({
@@ -463,6 +464,8 @@ function getUserHeader($userId) {
       if ($userHeader==="undefined"||typeof ($userHeader)=="undefined"){
         $userHeader="defaultUserHeader.jpg";
       }
+      //console.log("success:"+$userId);
+      //console.log("success:"+$userHeader);
       return $userHeader;
     },
     error:function () {
