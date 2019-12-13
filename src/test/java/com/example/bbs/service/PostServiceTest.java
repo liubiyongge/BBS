@@ -1,6 +1,7 @@
 package com.example.bbs.service;
 
 import com.example.bbs.dao.PostDao;
+import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,14 @@ public class PostServiceTest {
         List<Post> list=postDao.findByCategoryId(2);
         for (int i=0;i<list.size();i++){
             System.out.println("在这里:"+list.get(i).toString());
+        }
+    }
+
+    @Test
+    public void getAllComments() {
+        List<Comment> list=postService.getAllComments(2);
+        for(int i = 0; i < list.size(); i++){
+            System.out.println("回复内容" + list.get(i).toString());
         }
     }
 
@@ -82,4 +91,6 @@ public class PostServiceTest {
     public void createPost() {
         postService.createPost("标题11","这里是11这里是11这里是11这里是11",0,3,"defaultUserHeader.jpg",0,"2019-12-03 11:00:00",0,5,0);
     }
+
+
 }
