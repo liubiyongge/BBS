@@ -1,6 +1,7 @@
 package com.example.bbs.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import com.example.bbs.service.PostService;
 
@@ -29,10 +30,9 @@ public class PostApi {
         return postService.findByCategoryId(categoryId);
     }
 
-    /*3-查询一条帖子的信息*/
-    @RequestMapping("/postId")
-    Post findPostByPostId(@RequestParam(value="postId") int postId){
-        JSONObject result = new JSONObject();
+    /*3-通过postId获取帖子*/
+    @RequestMapping("/getPost")
+    public Post findPostByPostId(@RequestParam(value="postId") int postId){
         return postService.findPostByPostId(postId);
     }
 
@@ -48,7 +48,7 @@ public class PostApi {
     /*8-通过userId获取帖子所属的用户名*/
     @RequestMapping("/getPostUserName")
     public String getUserName(@RequestParam(value ="userId")int userId){
-       // System.out.println("222:"+userId);
+        // System.out.println("222:"+userId);
         JSONObject result=new JSONObject();
         result.put("userName",postService.getUserName(userId));
         return result.toJSONString();
@@ -62,5 +62,10 @@ public class PostApi {
         return result.toJSONString();
     }
 
+    //14-根据postId返回当前帖子的回复列表
+    @RequestMapping("/getComments")
+    List<Comment> getAllComments(@RequestParam(value="postId") int postId){
+        return postService.getAllComments(postId);
+    }
 
 }
