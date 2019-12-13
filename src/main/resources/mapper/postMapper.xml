@@ -6,16 +6,16 @@
 
     <select id="findAll" resultType="Post">
        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
-FROM `comment`,`post`
-WHERE commentPostId=postId
-GROUP BY commentPostId
-ORDER BY COUNT(commentId) DESC limit 999999)
-union
-(SELECT *
-FROM `post` WHERE postId not in(
-SELECT commentPostId
-FROM `comment`
-))
+  FROM `comment`,`post`
+  WHERE commentPostId=postId
+  GROUP BY commentPostId
+  ORDER BY COUNT(commentId) DESC limit 999999)
+  union
+  (SELECT *
+  FROM `post` WHERE postId not in(
+  SELECT commentPostId
+  FROM `comment`
+  ))
 
     </select>
 
@@ -42,7 +42,7 @@ GROUP BY commentPostId
 ORDER BY COUNT(commentId) DESC limit 999999)
 union
 (SELECT *
-FROM `post` WHERE postCategoryId=#{postId} and postId not in(
+FROM `post` WHERE postId=#{postId} and postId not in(
 SELECT commentPostId
 FROM `comment`
 ))

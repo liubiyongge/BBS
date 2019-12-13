@@ -37,9 +37,7 @@ public class AdminService {
 
     public void modifyUserService(User newUser)throws DataAccessException {
         User oldUser = userDao.findByUserId(newUser.getUserId());
-        if(newUser.getUserName().equals("")){
-          newUser.setUserName(oldUser.getUserName());
-        }
+        newUser.setUserName(oldUser.getUserName());
 
         if(newUser.getPassword().equals("")){
             newUser.setPassword(oldUser.getPassword());
