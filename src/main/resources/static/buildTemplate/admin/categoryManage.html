@@ -201,6 +201,39 @@
 
 <!--<script src="../js/jquery-3.1.1.min.js"></script>-->
 <script>
+
+    // $(window).on("load",function(){
+    //     console.log($(".dele").length);
+    //     for(let i=0;i<$(".dele").length;i=i+1){
+    //         alert($(".dele")[i].id)
+    //     }})
+    // $(".dele").each(function(){alert($(this).id);}
+    //
+    //     )
+
+    // $(this).click(function (event) {
+    //     // alert(rs);
+    //     event.preventDefault();
+    //     alert($(this).prop("id"));
+    //
+    //     var token = localStorage.getItem("bbsNCU");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: '/admin/deleteCategory',
+    //         contentType: "application/json",
+    //         headers: {
+    //             "token": token
+    //         },
+    //         data: JSON.stringify({
+    //             "categoryUserId": rs
+    //         }),
+    //         success: function () {
+    //             window.location.href = "categoryManage.html";
+    //         }
+    //     })
+    // })
+</script>
+<script>
     $(document).ready(function () {
             var token=localStorage.getItem("bbsNCU");
             $.ajax({
@@ -225,7 +258,7 @@
                         var newtd1=document.createElement("td");newtd1.innerHTML=categoryId;
                         var newtd2=document.createElement("td");newtd2.innerHTML=categoryName;
                         var newtd3=document.createElement("td");newtd3.innerHTML=categoryUserId;
-                        var newtd4=document.createElement("td");newtd4.innerHTML="<a href='javascript:void(0);' onclick=''>删除</a>" +
+                        var newtd4=document.createElement("td");newtd4.innerHTML="<a href='deleteCategory.html?categoryId="+categoryId+"'>删除</a>" +
                             "&nbsp&nbsp<a href='javascript:void(0);' onclick=''>修改</a>";
                         newtr.appendChild(newtd1);
                         newtr.appendChild(newtd2);
@@ -235,14 +268,18 @@
                     }
                 }
             })
+        console.log($(".dele").length)
         }
+
     )
 </script>
+
 <script>
     $(".add").click(function () {
         window.location.href="addCategory.html";
     })
 </script>
+
 </body>
 
 </html>

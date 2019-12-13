@@ -103,6 +103,13 @@ public class AdminApi {
         return i;
     }
 
+    @RequestMapping("deleteCategory")
+    public Object deteCategory(@RequestBody Category category){
+        System.out.println(category.getCategoryId());
+        categoryService.deleteCategory(category.getCategoryId());
+        return true;
+    }
+
     @Autowired
     AdminService adminService;
 

@@ -15,7 +15,7 @@ public interface CategoryDao {
     /*通过栏目id获取栏目名*/
     String getCategoryName(int categoryId);
     /*通过categoryId删除栏目*/
-    void deleteCategory(int categoryId);
+    void deleteCategory(@Param("categoryId") int categoryId);
     /*通过categoryId获取categoryUserId(版主Id)*/
     int getCategoryUserId(int categoryId);
     int addCategory(@Param("categoryName") String categoryName,@Param("categoryUserId") int categoryUserId);
