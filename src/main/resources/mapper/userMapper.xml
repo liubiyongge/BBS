@@ -9,7 +9,11 @@
 
     <select id="findByUsername" parameterType="String" resultType="User">--
 <!-- 普通用户登录，不能是管理员 -->
-        select * from user where userName = #{userName} and type!=2
+        select * from user where userName = #{userName}
+    </select>
+
+    <select id="findByUserId" parameterType="int" resultType="User">
+        select * from user where userId = #{userId}
     </select>
 
     <select id="findAllUser" resultType="User">
@@ -19,6 +23,31 @@
     <insert id="addUser" parameterType="String">
      insert into user(userName,password) values("${userName}","${password}")
     </insert>
+
+    <select id="countNumUserType" resultType="int" parameterType="int">
+        select count(*) from user where type = #{type}
+    </select>
+
+
+    <delete id="deleteUserById" parameterType="int">
+        delete from user where userId = #{userId}
+    </delete>
+
+    <update id="modifyUser" parameterType="User">
+        update user set
+        userName = #{newUser.userName},
+        password = #{newUser.password},
+        sex = #{newUser.sex},
+        credit = #{newUser.credit},
+        telephone = #{newUser.telephone},
+        profilePhoto = #{newUser.profilePhoto},
+        briefIntro = #{newUser.briefIntro},
+        location = #{newUser.location},
+        type = #{newUser.type},
+        birthday = #{newUser.birthday}
+        where userId = #{newUser.userId}
+    </update>
+
 </mapper>
 
 

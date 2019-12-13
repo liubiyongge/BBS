@@ -28,7 +28,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         //原语句是if(request.getRequestURI.equals("/bbs_war/login")，路径应该有问题
         System.out.println(request.getRequestURI());
         boolean isUser=request.getRequestURI().substring(0,6).matches("/User/*");
-        System.out.println(isUser);
+//        System.out.println(isUser);
         boolean isWebMaster=request.getRequestURI().matches("/webMaster/*");
         boolean isAdmin=request.getRequestURI().matches("/admin/*");
         if(request.getRequestURI().equals("/admin/adminLogin")||request.getRequestURI().equals("/User/login")

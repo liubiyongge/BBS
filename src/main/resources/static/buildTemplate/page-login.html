@@ -89,6 +89,17 @@
 
 <!-- 配置json解析，将登陆信息发送给/login -->
 <script src="js/jquery-3.1.1.min.js"></script>
+<script>
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+</script>
 <script type="text/javascript">
     $("#submit").click(function(){
         var username=$("#loginUserName").val();
@@ -106,9 +117,14 @@
                     console.log("data is :" + result)
                     if (jsonData["token"]) {
                         localStorage.setItem("bbsNCU",jsonData["token"]);
-                        window.location.href = "index.html?userName="+username;
+                        if(parseJwt(jsonData["token"]).type == 2 ){
+                            window.location.href = "admin.html"
+                        }else {
+                            window.location.href = "index.html?userName="+username;
+                        }
+
                     }else {
-                        alert("登录失败，请重试")
+                        alert("登录失败，请重试");
                         }
                     }
         });

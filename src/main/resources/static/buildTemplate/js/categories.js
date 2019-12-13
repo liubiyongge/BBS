@@ -2,17 +2,7 @@ $(function () {
   //console.log(user);
   showAllCategories();
   /*点击 删除栏目*/
-  /*$(".tt-item-layout").delegate(".delete-category","click",function (evt) {
-    console.log("click-delete");
-    let $categoryId=$(evt.target).parents(".tt-item").find(".saveCategoryId").attr("id");
-    //console.log($categoryId);
-    deleteCategory($categoryId);
-    let page="page-categories.html?";
-    let para=encodeStr("userId="+user.userId);/!*+"&userName="+user.userName+"&profilePhoto="+user.profilePhoto*!/
-    let path=page+para;
-    window.location.href=path;
-  });*/
-  $(".delete-category").click(function () {
+ /* $(".delete-category").click(function () {
     let $categoryId=$(this).parents(".tt-item").find(".saveCategoryId").attr("id");
     //console.log($categoryId);
     deleteCategory($categoryId);
@@ -21,13 +11,13 @@ $(function () {
     let para=encodeStr("userId="+user.userId);
     let path=page+para;
     window.location.href=path;
-  });
+  });*/
   /*点击 进入栏目*/
  $(".into-category").click(function () {
    let $categoryId=$(this).parents(".tt-item-header").find(".saveCategoryId").attr("id");
    //alert($categoryId);
    let page="page-categories-single.html?";
-   let para=encodeStr("userId="+user.userId+"&categoryId="+$categoryId);
+   let para="userName="+user.userName+"&categoryId="+$categoryId;
    let path=page+para;
    $(this).attr("href",path);
  });
@@ -39,8 +29,8 @@ function showAllCategories() {
   $.ajax({
     cache:false,
     async:false,
-    url:"./sources/categories.json",
-    type:"get",
+    url:"http://localhost:8080/category/findAll",
+    type:"post",
     dataType:"json",
     success:function (data) {
       //console.log(data);
@@ -59,8 +49,25 @@ function showAllCategories() {
                category.postTitle1=posts[0].postTitle;
              }
         category.categoryName=data[i].categoryName;
+        //console.log("categoryName:" + category.categoryName);
         category.categoryUserId=data[i].categoryUserId;
         category.categoryUserName=getUserName(category.categoryUserId);
+        category.icon_color="21";
+        if (category.categoryId.length>=2){
+          category.icon_color=category.categoryId.substr( category.categoryId.length-2,2);
+          if (category.icon_color>21){
+            //console.log(post.icon_2);
+            category.icon_color="0"+Math.ceil(category.icon_color/21);
+          }else if (post.icon_2==="00"){
+            category.icon_color=21;
+          }
+        }
+        else {
+          category.icon_color="0"+category.categoryId;
+        }
+        if (category.icon_color==="10"){
+          category.icon_color="06";
+        }
         addCategoryToList(category);
       }
     },
@@ -75,7 +82,7 @@ function  addCategoryToList(category) {
     "          <div class=\"tt-item\">\n" +
     "            <div class=\"tt-item-header\">\n" +
     "              <ul class=\"tt-list-badge\">\n" +
-    "                <li><a href=\"javascript:;\"><span class=\"saveCategoryId tt-color"+category.categoryId+" tt-badge\" id='"+category.categoryId+"'>"+category.categoryName+"</span></a></li>\n" +
+    "                <li><a href=\"javascript:;\"><span class=\"saveCategoryId tt-color"+category.icon_color+" tt-badge\" id='"+category.categoryId+"'>"+category.categoryName+"</span></a></li>\n" +
     "              </ul>\n" +
     "              <h6 class=\"tt-title\"><a href=\"page-categories-single.html\" class='into-category'>进入栏目</a></h6>\n" +
     "            </div>\n" +
@@ -90,16 +97,17 @@ function  addCategoryToList(category) {
     "                  <li><a href=\"javascript:;\"><span class=\"tt-badge\">"+category.postTitle2+"</span></a></li>\n" +
     "                </ul>\n" +
     "              </div>\n" +
-    "              <div class=\"tt-innerwrapper delete-category\">\n" +
-    "                <a href=\"javascript:;\" class=\"tt-btn-icon\">\n" +
-    "                  <i class=\"tt-icon\"><svg><use xlink:href=\"#icon-shanchu\"></use></svg></i>\n" +
-    "                  <span class=\"tt-text\">删除此栏目</span>\n" +
-    "                </a>\n" +
-    "              </div>\n" +
     "            </div>\n" +
     "          </div>\n" +
     "        </div>";
   $(".tt-categories-list .row").append($html);
+  /*
+   "              <div class=\"tt-innerwrapper delete-category\">\n" +
+    "                <a href=\"javascript:;\" class=\"tt-btn-icon\">\n" +
+    "                  <i class=\"tt-icon\"><svg><use xlink:href=\"#icon-shanchu\"></use></svg></i>\n" +
+    "                  <span class=\"tt-text\">删除此栏目</span>\n" +
+    "                </a>\n" +
+    "              </div>\n" +*/
   /*管理权限*/
   if (user.type==="2"){
     $(".delete-category").show();
@@ -114,7 +122,7 @@ function getPostByCategoryId($categoryId) {
   $.ajax({
     cache:false,
     async:false,
-    url:"./sources/post.json",
+    url:"http://localhost:8080/post/postInCategory",
     type: "post",
     dataType: "json",
     data:{

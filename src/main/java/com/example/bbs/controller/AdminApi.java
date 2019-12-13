@@ -10,11 +10,19 @@ import com.example.bbs.service.CategoryService;
 import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.RequestBody;
+import com.example.bbs.dao.UserDao;
+import com.example.bbs.service.AdminService;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/admin")
@@ -94,10 +102,46 @@ public class AdminApi {
         int i=categoryService.addCategory(category.getCategoryName(),category.getCategoryUserId());
         return i;
     }
-
     @RequestMapping("/deleteCategory")
     public Object deleteCategory(@RequestBody Category category){
         categoryService.deleteCategory(category.getCategoryId());
         return true;
     }
+    @Autowired
+    AdminService adminService;
+
+    @RequestMapping("/getsummary")
+    public Object getsummary(){
+        return adminService.getsummary();
+
+    }
+    @Autowired
+    UserDao userDao;
+    @RequestMapping("/getAllUser")
+    public List<User> getAllUser(){
+        return userDao.listUser();
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    public void deleteUser(@PathVariable int id){
+        userDao.deleteUserById(id);
+    }
+    @RequestMapping("/getUserById/{id}")
+    @ResponseBody
+    public User getUserById(@PathVariable int id){
+        return  userDao.findByUserId(id);
+    }
+
+    @RequestMapping("/modifyUser")
+    public void modifyUser(@RequestBody User newUser, HttpServletResponse response){
+        try{
+            adminService.modifyUserService(newUser);
+        }catch (DataAccessException e){
+            response.setStatus(403);
+            return;
+        }
+    }
+
+
 }
+

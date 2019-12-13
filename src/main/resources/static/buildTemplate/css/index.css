@@ -60,7 +60,11 @@
 }
 /*栏目分类页的栏目图标*/
 .saveCategoryId{
-  color: #ffd04c !important;
+  color: #cbcbcb !important;
+}
+/*进入栏目  字样*/
+.into-category{
+  color: #ff8d46!important;
 }
 /*帖子列表中的用户头像*/
 .postUserHeader{
@@ -73,4 +77,20 @@
 }
 .notShow{
   display: none!important;
+}
+/*发表帖子页图片显示区*/
+.photoArea{
+  width: 250px;
+  height: 200px;
+}
+.showPhoto{
+  max-width: 250px;
+  max-height: 200px;
+}
+a.begin-upload{
+  color: #3b3b3b;
+  border: 0.5px solid #878787;
+  display: inline-block;
+  padding: 3px;
+  background-color: #ebebeb;
 }
