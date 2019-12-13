@@ -243,26 +243,4 @@ function showCategoryPostListHeader() {
       "         <div class=\"topArea1\">    </div>";;
   $(".category-post-list").append($html);
 }
-/*通过categoryId获取categoryUserId(版主Id)*/
-function getCategoryUserId($categoryId) {
-  let $categoryUserId=0;
-  $.ajax({
-    cache: false,
-    async: false,
-    url: "http://localhost:8080/category/getCategoryUserId",
-    type: "post",
-    dataType: "json",
-    data:{
-      'categoryId':$categoryId,
-    },
-    success:function (data) {
-      $categoryUserId=data.categoryUserId;
-      return $categoryUserId;
-    },
-    error:function () {
-      console.log("获取版主Id失败");
-    }
-  });
-  return $categoryUserId;
-}
 

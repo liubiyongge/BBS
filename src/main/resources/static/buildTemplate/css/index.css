@@ -55,8 +55,8 @@
 }
 /*帖子内容中的图片*/
 .content-photo{
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
 }
 /*栏目分类页的栏目图标*/
 .saveCategoryId{
@@ -93,4 +93,8 @@ a.begin-upload{
   display: inline-block;
   padding: 3px;
   background-color: #ebebeb;
+}
+/*被采纳的回复*/
+.answer{
+  background-color: #eeeeee !important;
 }

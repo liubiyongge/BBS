@@ -180,17 +180,3 @@ function createPost(post) {
         },
     });
 }
-function getTime() {
-    let myDate = new Date();
-    let year=myDate.getFullYear();        //获取当前年
-    let month=myDate.getMonth()+1;   //获取当前月
-    let date=myDate.getDate();            //获取当前日
-    let h=myDate.getHours();              //获取当前小时数(0-23)
-    let m=myDate.getMinutes();          //获取当前分钟数(0-59)
-    let s=myDate.getSeconds();
-    let now;
-    return  now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
-}
-function getNow(s) {
-    return s < 10 ? '0' + s: s;
-}
