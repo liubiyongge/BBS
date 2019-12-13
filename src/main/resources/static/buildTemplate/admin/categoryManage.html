@@ -233,6 +233,7 @@
     //     })
     // })
 </script>
+
 <script>
     $(document).ready(function () {
             var token=localStorage.getItem("bbsNCU");
@@ -259,7 +260,7 @@
                         var newtd2=document.createElement("td");newtd2.innerHTML=categoryName;
                         var newtd3=document.createElement("td");newtd3.innerHTML=categoryUserId;
                         var newtd4=document.createElement("td");newtd4.innerHTML="<a href='deleteCategory.html?categoryId="+categoryId+"'>删除</a>" +
-                            "&nbsp&nbsp<a href='javascript:void(0);' onclick=''>修改</a>";
+                            "&nbsp&nbsp<a href='setCategory.html?categoryId="+categoryId+"'>修改</a>";
                         newtr.appendChild(newtd1);
                         newtr.appendChild(newtd2);
                         newtr.appendChild(newtd3);

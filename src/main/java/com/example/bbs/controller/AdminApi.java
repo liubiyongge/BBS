@@ -31,6 +31,9 @@ public class AdminApi {
     private AdminDao adminDao;
 
     @Autowired
+    UserDao userDao;
+
+    @Autowired
     private TokenService tokenService;
 
     @Autowired
@@ -39,6 +42,8 @@ public class AdminApi {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    AdminService adminService;
 
     @RequestMapping("/adminLogin")
     public Object login(@RequestBody LoginUser loginUser){
@@ -110,16 +115,26 @@ public class AdminApi {
         return true;
     }
 
-    @Autowired
-    AdminService adminService;
+    @RequestMapping("getCategory")
+    public  Object getCategory(@RequestBody Category category){
+        String name=categoryService.getCategoryName(category.getCategoryId());
+        int UserId=categoryService.getCategoryUserId(category.getCategoryId());
+        User user=userDao.findByUserId(UserId);
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("categoryName",name);
+        jsonObject.put("categoryUserId",UserId);
+        jsonObject.put("userName",user.getUserName());
+        return jsonObject;
+    }
+
+
 
     @RequestMapping("/getsummary")
     public Object getsummary(){
         return adminService.getsummary();
 
     }
-    @Autowired
-    UserDao userDao;
+
     @RequestMapping("/getAllUser")
     public List<User> getAllUser(){
         return userDao.listUser();
