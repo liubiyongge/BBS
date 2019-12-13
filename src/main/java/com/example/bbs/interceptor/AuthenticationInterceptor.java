@@ -26,9 +26,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         //accessUri   ==   "/page/1231231.htm"
         //原语句是if(request.getRequestURI.equals("/bbs_war/login")，路径应该有问题
-        boolean isUser=request.getRequestURI().substring(0,6).matches("/User/*");
-        boolean isWebMaster=request.getRequestURI().matches("/webMaster/*");
-        boolean isAdmin=request.getRequestURI().matches("/admin/*");
+        boolean isUser=request.getRequestURI().substring(0,6).matches("/User/.*");
+        boolean isWebMaster=request.getRequestURI().matches("/webMaster/.*");
+        boolean isAdmin=request.getRequestURI().matches("/admin/.*");
         if(request.getRequestURI().equals("/admin/adminLogin")||request.getRequestURI().equals("/User/login")
                 ||request.getRequestURI().equals("/User/register"))
             return true;

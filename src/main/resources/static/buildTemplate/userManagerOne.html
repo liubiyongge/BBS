@@ -121,7 +121,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="userName">用户名</label>
-                                <input type="text" class="form-control" id="userName">
+                                <input type="text" class="form-control" id="userName" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="password">密码</label>
@@ -258,7 +258,7 @@
             headers:{'token': localStorage.getItem("bbsNCU")},
             data:JSON.stringify({
                 "userId": getUrlParameter("id"),
-                "userName": $("#userName").val(),
+                "userName": "",
                 "password": $("#password").val(),
                 "sex": $("#sex").val(),
                 "credit": $("#credit").val(),
