@@ -355,7 +355,7 @@ function changePostType($postId) {
         async:false,
         type:"post",
         dataType:"json",
-        url:"",
+        url:"/post/changeDemand",
         data:{
            'postId':$postId
         },
@@ -377,21 +377,22 @@ function changePostType($postId) {
 }
 /*发表评论*/
 function  sendComment($comment) {
+    console.log($comment);
     $.ajax({
         type:"post",
         dataType:"json",
         headers:{
             'token':token,
         } ,
-        url:"",
+        url:"/comment/addComment",
         contentType: "application/json",
         data:JSON.stringify({
-            'commentUserId':$comment.commentUserId,
-            'commentToId':$comment.commentToId,
-            'commentToUserId':$comment.commentToUserId,
-            'commentContent':$comment.commentContent,
-            'commentPostId':$comment.commentPostId,
-            'commentTime':$comment.commentTime,
+            "commentUserId":$comment.commentUserId,
+            "commentToId":$comment.commentToId,
+            "commentToUserId":$comment.commentToUserId,
+            "commentContent":$comment.commentContent,
+            "commentPostId":$comment.commentPostId,
+            "commentTime":$comment.commentTime,
             }),
         success:function (data) {
             if (data.state==1){
