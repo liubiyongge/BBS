@@ -23,7 +23,6 @@ public class CommentApi {
     }
 
     //2-创建一条comment
-    //有问题，待修正
     @RequestMapping("/addComment")
     public String createComment(@RequestBody Comment comment){
         System.out.println(comment.toString());
