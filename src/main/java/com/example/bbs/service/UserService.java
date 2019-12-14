@@ -12,9 +12,14 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserDao userDao;
+
     public User findByUserName(String userName){
         return  userDao.findByUsername(userName);
     }
+
     public List<User> findAllUser(){return userDao.findAllUser();}
 
+    public void addCredit(int userId){
+         userDao.addCredit(userId);
+    }
 }

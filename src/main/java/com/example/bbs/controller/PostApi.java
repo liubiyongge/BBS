@@ -41,7 +41,6 @@ public class PostApi {
     public String countCommentsNum(@RequestParam(value = "postId")int postId){
         JSONObject result = new JSONObject();
         result.put("commentsNum",postService.countCommentsNum(postId));
-        //System.out.println(postService.countCommentsNum(postId));
         return result.toJSONString();
     }
 
@@ -68,4 +67,25 @@ public class PostApi {
         return postService.getAllComments(postId);
     }
 
+    //15-创建帖子
+    @RequestMapping("/create")
+    public void createPost(String postTitle,String postContent, int postScore, int postUserId, String postPhoto,
+                           int highlight, String postTime,int postType, int postCategoryId,int top){
+
+    }
+
+    //16-修改帖子信息
+    @RequestMapping("/update")
+    public void updatePost(int postId){
+
+    }
+
+    //17-需求贴完成需求->postType=2
+    @RequestMapping("/changeDemand")
+    public String changeDemandPostType(int postId){
+        postService.changeDemandPostType(postId);
+        JSONObject result=new JSONObject();
+        result.put("state","change demand post type successfully!");
+        return result.toJSONString();
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.bbs.entity;
 
-import java.util.Date;
 
 public class Comment {
     private int commentId;//回复ID
@@ -9,7 +8,7 @@ public class Comment {
     private int commentToUserId;//被回复评论ID
     private String commentContent;
     private int commentPostId;
-    private Date commenttime;
+    private String commentTime;
 
     public int getCommentId() {
         return commentId;
@@ -59,12 +58,12 @@ public class Comment {
         this.commentPostId = commentPostId;
     }
 
-    public Date getCommenttime() {
-        return commenttime;
+    public String getCommentTime() {
+        return commentTime;
     }
 
-    public void setCommenttime(Date commenttime) {
-        this.commenttime = commenttime;
+    public void setCommentTime(String commentTime) {
+        this.commentTime = commentTime;
     }
 
     @Override
@@ -76,7 +75,7 @@ public class Comment {
                 ", commentToUserId=" + commentToUserId +
                 ", commentContent='" + commentContent + '\'' +
                 ", commentPostId=" + commentPostId +
-                ", commenttime=" + commenttime +
+                ", commentTime=" + commentTime +
                 '}';
     }
 }

@@ -16,9 +16,15 @@ import static org.junit.Assert.*;
 public class UserServiceTest {
     @Autowired
     private UserDao userDao;
+
     @Test
     public void findByUserName() {
         User user=userDao.findByUsername("user1");
         System.out.println(user.getUserId()+" "+user.getPassword());
+    }
+
+    @Test
+    public void addCredit(){
+        userDao.addCredit(1);
     }
 }

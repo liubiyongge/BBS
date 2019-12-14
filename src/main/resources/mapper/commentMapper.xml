@@ -4,9 +4,26 @@
 
 <mapper namespace="com.example.bbs.dao.CommentDao">
 
+    <!--1-查询所有的回复-->
     <select id="listComments" resultType="Comment">
        (SELECT commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
          FROM `comment`
          )
     </select>
+
+    <!--2-创建一条comment-->
+    <insert id="addComment" parameterType="com.example.bbs.entity.Comment">
+        insert into `comment`(commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime)
+        values(${comment.commentId},${comment.commentUserId},${comment.commentToId},${comment.commentToUserId},${comment.commentContent},${comment.commentPostId},${comment.commentTime})
+    </insert>
+
+    <!--3-返回当前回复的被回复数-->
+    <select id="countCommentNumToThisComment" resultType="int">
+        select count(commentId) from `comment` where commentToId=#{commentId}
+    </select>
+
+    <!--4-删除评论-->
+    <delete id="deleteComment">
+        delete from `comment` where commentId=#{commentId}
+    </delete>
 </mapper>

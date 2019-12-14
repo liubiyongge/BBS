@@ -99,8 +99,8 @@ function getCategoryPosts($categoryId) {
         post.postPhoto=data[i].postPhoto;
         post.highlight=data[i].highlight;/*是否加精*/
         post.top=data[i].top;/*是否置顶*/
-        post.postTime=data[i].postTime.substr(0,19);
-        post.postTime=post.postTime.split("T")[0]+" "+post.postTime.split("T")[1];
+        post.postTime=data[i].postTime.substr(0,10);
+      //  post.postTime=post.postTime.split("T")[0]+" "+post.postTime.split("T")[1];
         post.postType=data[i].postType;/*是否需求贴*/
         post.icon_1=String.fromCharCode(97+parseInt(post.postCategoryId));/*帖子项中第一个有颜色图标的类名后缀*/
         post.icon_2=post.postCategoryId;/*帖子项中第2个有颜色图标的类名后缀*/
@@ -242,27 +242,5 @@ function showCategoryPostListHeader() {
     "            </div>"+
       "         <div class=\"topArea1\">    </div>";;
   $(".category-post-list").append($html);
-}
-/*通过categoryId获取categoryUserId(版主Id)*/
-function getCategoryUserId($categoryId) {
-  let $categoryUserId=0;
-  $.ajax({
-    cache: false,
-    async: false,
-    url: "http://localhost:8080/category/getCategoryUserId",
-    type: "post",
-    dataType: "json",
-    data:{
-      'categoryId':$categoryId,
-    },
-    success:function (data) {
-      $categoryUserId=data.categoryUserId;
-      return $categoryUserId;
-    },
-    error:function () {
-      console.log("获取版主Id失败");
-    }
-  });
-  return $categoryUserId;
 }
 

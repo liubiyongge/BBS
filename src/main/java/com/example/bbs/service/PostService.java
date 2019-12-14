@@ -96,5 +96,13 @@ public class PostService {
         highlight, postTime,postType, postCategoryId,top);
     }
 
+    //16-修改帖子信息
+    public void updatePost(int postId){
+        postDao.updatePost(postId);
+    }
 
+    //17-需求贴完成需求->postType=2
+    public void changeDemandPostType(int postId){
+        postDao.changeDemandPostType(postId);
+    }
 }
