@@ -17,6 +17,7 @@ function getCommentsNum($postId) {
             return $commentsNum;
         },
         error:function () {
+            console.log("false");
         }
     });
     return $commentsNum;
@@ -28,14 +29,23 @@ function getUrlParam(name)
     var r = window.location.search.substr(1).match(reg);  //匹配目标参数
     if (r!=null) return unescape(r[2]); return null; //返回参数值
 }
+function addSvg(){
+    let $html="<div class=\"tt-col-avatar\">\n" +
+        "                                <svg class=\"tt-icon\">\n" +
+        "                                  <use xlink:href=\"#icon-ava-d\"></use>\n" +
+        "                                </svg>\n" +
+        "                            </div>";
+    $("#tt1").append($html)
+}
 function addPostToList(post){
-    $("#needClear").append("<div class=\"tt-col-description\">\n" +
+    let $html="" +
+        "                            <div class=\"tt-col-description\">\n" +
         "                               <h6 class=\"tt-title\"><a href=\"#\">\n" +
         "                                   <!--前面的小图标可省-->\n" +
         "                                    <!--<svg class=\"tt-icon\">-->\n" +
         "                                      <!--<use xlink:href=\"#icon-pinned\"></use>-->\n" +
         "                                    <!--</svg>-->\n" +
-                                            post.postTitle +
+        post.postTitle +
         "                                </a></h6>\n" +
         "                                <!--可删？下面的1h不明-->\n" +
         "                                <!--<div class=\"row align-items-center no-gutters\">-->\n" +
@@ -52,21 +62,20 @@ function addPostToList(post){
         "                                <!--</div>-->\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-category\"><span class=\"tt-color01 tt-badge\">"+post.postCategoryName+"</span></div>\n" +
-        "                            <div class=\"tt-col-value hide-mobile\">？？？</div>\n" +
-        "                            <div class=\"tt-col-value tt-color-select  hide-mobile\">？？？</div>\n" +
-        "                            <div class=\"tt-col-value hide-mobile\">15.1k?</div></div>")
+        "                            <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
+        "                            <!--<div class=\"tt-col-value hide-mobile\">1h</div>-->\n" +
+        "";
+    $("#tt1").append($html);
 }
 function getAllPosts() {
-
+    $("#tt1").empty();
     var token=localStorage.getItem("bbsNCU");
 
-    var href=window.location.href;
-    var param=getUrlParam(href);
-    $("#needClear").clear();
+    var param=getUrlParam("userName");
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/admin/findByPostUserId',
+        url: '/User/findByPostUserId',
         contentType: "application/json",
         headers:{
             "token":token
@@ -76,13 +85,20 @@ function getAllPosts() {
             "userName":param
         }),
         success:function (jsonArray) {
+            console.log(jsonArray);
+            addSvg();
             var post={};
-            for(var i=0;i<jsonArray.size();i++){
+            for(var i=0;i<jsonArray.length;i++){
                 post.postTitle=jsonArray[i].postTitle;
                 post.postCategoryName=jsonArray[i].postCategoryName;
-                post.commentsNum=getCommentsNum(jsonArray[i].postId);
+                console.log(getCommentsNum(jsonArray[i].postId));
+                console.log(getCommentsNum(2));
+                var num=getCommentsNum(jsonArray[i].postId);
+                post.commentsNum=num;
+                addPostToList(post);
             }
         }
 
         })
 }
+getAllPosts();
