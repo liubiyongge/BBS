@@ -149,7 +149,7 @@ function getPost($postId) {
             'postId':$postId,
         } ,
         success:function (data) {
-            console.log(data);
+            //console.log(data);
             post=data;
             /*1.帖子的用户头像*/
             let $userHeader="images/"+getUserHeader(data.postUserId);
@@ -224,7 +224,7 @@ function getAllComments($postId) {
 }
 /*显示一条回复*/
 function showComment($comment) {
-    console.log($comment);
+   // console.log($comment);
     let $commentUserHeader=getUserHeader($comment.commentUserId);
     let $commentUserName=getUserName($comment.commentUserId);
     let $commentToUserName=getUserName($comment.commentToUserId);
