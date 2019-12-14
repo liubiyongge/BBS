@@ -86,7 +86,7 @@ public class PostApi {
     @RequestMapping("/update")
     public String updatePost(@RequestBody Post post){
         System.out.println("hhh");
-        postService.updatePost(post.getPostId(), post.getPostTitle(),post.getPostContent(),post.getPostPhoto(),post.getHighlight(),post.getPostType(),post.getTop());
+        postService.updatePost(post.getPostId(), post.getPostTitle(),post.getPostContent(),post.getPostPhoto(),post.getHighlight(),post.getPostType(),post.getTop(),post.getPostCategoryId(),post.getPostScore());
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();

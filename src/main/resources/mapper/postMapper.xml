@@ -118,7 +118,7 @@ FROM `comment`
     <!--//16-修改帖子信息-->
     <update id="updatePost" >
         update `post` set postTitle=#{postTitle},postContent=#{postContent},postPhoto=#{postPhoto},highlight=${highlight},
-        postType=${postType},top=${top}
+        postType=${postType},top=${top},postCategoryId=${postCategoryId},postScore=${postScore}
         where postId=${postId}
     </update>
 

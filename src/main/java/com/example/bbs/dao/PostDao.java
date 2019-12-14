@@ -63,7 +63,8 @@ public interface PostDao {
 
     //16-修改帖子信息
     void updatePost(@Param("postId")int postId, @Param("postTitle")String postTitle, @Param("postContent")String postContent,
-                    @Param("postPhoto")String postPhoto, @Param("highlight")int highlight, @Param("postType")int postType, @Param("top")int top);
+                    @Param("postPhoto")String postPhoto, @Param("highlight")int highlight, @Param("postType")int postType,
+                    @Param("top")int top,@Param("postCategoryId")int postCategoryId,@Param("postScore")int postScore);
 
     //17-需求贴完成需求->postType=2
     void changeDemandPostType(@Param("postId") int postId);
