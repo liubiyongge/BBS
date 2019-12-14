@@ -126,8 +126,8 @@ public class UserApi {
 
     //给用户加积分
     @RequestMapping("/addCredit")
-    public String addCredit(@RequestParam("userId")int userId){
-        userService.addCredit(userId);
+    public String addCredit(@RequestParam("userId")int userId, @RequestParam("postScore") int postScore){
+        userService.addCredit(userId, postScore);
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
