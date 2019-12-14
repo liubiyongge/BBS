@@ -1,10 +1,13 @@
 package com.example.bbs.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.dao.UserDao;
+import com.example.bbs.entity.Category;
 import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.Post;
 import com.example.bbs.entity.User;
+import com.example.bbs.service.CategoryService;
 import com.example.bbs.service.PostService;
 import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UserService;
@@ -12,6 +15,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
 
 
 @RestController
@@ -28,6 +34,9 @@ public class UserApi {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
@@ -120,6 +129,23 @@ public class UserApi {
         result.put("state",1);
         return result.toJSONString();
 
+    }
+
+    @RequestMapping("/findByPostUserId")
+    public Object findByPostUserId(@RequestBody HashMap data){
+        String userName= (String)data.get("userName");
+        int userId=userService.findIdByUserName(userName);
+        List<Post> post=postService.findByPostUserId(userId);
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<post.size();i++){
+            String categoryName=categoryService.getCategoryName(post.get(i).getPostCategoryId());
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("postTitle",post.get(i).getPostTitle());
+            jsonObject.put("postId",post.get(i).getPostId());
+            jsonObject.put("postCategoryName",categoryName);
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 
 }

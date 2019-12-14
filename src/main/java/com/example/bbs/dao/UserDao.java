@@ -20,4 +20,5 @@ public interface UserDao {
     void deleteUserById(@Param("userId")int userId) throws DataAccessException;
     User findByUserId(@Param("userId")int userId) throws DataAccessException;
     void modifyUser(@Param("newUser") User newUser) throws DataAccessException;
+    int findIdByUserName(@Param("userName") String userName);
 }
