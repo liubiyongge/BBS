@@ -2,6 +2,7 @@ package com.example.bbs.service;
 
 import com.example.bbs.dao.CommentDao;
 import com.example.bbs.entity.Comment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,8 +20,10 @@ public class CommentService {
     }
 
     //2-创建一条comment
-    public void addComment(Comment comment){
-        commentDao.addComment(comment);
+    public void addComment(@Param("commentUserId")int commentUserId, @Param("commentToId")int commentToId,
+                           @Param("commentToUserId")int commentToUserId, @Param("commentContent")String commentContent,
+                           @Param("commentPostId")int commentPostId, @Param("commentTime")String commentTime){
+        commentDao.addComment(commentUserId, commentToId, commentToUserId,commentContent, commentPostId, commentTime);
     }
 
     //3-返回当前回复的被回复数

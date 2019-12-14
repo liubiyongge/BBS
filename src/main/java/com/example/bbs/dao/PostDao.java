@@ -39,8 +39,6 @@ public interface PostDao {
     /*9-通过帖子id获取帖子所属用户的头像*/
     String getPostUserHeader(@Param("userId")int userId);
 
-    List<Post> findByPostUserId(@Param("postUserId") int postUserId);
-
     //10-统计置顶帖数目
     int countTopPost();
 
@@ -58,14 +56,19 @@ public interface PostDao {
 
     /*15-创建帖子*/
     void createPost(@Param("postTitle")String postTitle, @Param("postContent")String postContent,
-                    @Param("postUserId")int postUserId, @Param("postPhoto")String postPhoto,
-                    @Param("highlight")int highlight, @Param("postTime")String postTime, @Param("postType")int postType,
-                    @Param("postCategoryId")int postCategoryId,@Param("top")int top);
+                    @Param("postScore")int postScore, @Param("postUserId")int postUserId,
+                    @Param("postPhoto")String postPhoto, @Param("highlight")int highlight,
+                    @Param("postTime")String postTime, @Param("postType")int postType,
+                    @Param("postCategoryId")int postCategoryId, @Param("top")int top);
 
     //16-修改帖子信息
-    void updatePost(@Param("postId")int postId, @Param("postTitle")String postTitle, @Param("postContent")String postContent, @Param("postPhoto")String postPhoto,
-                    @Param("highlight")int highlight, @Param("postType")int postType, @Param("top")int top);
+    void updatePost(@Param("postId")int postId, @Param("postTitle")String postTitle, @Param("postContent")String postContent,
+                    @Param("postPhoto")String postPhoto, @Param("highlight")int highlight, @Param("postType")int postType, @Param("top")int top);
 
     //17-需求贴完成需求->postType=2
     void changeDemandPostType(@Param("postId") int postId);
+
+    //18-查找用户发表的所有帖子
+    List<Post> findByPostUserId(@Param("postUserId") int postUserId);
+
 }

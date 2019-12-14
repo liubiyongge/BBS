@@ -24,11 +24,12 @@ public class CommentApi {
 
     //2-创建一条comment
     @RequestMapping("/addComment")
-    public String addComment(@RequestBody Comment comment){
+    public String createComment(@RequestBody Comment comment){
         System.out.println(comment.toString());
         JSONObject result=new JSONObject();
-        result.put("state","add comment successfully!");
-        commentService.addComment(comment);
+        result.put("state",1);
+        commentService.addComment(comment.getCommentUserId(),comment.getCommentToId(),comment.getCommentToUserId(),
+                comment.getCommentContent(),comment.getCommentPostId(),comment.getCommentTime());
         return result.toJSONString();
     }
 
@@ -46,7 +47,7 @@ public class CommentApi {
     public String deleteComment(@RequestParam("commentId") int commentId){
         commentService.deleteComment(commentId);
         JSONObject result=new JSONObject();
-        result.put("state","delete comment successfully!");
+        result.put("state",1);
         return result.toJSONString();
     }
 }
