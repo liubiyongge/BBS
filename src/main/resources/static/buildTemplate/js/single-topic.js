@@ -2,6 +2,8 @@ var post={};
 $(function () {
     var p=GetRequest();
     var $postId=p["postId"];
+    getPost($postId);
+    getAllComments($postId);
    // getPost($postId);
   /*  $(".userHeader").attr("src","images/testHeader2.jpg");
     $(".postScore").text("5");
@@ -29,7 +31,6 @@ $(function () {
      //var $comment;
     //showComment($comment);
     /*权限*/
-   // let $categoryUserId;
     if (user.type==2){
         $(".rewritePost").removeAttr("hidden");
 
@@ -41,7 +42,7 @@ $(function () {
 
         //$(".acceptComment").removeAttr("hidden");
     }
-    else if (user.type==1&&getCategoryUserId(post.postCategoryId)==user.userId){/*是当前栏目的版主*/
+    if (user.type==1&&getCategoryUserId(post.postCategoryId)==user.userId){/*是当前栏目的版主*/
         $(".rewritePost").removeAttr("hidden");
 
         $(".deletePost").removeAttr("hidden");
@@ -50,13 +51,15 @@ $(function () {
 
         $(".deleteComment").removeAttr("hidden");
     }
-    else if (post.postUserId==user.userId){
+     if (post.postUserId==user.userId){
+        $(".rewritePost").removeAttr("hidden");
         $(".acceptComment").removeAttr("hidden");
         $(".deletePost").removeAttr("hidden");
     }
+     if (post.postType==2){
+         $(".acceptComment").attr("hidden","hidden");
+     }
 
-    getPost($postId);
-    getAllComments($postId);
     var comment={};
     comment.commentPostId=$postId;
     comment.commentUserId=user.userId;
@@ -88,8 +91,6 @@ $(function () {
     /*点击 采纳*/
     $(".commentList").delegate(".acceptComment","click",function (evt) {
         let $userId=$(evt.target).parents(".info-bottom").attr("id");
-       // console.log($userId);
-        //acceptComment($userId);
         $(".acceptComment").attr("hidden","hidden");
         $(evt.target).parents(".tt-item").removeClass("answer").addClass("tt-wrapper-success");
     });
@@ -120,6 +121,10 @@ $(function () {
             }
         }
     });
+    /*点击  修改*/
+    $(".rewritePost").click(function () {
+       $(this).attr("href","page-modify-topic.html?userName="+user.userName+"&postId="+post.postId);
+    });
 
 });
 /*获取帖子内容*/
@@ -128,7 +133,7 @@ function getPost($postId) {
         async:false,
        type:"post",
        dataType:"json",
-        url:"/post/postId",
+        url:"/post/getPost",
        data:{
            'postId':$postId,
        } ,
@@ -147,7 +152,7 @@ function getPost($postId) {
             /*3.帖子标题*/
             $(".postTitle").text(data.postTitle);
             /*4.发表时间*/
-            let $postTime=data.postTime;//.split("T")[0]+" "+data.postTime.split("T")[1];
+            let $postTime=data.postTime.substr(0,10);//.split("T")[0]+" "+data.postTime.split("T")[1];
             $(".postTime").text($postTime);
             /*5.所在栏目*/
             let $categoryName=getCategoryName(data.postCategoryId);
@@ -188,22 +193,30 @@ function getPost($postId) {
 function getAllComments($postId) {
     $(".commentList").empty();
     $.ajax({
-        //async:false,
-        type: "get",
+        async:false,
+        type: "post",
         dataType: "json",
-        url: "./sources/comments.json",
+        url: "/post/getComments",
+        data:{
+            'postId':$postId,
+        },
         success:function (data) {
+            console.log(data);
             for (let i=0;i<data.length;i++){
                 showComment(data[i]);
             }
         },
+        error:function () {
+            console.log("获取评论列表失败");
+        }
     });
 }
 /*显示一条回复*/
 function showComment($comment) {
-   // $comment=;
+    console.log($comment);
     let $commentUserHeader=getUserHeader($comment.commentUserId);
     let $commentUserName=getUserName($comment.commentToUserId);
+    let $commentToUserName=getUserName($comment.commentUserId);
     let $commentCommentNum=getCommentCommentNum($comment.commentId);
     let $html=" <div class=\"tt-item answer\">\n" +/*tt-wrapper-success*/
         "              <div class=\"tt-single-topic\" id=\""+$comment.commentId+"\">\n" +
@@ -213,7 +226,7 @@ function showComment($comment) {
         "                      <img src=\"images/"+$commentUserHeader+"\" alt=\"UserHeader\" class=\"defaultUserHeader\">\n" +
         "                    </div>\n" +
         "                    <div class=\"tt-avatar-title\">\n" +
-        "                      <a href=\"javascript:;\">@"+$commentUserName+"</a>\n" +
+        "                      <a href=\"javascript:;\">"+$commentUserName+"@"+$commentToUserName+"</a>\n" +
         "                    </div>\n" +
         "                    <a href=\"javascript:;\" class=\"tt-info-time\">\n" +
         "                      <i class=\"tt-icon\"><svg><use xlink:href=\"#icon-time\"></use></svg></i>"+$comment.commentTime+"\n" +
@@ -223,7 +236,7 @@ function showComment($comment) {
         "                <div class=\"tt-item-description\">\n" +$comment.commentContent+
         "                </div>\n" +
         "                <div class=\"tt-item-info info-bottom\" id='"+$comment.commentUserId+"'>\n" +
-        "                  <a href=\"#\" class=\"tt-icon-btn\">\n" +
+        "                  <a href=\"javascript:;\" class=\"tt-icon-btn\">\n" +
         "                    <i class=\"tt-icon\"><svg class=\"icon\"><use xlink:href=\"#icon-huifu1\"></use></svg></i>\n" +
         "                    <span class=\"tt-text\">"+$commentCommentNum+"</span><!--显示回复数-->\n" +
         "                  </a>\n" +
@@ -253,9 +266,12 @@ function getCommentCommentNum($commentId) {
         async:false,
        type:"post",
         dataType:"json",
-        url:"/post/countCommentsNum",
+        url:"/comment/countComments",
+        data:{
+            'commentId':$commentId,
+        },
         success:function (data) {
-            return $num=data.commentsNum;
+            return $num=data.CommentNumToThisComment;
         },
         error:function () {
             console.log("查询回复数失败");
@@ -308,6 +324,25 @@ function acceptComment($userId) {
             }
         },error:function () {
             alert("操作失败，请重试...");
+        }
+    });
+}
+/*采纳：将postType改为2*/
+function changePostType($postId) {
+    $.ajax({
+       headers:{
+           'token':token,
+       } ,
+        type:"post",
+        dataType:"json",
+        url:"",
+        data:{
+           'postId':$postId
+        },
+        error:function (data) {
+            if (data.state==1){
+
+            }
         }
     });
 }

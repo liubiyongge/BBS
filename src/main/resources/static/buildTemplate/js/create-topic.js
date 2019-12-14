@@ -78,7 +78,6 @@ $(function () {
         }
 
     });
-
 });
 /*获取栏目列表供选择*/
 function getCategoriesOption() {

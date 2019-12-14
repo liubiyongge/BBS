@@ -276,9 +276,7 @@ function getAllPosts()  {
         post.highlight=data[i].highlight;/*是否加精*/
         post.top=data[i].top;/*是否置顶*/
        // console.log("data[i].postTime:" + data[i].postTime);
-        post.postTime=data[i].postTime;
-        //console.log("post.postTime:" + post.postTime);
-        //post.postTime=post.postTime.split("T")[0]+" "+post.postTime.split("T")[1];
+        post.postTime=data[i].postTime.substr(0,10);
         post.postType=data[i].postType;/*是否需求贴*/
         post.icon_1=String.fromCharCode(97+parseInt(post.postCategoryId));/*帖子项中第一个有颜色图标的类名后缀*/
         /*帖子项中第2个有颜色图标的类名后缀*/
