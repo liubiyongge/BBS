@@ -96,5 +96,9 @@ public class PostService {
         highlight, postTime,postType, postCategoryId,top);
     }
 
+    //16-修改帖子信息
+    public void updatePost(int postId){
+        postDao.updatePost(postId);
+    }
 
 }

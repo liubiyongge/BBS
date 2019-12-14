@@ -10,7 +10,7 @@ public class Comment {
     private int commentToUserId;//被回复评论ID
     private String commentContent;
     private int commentPostId;
-    private Timestamp commentTime;
+    private String commentTime;
 
     public int getCommentId() {
         return commentId;
@@ -60,11 +60,11 @@ public class Comment {
         this.commentPostId = commentPostId;
     }
 
-    public Timestamp getCommentTime() {
+    public String getCommentTime() {
         return commentTime;
     }
 
-    public void setCommentTime(Timestamp commentTime) {
+    public void setCommentTime(String commentTime) {
         this.commentTime = commentTime;
     }
 
