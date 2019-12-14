@@ -41,7 +41,6 @@ public class PostApi {
     public String countCommentsNum(@RequestParam(value = "postId")int postId){
         JSONObject result = new JSONObject();
         result.put("commentsNum",postService.countCommentsNum(postId));
-        //System.out.println(postService.countCommentsNum(postId));
         return result.toJSONString();
     }
 
