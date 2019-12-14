@@ -28,21 +28,21 @@ $(function () {
     $(".deleteComment").attr("hidden","hidden");
     /!*积分贴采纳评论*!/
     $(".acceptComment").attr("hidden","hidden");*/
-     //var $comment;
-    //showComment($comment);
+
     /*权限*/
-    if (user.type==2){
-        $(".rewritePost").removeAttr("hidden");
+    /*1.版主或者管理员*/
+    if (user.type==2||(user.type==1&&getCategoryUserId(post.postCategoryId)==user.userId)){
+        $(".rewritePost").removeAttr("hidden");/*作者和管理员可以修改文章*/
 
-        $(".deletePost").removeAttr("hidden");
+        $(".deletePost").removeAttr("hidden");/*删除帖子*/
 
-        $(".toHighlight").removeAttr("hidden");
+        $(".toHighlight").removeAttr("hidden");/*加精*/
 
-        $(".deleteComment").removeAttr("hidden");
+        $(".deleteComment").removeAttr("hidden");/*删除回复*/
 
         //$(".acceptComment").removeAttr("hidden");
     }
-    if (user.type==1&&getCategoryUserId(post.postCategoryId)==user.userId){/*是当前栏目的版主*/
+   /* if (user.type==1&&getCategoryUserId(post.postCategoryId)==user.userId){/!*是当前栏目的版主*!/
         $(".rewritePost").removeAttr("hidden");
 
         $(".deletePost").removeAttr("hidden");
@@ -50,14 +50,15 @@ $(function () {
         $(".toHighlight").removeAttr("hidden");
 
         $(".deleteComment").removeAttr("hidden");
-    }
-     if (post.postUserId==user.userId){
+    }*/
+
+     if (post.postUserId==user.userId){/*作者本人*/
         $(".rewritePost").removeAttr("hidden");
-        $(".acceptComment").removeAttr("hidden");
+        $(".acceptComment").removeAttr("hidden");/*采纳答案*/
         $(".deletePost").removeAttr("hidden");
     }
      if (post.postType==2){
-         $(".acceptComment").attr("hidden","hidden");
+         $(".acceptComment").attr("hidden","hidden");/*帖子已解决需求，不能再采纳其他的答案*/
      }
 
     var comment={};
@@ -67,33 +68,9 @@ $(function () {
     let $commentToId;
     comment.commentToId=$commentToId;/*默认为空*/
     /*
-    1.如果评论的是别人的回复，那么commentToId就是一个commentId且commentToUserId是发表那条回复的用户
-    2.如果(默认)评论的是帖子，那么commentToId为空，commentToUserId就是当前帖子的发表者
+    1.如果评论的是  别人的回复(x) ，那么commentToId就是x的发表者，且commentToUserId是发表x的用户
+    2.如果评论的是帖子(默认)，那么commentToId为空，commentToUserId就是当前帖子的发表者
     */
-
-   /*点击设置为精华帖*/
-    $(".toHighlight").click(function () {
-        toHighlight($postId);
-        getPost($postId);
-        $(this).attr("hidden","hidden");
-    });
-    /*点击删除此回复*/
-    $(".commentList").delegate(".deleteComment","click",function (evt) {
-        let $id=$(evt.target).parents(".tt-single-topic").attr("id");
-        let $commentId=$id.substr(1);
-        //deleteComment($commentId,$postId);
-    });
-    /*点击删除此帖子*/
-    $(".deletePost").click(function () {
-        deletePost($postId);
-        window.location.href="page-categories-single.html?userName="+user.userName+"&categoryId="+post.postCategoryId;
-    });
-    /*点击 采纳*/
-    $(".commentList").delegate(".acceptComment","click",function (evt) {
-        let $userId=$(evt.target).parents(".info-bottom").attr("id");
-        $(".acceptComment").attr("hidden","hidden");
-        $(evt.target).parents(".tt-item").removeClass("answer").addClass("tt-wrapper-success");
-    });
     /*点击 回复*/
     /*(1).点击帖子底下的回复*/
     $(".toComment").click(function () {
@@ -105,6 +82,36 @@ $(function () {
         //console.log(comment.commentToUserId);
         comment.commentToId=$(evt.target).parents(".tt-single-topic").attr("id");
         //console.log(comment.commentToId);
+    });
+   /*点击设置为精华帖*/
+    $(".toHighlight").click(function () {
+        toHighlight($postId);
+        getPost($postId);
+        $(this).attr("hidden","hidden");
+    });
+    /*点击删除此回复*/
+    $(".commentList").delegate(".deleteComment","click",function (evt) {
+        let $id=$(evt.target).parents(".tt-single-topic").attr("id");
+        let $commentId=$id.substr(1);
+        deleteComment($commentId,$postId);
+    });
+    /*点击删除此帖子*/
+    $(".deletePost").click(function () {
+        deletePost($postId);
+        window.location.href="page-categories-single.html?userName="+user.userName+"&categoryId="+post.postCategoryId;
+    });
+    /*点击 采纳*/
+    $(".commentList").delegate(".acceptComment","click",function (evt) {
+        let $userId=$(evt.target).parents(".info-bottom").attr("id");
+        $(".acceptComment").attr("hidden","hidden");
+       /* let $addScore=acceptComment($userId);
+        let $changePostType=changePostType(post.postId);
+        if ($addScore==1&&$changePostType==1){
+            $(evt.target).parents(".tt-item").removeClass("answer").addClass("tt-wrapper-success");
+            alert("采纳成功，积分已转入回复者账号中");
+        }else {
+            alert("操作失败，请重试");
+        }*/
     });
     /*点击发送*/
     $(".sendComment").click(function () {
@@ -118,6 +125,7 @@ $(function () {
                 alert("内容不能为空");
             }else {
                 console.log(comment);
+                sendComment(comment);
             }
         }
     });
@@ -127,16 +135,16 @@ $(function () {
     });
 
 });
-/*获取帖子内容*/
+/*根据postId获取帖子内容*/
 function getPost($postId) {
     $.ajax({
         async:false,
-       type:"post",
-       dataType:"json",
+        type:"post",
+        dataType:"json",
         url:"/post/getPost",
-       data:{
-           'postId':$postId,
-       } ,
+        data:{
+            'postId':$postId,
+        } ,
         success:function (data) {
             console.log(data);
             post=data;
@@ -174,7 +182,7 @@ function getPost($postId) {
             let $commentNum=getCommentsNum(data.postId);
             $(".postCommentNum").text($commentNum);
             /*9.帖子图片*/
-           // console.log(data.postPhoto);
+            // console.log(data.postPhoto);
             if (data.postPhoto==null||typeof (data.postPhoto)=="undefined"||data.postPhoto==="undefined"){
                 $(".postPhoto").attr("src","images/testHeader1.jpg");
             }else {
@@ -287,7 +295,7 @@ function deleteComment($comment,$postId) {
         },
         type:"post",
         dataType:"json",
-        url:"",
+        url:"/comment/delete",
         data:{
             'commentId':$comment,
         },success:function (data) {
@@ -306,45 +314,66 @@ function deleteComment($comment,$postId) {
 }
 /*采纳：给此回复的用户追加积分*/
 function acceptComment($userId) {
+    let $state=0;
     $.ajax({
        headers: {
            'token':token,
        } ,
+        async:false,
         type:"post",
         dataType:"json",
-        url:"",
+        url:"User/addCredit",
         data:{
            'userId':$userId,
+            'score':post.postScore,
         },
         success:function (data) {
             if (data.state==1){
-                alert("采纳成功，积分已到对方的账号中");
+               // alert("采纳成功，积分已到对方的账号中");
+                $state=1;
+                return $state;
             }else {
-                alert("操作失败,请重试");
+                //alert("操作失败,请重试");
+                $state=0;
+                return $state;
             }
         },error:function () {
-            alert("操作失败，请重试...");
+            //alert("操作失败，请重试...");
+            $state=0;
+            return $state;
         }
     });
+    return $state;
 }
 /*采纳：将postType改为2*/
 function changePostType($postId) {
+    let $state=0;
     $.ajax({
        headers:{
            'token':token,
        } ,
+        async:false,
         type:"post",
         dataType:"json",
         url:"",
         data:{
            'postId':$postId
         },
-        error:function (data) {
+        success:function (data) {
             if (data.state==1){
-
+                $state=1;
+                return $state;
+            }else {
+                $state=0;
+                return $state;
             }
+        },
+        error:function () {
+           $state=0;
+           return $state;
         }
     });
+    return $state;
 }
 /*发表评论*/
 function  sendComment($comment) {

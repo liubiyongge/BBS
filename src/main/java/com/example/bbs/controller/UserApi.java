@@ -129,7 +129,7 @@ public class UserApi {
     public String addCredit(@RequestParam("userId")int userId){
         userService.addCredit(userId);
         JSONObject result=new JSONObject();
-        result.put("state","add credit successfully!");
+        result.put("state",1);
         return result.toJSONString();
     }
 }

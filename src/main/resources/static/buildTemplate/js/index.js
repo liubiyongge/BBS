@@ -727,6 +727,65 @@ function getCategoryUserId($categoryId) {
   return $categoryUserId;
 }
 
+/*获取栏目列表供选择*/
+function getCategoriesOption() {
+  $(".category-option-list").empty();
+  $.ajax({
+    cache:false,
+    async:false,
+    url:"http://localhost:8080/category/findAll",
+    type:"post",
+    dataType:"json",
+    success:function (data) {
+      //console.log(data);
+      for (let i=0;i<data.length;i++){
+        let $html="<div class=\"col-4 col-lg-3 col-xl-2 category-option\">\n" +
+            "                                <a href=\"#\" class=\"tt-button-icon\">\n" +
+            "                                    <span class=\"tt-icon\">\n" +
+            "                                        <svg>\n" +
+            "                                            <use xlink:href=\"#icon-discussion\"></use>\n" +
+            "                                        </svg>\n" +
+            "                                    </span>\n" +
+            "                                    <span id=\"a"+data[i].categoryId+"\" class=\"tt-text categoryId\">"+data[i].categoryName+"</span>\n" +
+            "                                </a>\n" +
+            "                            </div>";
+        $(".category-option-list").append($html);
+      }
+    },
+    error:function () {
+      alert("加载栏目信息失败...");
+    },
+  });
+}
+/*上传图片到服务器*/
+function uploadImg($img) {
+  var formData=new FormData();
+  formData.append("file",$img);
+  $.ajax({
+    type:"post",
+    url:"/upload/images",
+    data:formData,
+    contentType: false,
+    processData: false,
+    dataType:"json",
+    success:function(data){
+      if (data==1){
+        $(".begin-upload").text("重新上传");
+        let $html=" <div class=\"photoArea\">\n" +
+            "                                <img src=\"\" alt=\"\" class=\"showPhoto\">\n" +
+            "                            </div>";
+        $(".load-and-place-photo").append($html);
+        let $imgURL=window.URL.createObjectURL($img);
+        $(".showPhoto").attr("src",$imgURL);
+        alert("上传成功");
+      }
+    },
+    error:function (msg) {
+      alert("上传失败，请重新上传");
+    }
+  });
+}
+
 
 
 

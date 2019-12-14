@@ -1,9 +1,16 @@
 var post={};
 $(function () {
-   var p=GetRequest();
-    console.log(user.userName);
+    var p=GetRequest();
+    var $postId=p["postId"];
     var $userName=p["userName"];
+    /*获取修改前的信息*/
+    getPost($postId);
+
+    $("#inputTopicTitle").val(post.postTitle);
+    $("#postContent").val(post.postContent);
+    /*获取栏目列表*/
     getCategoriesOption();
+
     /*不选择积分贴时不允许输入积分*/
     $(".write-credit").mouseenter(function () {
         post.postType=$(".post-type").find("option:selected").val();
@@ -30,16 +37,18 @@ $(function () {
         if (typeof ($img)=="undefined"){
             alert("请选择图片");
         }else {
-          uploadImg($img);
-          post.postPhoto=$img.name;
-           // console.log(post.postPhoto);
+            uploadImg($img);
+            post.postPhoto=$img.name;
+            // console.log(post.postPhoto);
         }
     });
 
-   /*点击 发表 按钮时检测各项输入的内容*/
-    $(".create-topic").click(function () {
+    /*点击 保存修改 按钮*/
+    $(".modify-topic").click(function () {
+        /*postId*/
+        post.postId=$postId;
         /*获取标题*/
-       post.postTitle=$("#inputTopicTitle").val();
+        post.postTitle=$("#inputTopicTitle").val();
         //console.log("post.postTitle：" + post.postTitle);
         /*获取帖子正文内容*/
         post.postContent=$("#postContent").val();
@@ -69,33 +78,58 @@ $(function () {
             }
             post.postCategoryId=parseInt(post.postCategoryId);
             post.postType=parseInt(post.postType);
-            post.highlight=0;
-            post.top=0;
+           // post.highlight=0;
+            //post.top=0;
             post.postUserId=user.userId;
-           // post.postPhoto=undefined;
+            // post.postPhoto=undefined;
             post.postTime=getTime();
-            createPost(post);
+            //createPost(post);
+            console.log(post);
         }
-
     });
 });
-
-/*发表帖子*/
-function createPost(post) {
-    // console.log(post);
-    //console.log(token);
-
+/*获取原来的帖子*/
+function getPost($postId) {
     $.ajax({
-        //cache:false,
-        //async:false,
+        async: false,
+        type: "post",
+        dataType: "json",
+        url: "/post/getPost",
+        data: {
+            'postId': $postId,
+        },
+        success:function (data) {
+           // console.log(data);
+            //return data;
+            post.postId=data.postId;
+            post.postTitle=data.postTitle;
+            post.postContent=data.postContent;
+            post.postScore=data.postScore;
+            post.postUserId=data.postUserId;
+            post.postPhoto=data.postPhoto;
+            post.highlight=data.highlight;
+            post.postTime=data.postTime;
+            post.postType=data.postType;
+            post.top=data.top;
+            post.postCategoryId=data.postCategoryId;
+        },
+        error:function () {
+            console.log("获取帖子信息失败");
+        },
+    });
+}
+/*修改帖子*/
+function modifyPost(post) {
+    $.ajax({
         type: "post",
         dataType: "json",
         headers:{
             'token':token,
         },
-        url: "/User/creatPost",
+        url: "",
         contentType: "application/json",
         data:JSON.stringify({
+            "postId":post.postId,
             "postTitle":post.postTitle,
             "postContent":post.postContent,
             "postScore":post.postScore,
@@ -111,10 +145,10 @@ function createPost(post) {
             //console.log(result);
             console.log(result.state+typeof(result.state));
             if (result.state===1){
-                alert("发表成功");
-                window.location.href="page-categories-single.html?userName="+user.userName+"&categoryId="+post.postCategoryId;
+                alert("修改成功");
+                window.location.href="page-single-topic.html?userName="+user.userName+"&postId="+post.postId;
             }else {
-                alert("发表失败,请重试...");
+                alert("修改失败,请重试...");
             }
         },
         error:function () {
@@ -122,4 +156,3 @@ function createPost(post) {
         },
     });
 }
-
