@@ -22,7 +22,7 @@ public interface CommentDao {
 
     void addComment(@Param("commentUserId")int commentUserId, @Param("commentToId")int commentToId,
                     @Param("commentToUserId")int commentToUserId, @Param("commentContent")String commentContent,
-                   @Param("commentPostId")int commentPostId, @Param("commentTime")String commentTime);
+                    @Param("commentPostId")int commentPostId, @Param("commentTime")String commentTime);
 
     //3-返回当前回复的被回复数
     int countCommentNumToThisComment(@Param("commentId") int commentId);

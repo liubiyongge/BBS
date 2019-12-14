@@ -7,6 +7,7 @@ import com.example.bbs.entity.Post;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -92,14 +93,18 @@ public class PostService {
     }
 
     /*15-创建帖子*/
-    public void createPost(String postTitle, String postContent, int postUserId, String postPhoto,
-                          int highlight, String postTime,int postType,int postCategoryId,int top){
-        postDao.createPost(postTitle,postContent, postUserId, postPhoto, highlight, postTime,postType, postCategoryId,top);
+    public void createPost(@Param("postTitle")String postTitle, @Param("postContent")String postContent,
+                           @Param("postScore")int postScore, @Param("postUserId")int postUserId,
+                           @Param("postPhoto")String postPhoto, @Param("highlight")int highlight,
+                           @Param("postTime")String postTime, @Param("postType")int postType,
+                           @Param("postCategoryId")int postCategoryId, @Param("top")int top){
+        postDao.createPost(postTitle,postContent, postScore,postUserId, postPhoto, highlight, postTime,postType, postCategoryId,top);
     }
 
     //16-修改帖子信息
-    public void updatePost(int postId, String postTitle, String postContent,String postPhoto,
-                           int highlight, int postType, int top){
+    public void updatePost(@Param("postId") int postId, @Param("postTitle") String postTitle,
+                           @Param("postContent") String postContent, @Param("postPhoto") String postPhoto,
+                           @Param("highlight") int highlight, @Param("postType")int postType, @Param("top") int top){
         postDao.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top);
     }
 
