@@ -48,13 +48,6 @@ FROM `comment`
 ))
     </select>
 
-    <select id="getAllComments" resultType="Comment">
-        (select commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
-        FROM `comment`
-        WHERE commentPostId=#{postId}
-        )
-    </select>
-
     <delete id="deletePostByPostId">
         delete from post where postId=#{postId}
     </delete>
@@ -92,6 +85,4 @@ FROM `comment`
     <select id="countNormalPost" resultType="int">
         select count(*) from post where postType = 0 and top = 0 and highlight = 0
     </select>
-
-
 </mapper>

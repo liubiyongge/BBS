@@ -60,4 +60,6 @@ public interface PostDao {
                     @Param("highlight")int highlight, @Param("postTime")String postTime,@Param("postType")int postType,
                     @Param("postCategoryId")int postCategoryId,@Param("top")int top);
 
+    //16-修改帖子信息
+    void updatePost();
 }
