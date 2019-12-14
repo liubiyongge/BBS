@@ -1,7 +1,5 @@
 package com.example.bbs.entity;
 
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class Comment {
     private int commentId;//回复ID

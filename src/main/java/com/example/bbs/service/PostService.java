@@ -101,4 +101,8 @@ public class PostService {
         postDao.updatePost(postId);
     }
 
+    //17-需求贴完成需求->postType=2
+    public void changeDemandPostType(int postId){
+        postDao.changeDemandPostType(postId);
+    }
 }
