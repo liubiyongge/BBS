@@ -100,19 +100,6 @@ FROM `comment`
     <select id="countNormalPost" resultType="int">
         select count(*) from post where postType = 0 and top = 0 and highlight = 0
     </select>
-    <select id="findByPostUserId" resultType="Post">
-        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
-  FROM `comment`,`post`
-  WHERE commentPostId=postId and postUserId=${postUserId}
-  GROUP BY commentPostId
-  ORDER BY COUNT(commentId) DESC limit 999999)
-  union
-  (SELECT *
-  FROM `post` WHERE postId not in(
-  SELECT commentPostId
-  FROM `comment`
-  ))
-    </select>
 
     <!--//14-根据postId返回当前帖子的回复列表-->
     <select id="getAllComments" resultType="Comment">
@@ -121,8 +108,6 @@ FROM `comment`
         WHERE commentPostId=#{postId}
         )
     </select>
-
-
     <!--/*15-创建帖子*/-->
     <insert id="createPost">
         INSERT into `post`(postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId)
@@ -141,4 +126,19 @@ FROM `comment`
     <update id="changeDemandPostType">
         update `post` set postType=2 where postId=#{postId}
     </update>
+
+    <!--//18-查找用户发表的所有帖子-->
+    <select id="findByPostUserId" resultType="Post">
+        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
+  FROM `comment`,`post`
+  WHERE commentPostId=postId and postUserId=${postUserId}
+  GROUP BY commentPostId
+  ORDER BY COUNT(commentId) DESC limit 999999)
+  union
+  (SELECT *
+  FROM `post` WHERE postId not in(
+  SELECT commentPostId
+  FROM `comment`
+  ))
+    </select>
 </mapper>

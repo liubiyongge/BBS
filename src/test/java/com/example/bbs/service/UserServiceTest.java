@@ -23,8 +23,4 @@ public class UserServiceTest {
         System.out.println(user.getUserId()+" "+user.getPassword());
     }
 
-    @Test
-    public void addCredit(){
-        userDao.addCredit(1);
-    }
 }

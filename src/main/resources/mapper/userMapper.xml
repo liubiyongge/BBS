@@ -51,8 +51,8 @@
         where userId = #{newUser.userId}
     </update>
 
-    <update id="addCredit" parameterType="int">
-        update `user` set credit=credit+1 where userId=#{userId}
+    <update id="addCredit" >
+        update `user` set credit=credit+#{postScore} where userId=#{userId}
     </update>
 </mapper>
 

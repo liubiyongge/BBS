@@ -5,6 +5,7 @@ import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import com.example.bbs.service.PostService;
 
+import javafx.geometry.Pos;
 import org.apache.ibatis.annotations.Param;
 import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,30 +73,24 @@ public class PostApi {
 
     //15-创建帖子
     @RequestMapping("/create")
-    public void createPost(String postTitle,String postContent, int postScore, int postUserId, String postPhoto,
-                           int highlight, String postTime,int postType, int postCategoryId,int top){
-
+    public String createPost(@RequestBody Post post){
+        System.out.println(post.toString());
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        postService.createPost(post.getPostTitle(),post.getPostContent(),post.getPostScore(),post.getPostUserId(),
+                post.getPostPhoto(),post.getHighlight(),post.getPostTime(),post.getPostType(),post.getPostCategoryId(),post.getTop());
+        return result.toJSONString();
     }
 
     //16-修改帖子信息
     @RequestMapping("/update")
-    public String updatePost(@RequestParam("postId")int postId, @RequestParam("postTitle")String postTitle,
-                             @RequestParam("postContent")String postContent, @RequestParam("postPhoto")String postPhoto,
-                                     @RequestParam("highlight")int highlight, @RequestParam("postType")int postType, @RequestParam("top")int top){
+    public String updatePost(@RequestBody Post post){
         System.out.println("hhh");
-        System.out.println(postId);
-        System.out.println(postTitle);
-        System.out.println(postContent);
-        System.out.println(postPhoto);
-        System.out.println(highlight);
-        System.out.println(postType);
-        System.out.println(top);
-        postService.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top);
+        postService.updatePost(post.getPostId(), post.getPostTitle(),post.getPostContent(),post.getPostPhoto(),post.getHighlight(),post.getPostType(),post.getTop());
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
     }
-
     //17-需求贴完成需求->postType=2
     @RequestMapping("/changeDemand")
     public String changeDemandPostType(@RequestParam("postId") int postId){
