@@ -45,7 +45,7 @@
 
 发帖时间：postTime-datetime()-NOT NULL
 
-帖子类别：postType-integer-NOT NULL,default(0)  0:普通贴 1:需求贴 
+帖子类别：postType-integer-NOT NULL,default(0)  0:普通贴 1:需求贴 2:需求贴已获得需求
 
 是否置顶：top-integer-NOT NULL,default(0)  0:不置顶 1:置顶 
 
