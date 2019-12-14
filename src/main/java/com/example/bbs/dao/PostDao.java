@@ -58,12 +58,13 @@ public interface PostDao {
 
     /*15-创建帖子*/
     void createPost(@Param("postTitle")String postTitle, @Param("postContent")String postContent,
-                    @Param("postScore")int postScore, @Param("postUserId")int postUserId, @Param("postPhoto")String postPhoto,
-                    @Param("highlight")int highlight, @Param("postTime")String postTime,@Param("postType")int postType,
+                    @Param("postUserId")int postUserId, @Param("postPhoto")String postPhoto,
+                    @Param("highlight")int highlight, @Param("postTime")String postTime, @Param("postType")int postType,
                     @Param("postCategoryId")int postCategoryId,@Param("top")int top);
 
     //16-修改帖子信息
-    void updatePost(@Param("postId")int postId);
+    void updatePost(@Param("postId")int postId, @Param("postTitle")String postTitle, @Param("postContent")String postContent, @Param("postPhoto")String postPhoto,
+                    @Param("highlight")int highlight, @Param("postType")int postType, @Param("top")int top);
 
     //17-需求贴完成需求->postType=2
     void changeDemandPostType(@Param("postId") int postId);

@@ -5,7 +5,10 @@ import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import com.example.bbs.service.PostService;
 
+import org.apache.ibatis.annotations.Param;
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -76,16 +79,29 @@ public class PostApi {
 
     //16-修改帖子信息
     @RequestMapping("/update")
-    public void updatePost(int postId){
-
+    public String updatePost(@RequestParam("postId")int postId, @RequestParam("postTitle")String postTitle,
+                             @RequestParam("postContent")String postContent, @RequestParam("postPhoto")String postPhoto,
+                                     @RequestParam("highlight")int highlight, @RequestParam("postType")int postType, @RequestParam("top")int top){
+        System.out.println("hhh");
+        System.out.println(postId);
+        System.out.println(postTitle);
+        System.out.println(postContent);
+        System.out.println(postPhoto);
+        System.out.println(highlight);
+        System.out.println(postType);
+        System.out.println(top);
+        postService.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top);
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        return result.toJSONString();
     }
 
     //17-需求贴完成需求->postType=2
     @RequestMapping("/changeDemand")
-    public String changeDemandPostType(int postId){
+    public String changeDemandPostType(@RequestParam("postId") int postId){
         postService.changeDemandPostType(postId);
         JSONObject result=new JSONObject();
-        result.put("state","change demand post type successfully!");
+        result.put("state",1);
         return result.toJSONString();
     }
 }

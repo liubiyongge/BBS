@@ -92,17 +92,15 @@ public class PostService {
     }
 
     /*15-创建帖子*/
-    public void createPost(String postTitle,String postContent,
-                           int postScore, int postUserId, String postPhoto,
-                           int highlight, String postTime,int postType,
-                           int postCategoryId,int top){
-        postDao.createPost(postTitle,postContent, postScore, postUserId, postPhoto,
-        highlight, postTime,postType, postCategoryId,top);
+    public void createPost(String postTitle, String postContent, int postUserId, String postPhoto,
+                          int highlight, String postTime,int postType,int postCategoryId,int top){
+        postDao.createPost(postTitle,postContent, postUserId, postPhoto, highlight, postTime,postType, postCategoryId,top);
     }
 
     //16-修改帖子信息
-    public void updatePost(int postId){
-        postDao.updatePost(postId);
+    public void updatePost(int postId, String postTitle, String postContent,String postPhoto,
+                           int highlight, int postType, int top){
+        postDao.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top);
     }
 
     //17-需求贴完成需求->postType=2

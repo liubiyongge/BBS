@@ -123,8 +123,6 @@ public class UserApi {
         */
         //System.out.print("在这里.....");
         //System.out.println(post.toString());
-        postService.createPost(post.getPostTitle(),post.getPostContent(),post.getPostScore(),post.getPostUserId(),post.getPostPhoto(),
-                post.getHighlight(),post.getPostTime(),post.getPostType(),post.getPostCategoryId(),post.getTop());
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();

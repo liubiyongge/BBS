@@ -122,6 +122,11 @@ FROM `comment`
 
 
     <!--//16-修改帖子信息-->
+    <update id="updatePost" >
+        update `post` set postTitle=${postTitle},postContent=${postContent},postPhoto=${postPhoto},highlight=${highlight},
+        postType=${postType},top=${top}
+        where postId=${postId}
+    </update>
 
     <!--//17-需求贴完成需求->postType=2-->
     <update id="changeDemandPostType">
