@@ -104,8 +104,9 @@ public class PostService {
     //16-修改帖子信息
     public void updatePost(@Param("postId") int postId, @Param("postTitle") String postTitle,
                            @Param("postContent") String postContent, @Param("postPhoto") String postPhoto,
-                           @Param("highlight") int highlight, @Param("postType")int postType, @Param("top") int top){
-        postDao.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top);
+                           @Param("highlight") int highlight, @Param("postType")int postType, @Param("top") int top,
+                           @Param("postCategoryId")int postCategoryId,@Param("postScore")int postScore){
+        postDao.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top,postCategoryId,postScore);
     }
 
     //17-需求贴完成需求->postType=2

@@ -83,8 +83,8 @@ $(function () {
             post.postUserId=user.userId;
             // post.postPhoto=undefined;
             post.postTime=getTime();
-            //createPost(post);
-            console.log(post);
+           modifyPost(post);
+            //console.log(post);
         }
     });
 });
@@ -126,7 +126,7 @@ function modifyPost(post) {
         headers:{
             'token':token,
         },
-        url: "",
+        url: "/post/update",
         contentType: "application/json",
         data:JSON.stringify({
             "postId":post.postId,

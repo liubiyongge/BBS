@@ -63,7 +63,8 @@ $(function () {
   });
   /*点击"+"发表新帖子*/
   $(".tt-btn-create-topic").click(function () {
-    if (typeof (user.userId)=="undefined"||user.userId==="undefined"){
+    if (typeof (user.userId)=="undefined"||user.userId==="undefined"||token==null){
+      alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
       let page="page-create-topic.html?";
