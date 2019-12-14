@@ -92,4 +92,9 @@ public class PostServiceTest {
     }
 
 
+    @Test
+    public void testGetAllComments() {
+        //List<Comment> list=postService.getAllComments(6);
+        //System.out.print();
+    }
 }

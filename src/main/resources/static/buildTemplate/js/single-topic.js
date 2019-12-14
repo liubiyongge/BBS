@@ -60,7 +60,9 @@ $(function () {
      if (post.postType==2){
          $(".acceptComment").attr("hidden","hidden");/*帖子已解决需求，不能再采纳其他的答案*/
      }
-
+     if (post.highlight==1){
+         $(".toHighlight").attr("hidden","hidden");
+     }
     var comment={};
     comment.commentPostId=$postId;
     comment.commentUserId=user.userId;
@@ -92,7 +94,8 @@ $(function () {
     /*点击删除此回复*/
     $(".commentList").delegate(".deleteComment","click",function (evt) {
         let $id=$(evt.target).parents(".tt-single-topic").attr("id");
-        let $commentId=$id.substr(1);
+        let $commentId=$id/*.substr(1)*/;
+        console.log("id:"+$commentId);
         deleteComment($commentId,$postId);
     });
     /*点击删除此帖子*/
@@ -104,14 +107,14 @@ $(function () {
     $(".commentList").delegate(".acceptComment","click",function (evt) {
         let $userId=$(evt.target).parents(".info-bottom").attr("id");
         $(".acceptComment").attr("hidden","hidden");
-       /* let $addScore=acceptComment($userId);
+        let $addScore=acceptComment($userId);
         let $changePostType=changePostType(post.postId);
         if ($addScore==1&&$changePostType==1){
             $(evt.target).parents(".tt-item").removeClass("answer").addClass("tt-wrapper-success");
             alert("采纳成功，积分已转入回复者账号中");
         }else {
             alert("操作失败，请重试");
-        }*/
+        }
     });
     /*点击发送*/
     $(".sendComment").click(function () {
@@ -223,8 +226,8 @@ function getAllComments($postId) {
 function showComment($comment) {
     console.log($comment);
     let $commentUserHeader=getUserHeader($comment.commentUserId);
-    let $commentUserName=getUserName($comment.commentToUserId);
-    let $commentToUserName=getUserName($comment.commentUserId);
+    let $commentUserName=getUserName($comment.commentUserId);
+    let $commentToUserName=getUserName($comment.commentToUserId);
     let $commentCommentNum=getCommentCommentNum($comment.commentId);
     let $html=" <div class=\"tt-item answer\">\n" +/*tt-wrapper-success*/
         "              <div class=\"tt-single-topic\" id=\""+$comment.commentId+"\">\n" +
@@ -288,7 +291,7 @@ function getCommentCommentNum($commentId) {
     return $num;
 }
 /*删除回复*/
-function deleteComment($comment,$postId) {
+function deleteComment($commentId,$postId) {
     $.ajax({
         headers:{
             'token':token,
@@ -297,12 +300,13 @@ function deleteComment($comment,$postId) {
         dataType:"json",
         url:"/comment/delete",
         data:{
-            'commentId':$comment,
+            'commentId':$commentId,
         },success:function (data) {
+            console.log(data);
             if (data.state==1){
                 alert("删除成功");
                 /*刷新页面*/
-                getAllComments($postId);
+                window.location.reload();
             }else {
                 alert("操作失败，请重试");
             }
@@ -395,6 +399,7 @@ function  sendComment($comment) {
             "commentTime":$comment.commentTime,
             }),
         success:function (data) {
+            console.log(data);
             if (data.state==1){
                 alert("评论成功！");
                 window.location.reload();
