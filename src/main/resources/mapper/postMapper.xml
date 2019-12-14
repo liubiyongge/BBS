@@ -114,14 +114,6 @@ FROM `comment`
   ))
     </select>
 
-    <!--//14-根据postId返回当前帖子的回复列表-->
-    <select id="getAllComments" resultType="Comment">
-        (select commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
-        FROM `comment`
-        WHERE commentPostId=#{postId}
-        )
-    </select>
-
     <!--/*15-创建帖子*/-->
     <insert id="createPost">
         INSERT into `post`(postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId)
