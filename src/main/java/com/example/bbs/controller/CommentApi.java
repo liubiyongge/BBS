@@ -24,9 +24,7 @@ public class CommentApi {
 
     //2-创建一条comment
     @RequestMapping("/addComment")
-    public String createComment(@RequestBody Comment comment){
-        System.out.println(comment.toString());
-        comment.setCommentTime(new Timestamp(System.currentTimeMillis()));
+    public String addComment(@RequestBody Comment comment){
         System.out.println(comment.toString());
         JSONObject result=new JSONObject();
         result.put("state","add comment successfully!");

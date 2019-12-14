@@ -12,10 +12,9 @@
     </select>
 
     <!--2-创建一条comment-->
-    <insert id="addComment" >-->
+    <insert id="addComment" parameterType="com.example.bbs.entity.Comment">
         insert into `comment`(commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime)
-        values(#{comment.commentId},#{comment.commentUserId},#{comment.commentToId},#{comment.commentToUserId},
-        #{comment.commentContent},#{comment.commentPostId},#{comment.commentTime})
+        values(${comment.commentId},${comment.commentUserId},${comment.commentToId},${comment.commentToUserId},${comment.commentContent},${comment.commentPostId},${comment.commentTime})
     </insert>
 
     <!--3-返回当前回复的被回复数-->
