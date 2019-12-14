@@ -2,8 +2,10 @@ package com.example.bbs.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.bbs.dao.PostDao;
 import com.example.bbs.entity.Category;
 import com.example.bbs.entity.LoginUser;
+import com.example.bbs.entity.PostForAdmin;
 import com.example.bbs.entity.User;
 import com.example.bbs.dao.AdminDao;
 import com.example.bbs.service.CategoryService;
@@ -31,7 +33,10 @@ public class AdminApi {
     private AdminDao adminDao;
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
+
+    @Autowired
+    private PostDao postDao;
 
     @Autowired
     private TokenService tokenService;
@@ -44,6 +49,8 @@ public class AdminApi {
 
     @Autowired
     AdminService adminService;
+
+
 
     @RequestMapping("/adminLogin")
     public Object login(@RequestBody LoginUser loginUser){
@@ -160,6 +167,12 @@ public class AdminApi {
         }
     }
 
+    @RequestMapping("/getAllPost")
+    public List<PostForAdmin> getAllPost(){
+        return postDao.getAllPost();
+    }
 
+    @RequestMapping("/deletePost/{id}")
+    public void deletePost(@PathVariable int id){postDao.deletePostByPostId(id);}
 }
 

@@ -2,6 +2,7 @@ package com.example.bbs.dao;
 
 import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
+import com.example.bbs.entity.PostForAdmin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -71,4 +72,5 @@ public interface PostDao {
     //18-查找用户发表的所有帖子
     List<Post> findByPostUserId(@Param("postUserId") int postUserId);
 
+    List<PostForAdmin> getAllPost();
 }
