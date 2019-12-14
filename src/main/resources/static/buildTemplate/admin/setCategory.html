@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        select{
+            margin: 0 auto;
+            width:400px;
+            height: 300px;
+            overflow: scroll;
+        }
+        option{
+            text-align: left;
+        }
+        table{
+            margin: 0 auto;
+        }
+    </style>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/googleapicss.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">BBS后台管理</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="admin.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>信息中心</span></a>
+        </li>
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            管理模块
+        </div>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" id="categoryManage" href="categoryManage.html">
+                <i class="fas fa-fw fa-layer-group"></i>
+                <span>栏目管理</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="userManage" href="userManage.html">
+                <i class="fas fa-fw fa-user-tie"></i>
+                <span>用户管理</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">管理员</span>
+                            <i class="fas fa-fw fa-user-cog"></i>
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                个人中心
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="login.html">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                退出
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+            </nav>
+            <table>
+                <tr>
+                    <td>
+                        栏目名称：
+                    </td>
+                    <td>
+                        <input type="text" id="categoryName">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 40px;">
+                        当前栏目版主
+                    </td>
+                    <td id="webMaster"style="color:black">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: auto" colspan="2">
+                        <select multiple id="select">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="set">确认修改</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-3.1.1.min.js"></script>
+<script>
+    $(document).ready(
+        function () {
+            function getUrlParam(name)
+            {
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                if (r!=null) return unescape(r[2]); return null; //返回参数值
+            }
+            var Param=getUrlParam("categoryId");
+            var token=localStorage.getItem("bbsNCU");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/admin/getCategory',
+                contentType: "application/json",
+                headers:{
+                    "token":token
+                },
+                data:JSON.stringify({
+                    "categoryId":Param
+                }),
+                success: function (jsonObject,result) {
+                    console.log(jsonObject);
+                    $("#categoryName").attr("value",jsonObject.categoryName);
+                    $("#webMaster").html(jsonObject.categoryUserId+"&nbsp&nbsp&nbsp&nbsp"+jsonObject.userName);
+                }
+            })
+             $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/admin/findAllUser',
+                contentType: "application/json",
+                headers:{
+                    "token":token
+                },
+                success: function (jsonArray,result) {
+                    console.log(result);
+                    console.log(jsonArray);
+                    for(var i=0;i<jsonArray.length;i++){
+                        var UserId=jsonArray[i].UserId;
+                        var UserName=jsonArray[i].UserName;
+                        var select=document.getElementById("select");
+                        var option=document.createElement("option");
+                        option.innerHTML=UserId+"&nbsp&nbsp&nbsp&nbsp"+UserName;
+                        select.appendChild(option);
+                    }
+                }
+            })
+            $(".set").click(function () {
+                var c=0;
+                var op;
+                $("#select option:selected").each(function(){
+                    c=c+1; //版主必须唯一
+                    op=$(this).text();
+                });
+                var rs=parseInt(op);
+                if(c>1) {
+                    alert("只能选择一个版主！");
+                }
+                else{
+                    var token=localStorage.getItem("bbsNCU");
+                    var categoryName=$("#categoryName").val();
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/admin/setCategory',
+                    contentType: "application/json",
+                    headers: {
+                        "token": token
+                    },
+                    data: JSON.stringify({
+                        "categoryId": Param,
+                        "categoryName":categoryName,
+                        "categoryUserId":rs
+                    }),
+                    success: function (i, result) {
+                        if (i > 0) {
+                            alert("修改成功");
+                            window.location.href="categoryManage.html"
+                        }
+                    }
+                })}
+            })
+        }
+    )
+
+</script>
+</body>
+</html>

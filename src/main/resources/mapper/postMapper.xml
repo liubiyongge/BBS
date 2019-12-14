@@ -4,6 +4,7 @@
 
 <mapper namespace="com.example.bbs.dao.PostDao">
 
+    <!--/*1-查找全部帖子*/-->
     <select id="findAll" resultType="Post">
        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
   FROM `comment`,`post`
@@ -19,6 +20,7 @@
 
     </select>
 
+    <!--/*2-查找某个栏目下的帖子*/-->
     <select id="findByCategoryId" resultType="Post">
         (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
 FROM `comment`,`post`
@@ -34,6 +36,7 @@ FROM `comment`
 
     </select>
 
+    <!--/*3-通过postId获取帖子*/-->
     <select id="findPostByPostId" resultType="Post">
         (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
 FROM `comment`,`post`
@@ -48,50 +51,85 @@ FROM `comment`
 ))
     </select>
 
-    <select id="getAllComments" resultType="Comment">
-        (select commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
-        FROM `comment`
-        WHERE commentPostId=#{postId}
-        )
-    </select>
-
+    <!--/*4-根据postId删除一条帖子*/-->
     <delete id="deletePostByPostId">
         delete from post where postId=#{postId}
     </delete>
+
+    <!--/*5-置顶一条帖子*/-->
     <update id="toTop">
         UPDATE post set top=1 WHERE postId=#{postId}
     </update>
+
+    <!--/*6-给帖子加精*/-->
     <update id="toHighlight">
         UPDATE post set highlight=1 WHERE postId=#{postId}
     </update>
 
+    <!--/*7-通过帖子id查询该帖子的回复数*/-->
     <select id="countCommentsNum" resultType="int">
         SELECT COUNT(commentPostId) from `comment` WHERE commentPostId=#{postId}
     </select>
+
+    <!--/*8-通过userId获取帖子所属的用户名*/-->
     <select id="getUserName" resultType="String">
         SELECT userName FROM `user` WHERE userId=#{userId}
     </select>
 
+    <!--/*9-通过帖子id获取帖子所属用户的头像*/-->
     <select id="getPostUserHeader" resultType="String">
         SELECT profilePhoto FROM `user` WHERE userId=#{userId}
     </select>
 
+    <!--//10-统计置顶帖数目-->
+    <select id="countTopPost" resultType="int">
+        select count(*) from post where top = 1
+    </select>
+
+    <!--//11-加精帖数目-->
+    <select id="countHightlightPost" resultType="int">
+        select count(*) from post where highlight = 1
+    </select>
+
+    <!--//12-需求贴数目-->
+    <select id="countDemandPost" resultType="int">
+        select count(*) from post where postType = 1
+    </select>
+
+    <!--//13-普通贴数目-->
+    <select id="countNormalPost" resultType="int">
+        select count(*) from post where postType = 0 and top = 0 and highlight = 0
+    </select>
+    <select id="findByPostUserId" resultType="Post">
+        (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
+  FROM `comment`,`post`
+  WHERE commentPostId=postId and postUserId=${postUserId}
+  GROUP BY commentPostId
+  ORDER BY COUNT(commentId) DESC limit 999999)
+  union
+  (SELECT *
+  FROM `post` WHERE postId not in(
+  SELECT commentPostId
+  FROM `comment`
+  ))
+    </select>
+
+    <!--/*15-创建帖子*/-->
     <insert id="createPost">
         INSERT into `post`(postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId)
                   VALUES(#{postTitle},#{postContent},${postScore},${postUserId},#{postPhoto},${highlight},#{postTime},${postType},${top},${postCategoryId})
     </insert>
-    <select id="countTopPost" resultType="int">
-        select count(*) from post where top = 1
-    </select>
-    <select id="countHightlightPost" resultType="int">
-        select count(*) from post where highlight = 1
-    </select>
-    <select id="countDemandPost" resultType="int">
-        select count(*) from post where postType = 1
-    </select>
-    <select id="countNormalPost" resultType="int">
-        select count(*) from post where postType = 0 and top = 0 and highlight = 0
-    </select>
 
 
+    <!--//16-修改帖子信息-->
+    <update id="updatePost" >
+        update `post` set postTitle=${postTitle},postContent=${postContent},postPhoto=${postPhoto},highlight=${highlight},
+        postType=${postType},top=${top}
+        where postId=${postId}
+    </update>
+
+    <!--//17-需求贴完成需求->postType=2-->
+    <update id="changeDemandPostType">
+        update `post` set postType=2 where postId=#{postId}
+    </update>
 </mapper>

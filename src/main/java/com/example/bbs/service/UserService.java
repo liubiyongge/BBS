@@ -18,6 +18,7 @@ public class UserService {
     }
 
     public List<User> findAllUser(){return userDao.findAllUser();}
+    public int findIdByUserName(String userName){return userDao.findIdByUserName(userName);}
 
     public void addCredit(int userId){
          userDao.addCredit(userId);

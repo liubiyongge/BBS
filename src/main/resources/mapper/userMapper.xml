@@ -27,6 +27,9 @@
     <select id="countNumUserType" resultType="int" parameterType="int">
         select count(*) from user where type = #{type}
     </select>
+    <select id="findIdByUserName" resultType="int">
+        select userId from user where userName="${userName}"
+    </select>
 
 
     <delete id="deleteUserById" parameterType="int">
