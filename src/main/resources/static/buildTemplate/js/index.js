@@ -247,7 +247,6 @@ function getAllPosts()  {
       /*加载帖子列表项*/
       var post={};
       for (let i=0;i<data.length;i++){
-        //console.log(data[i]);
         post.postId=data[i].postId;
               post.commentsNum=getCommentsNum(post.postId);/*热度(回复数)*/
        // console.log("post.commentsNum:"+post.commentsNum);
@@ -305,7 +304,6 @@ function getAllPosts()  {
 }
 /*在页面上创建一条帖子*/
 function addPostToList(post) {
- // console.log(post);
   /*是否是置顶帖*/
   //let $top="";
   if (post.top===1){
@@ -557,21 +555,6 @@ function showPostListHeader() {
     "         <div class=\"topArea\">    </div>";
   $(".index-post-list").append($html);
 }
-/*获取时间*/
-function getTime() {
-  let myDate = new Date();
-  let year=myDate.getFullYear();        //获取当前年
-  let month=myDate.getMonth()+1;   //获取当前月
-  let date=myDate.getDate();            //获取当前日
-  let h=myDate.getHours();              //获取当前小时数(0-23)
-  let m=myDate.getMinutes();          //获取当前分钟数(0-59)
-  let s=myDate.getSeconds();
-  let now;
-  return  now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
-}
-function getNow(s) {
-  return s < 10 ? '0' + s: s;
-}
 /*获取登录页面传递的URL并提取出其中的参数*/
 function GetRequest() {
   var url = location.search; //获取url中"?"符后的字串
@@ -704,29 +687,6 @@ function Base64() {
     return string;
   }
 }
-/*通过categoryId获取categoryUserId(版主Id)*/
-function getCategoryUserId($categoryId) {
-  let $categoryUserId=0;
-  $.ajax({
-    cache: false,
-    async: false,
-    url: "http://localhost:8080/category/getCategoryUserId",
-    type: "post",
-    dataType: "json",
-    data:{
-      'categoryId':$categoryId,
-    },
-    success:function (data) {
-      $categoryUserId=data.categoryUserId;
-      return $categoryUserId;
-    },
-    error:function () {
-      console.log("获取版主Id失败");
-    }
-  });
-  return $categoryUserId;
-}
-
 
 
 

@@ -32,6 +32,9 @@ public class PostService {
         return postDao.findPostByPostId(postId);
     }
 
+//    通过postUserId获取帖子
+    public List<Post> findByPostUserId(int postUserId){return postDao.findByPostUserId(postUserId);}
+
     /*4-根据postId删除一条帖子*/
     public void deletePostByPostId(int postId){
         postDao.deletePostByPostId(postId);
@@ -56,6 +59,7 @@ public class PostService {
     public String getUserName(int userId){
         return postDao.getUserName(userId);
     }
+//    通过postUserId来查找帖子
 
     /*9-通过帖子id获取帖子所属用户的头像*/
     public String getPostUserHeader(int userId){
