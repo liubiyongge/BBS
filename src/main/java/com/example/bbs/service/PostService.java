@@ -34,9 +34,6 @@ public class PostService {
         return postDao.findPostByPostId(postId);
     }
 
-    //    通过postUserId获取帖子
-    public List<Post> findByPostUserId(int postUserId){return postDao.findByPostUserId(postUserId);}
-
     /*4-根据postId删除一条帖子*/
     public void deletePostByPostId(int postId){
         postDao.deletePostByPostId(postId);
@@ -61,7 +58,6 @@ public class PostService {
     public String getUserName(int userId){
         return postDao.getUserName(userId);
     }
-//    通过postUserId来查找帖子
 
     /*9-通过帖子id获取帖子所属用户的头像*/
     public String getPostUserHeader(int userId){
@@ -113,6 +109,21 @@ public class PostService {
     //17-需求贴完成需求->postType=2
     public void changeDemandPostType(int postId){
         postDao.changeDemandPostType(postId);
+    }
+
+    //18-查找用户发表的所有帖子
+    public List<Post> findByPostUserId(@Param("postUserId") int postUserId){
+        return postDao.findByPostUserId(postUserId);
+    }
+
+    //19-个人中心-用户发表的评论
+    public List<CommentInfoForUser> centerPostCommentInfo(@Param("userId") int userId){
+        return postDao.centerPostCommentInfo(userId);
+    }
+
+    //20-个人中心-用户收到的评论
+    public List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId){
+        return postDao.centerReceiveCommentInfo(userId);
     }
 
 

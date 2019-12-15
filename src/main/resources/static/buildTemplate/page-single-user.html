@@ -54,64 +54,6 @@
                         </ul>
                     </nav>
                 </div>
-                <!-- /desctop menu -->
-                <!-- tt-search -->
-                <div class="tt-search">
-                    <!-- toggle -->
-                    <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
-                       <svg class="tt-icon">
-                          <use xlink:href="#icon-search"></use>
-                        </svg>
-                    </button>
-                    <!-- /toggle -->
-                    <form class="search-wrapper">
-                        <div class="search-form">
-                            <input type="text" class="tt-search__input" placeholder="Search">
-                            <button class="tt-search__btn" type="submit">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#icon-search"></use>
-                                </svg>
-                            </button>
-                             <button class="tt-search__close">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#cancel"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="search-results">
-                            <div class="tt-search-scroll">
-                                <ul>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">置顶帖</h6>
-                                            <div class="tt-description">
-                                                这里你可以看到所有置顶帖子！
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">需求贴</h6>
-                                            <div class="tt-description">
-                                                所有的需求贴都在这里！
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">主页</h6>
-                                            <div class="tt-description">
-                                                回到主页就可以看到所有分类及分类下的帖子啦！
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <button type="button" class="tt-view-all" data-toggle="modal" data-target="#modalAdvancedSearch">高级检索</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /tt-search -->
             </div>
             <div class="col-auto ml-auto">
                  <div class="tt-user-info d-flex justify-content-center">
@@ -127,8 +69,8 @@
                     </div>
                     <div class="custom-select-01">
                         <select>
-                            <option value="Default Sorting">当前用户名？</option>
-                            <option value="value 01">退出登录</option>
+                            <option value="Default Sorting" class="nowUserName"></option><!--右上角的用户名-->
+                            <option value="value 01" id="logout">退出登录</option>
                             <!--<option value="value 02">value 02</option>-->
                         </select>
                     </div>
@@ -149,11 +91,8 @@
                 </div>
                 <div class="tt-col-title">
                     <div class="tt-title">
-                        <a href="#">用户名</a>
+                        <label class="nowUserName"></label><!--第二行的用户名-->
                     </div>
-                    <ul class="tt-list-badge">
-                        <li><a href="#"><span class="tt-color14 tt-badge">LVL : 等级？</span></a></li>
-                    </ul>
                 </div>
                 <div class="tt-col-btn" id="js-settings-btn">
                     <div class="tt-list-btn">
@@ -211,10 +150,6 @@
                             </div>
                             <div class="tt-col-description">
                                <h6 class="tt-title"><a href="#">
-                                   <!--前面的小图标可省-->
-                                    <!--<svg class="tt-icon">-->
-                                      <!--<use xlink:href="#icon-pinned"></use>-->
-                                    <!--</svg>-->
                                     Halloween Costume Contest 2018
                                 </a></h6>
                                 <!--可删？下面的1h不明-->
@@ -237,102 +172,51 @@
                             <div class="tt-col-value hide-mobile">15.1k?</div>
                             <!--<div class="tt-col-value hide-mobile">1h</div>-->
                         </div>
-                        <div class="tt-row-btn">
-                            <button type="button" class="btn-icon js-topiclist-showmore">
-                                <svg class="tt-icon">
-                                  <use xlink:href="#icon-load_lore_icon"></use>
-                                </svg>
-                            </button>
-                        </div>
                     </div>
                 </div>
                 <!--回复-->
                 <div class="tab-pane tt-indent-none" id="tt-tab-03" role="tabpanel">
-                     <div class="tt-topic-list">
+                     <div class="tt-topic-list" id="receiveComment">
                         <div class="tt-list-header">
                             <div class="tt-col-topic">帖子</div>
                             <div class="tt-col-category">分类</div>
                             <div class="tt-col-value">时间</div>
                         </div>
-                        <div class="tt-item">
-                            <div class="tt-col-avatar">
-                               <svg class="tt-icon">
-                                  <use xlink:href="#icon-ava-d"></use>
-                                </svg>
-                            </div>
-                            <div class="tt-col-description">
-                                <h6 class="tt-title"><a href="#">
-                                    帖子标题？？
-                                </a></h6>
-                                <!--可删？-->
-                                <!--<div class="row align-items-center no-gutters hide-desktope">-->
-                                    <!--<div class="col-9">-->
-                                        <!--<ul class="tt-list-badge">-->
-                                            <!--<li class="show-mobile"><a href="#"><span class="tt-color06 tt-badge">movies</span></a></li>-->
-                                        <!--</ul>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-3 ml-auto show-mobile">-->
-                                        <!--<div class="tt-value">5 Jan,19</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <div class="tt-content">
-                                    回复内容？？？
-                                </div>
-                            </div>
-                            <div class="tt-col-category"><a href="#"><span class="tt-color06 tt-badge">电影</span></a></div>
-                            <div class="tt-col-value-large hide-mobile">？ Jan,19</div>
-                        </div>
-                        <div class="tt-row-btn">
-                            <button type="button" class="btn-icon js-topiclist-showmore">
-                                <svg class="tt-icon">
-                                  <use xlink:href="#icon-load_lore_icon"></use>
-                                </svg>
-                            </button>
-                        </div>
+                        <!--<div class="tt-item">-->
+                            <!--<div class="tt-col-avatar">-->
+                               <!--<svg class="tt-icon">-->
+                                  <!--<use xlink:href="#icon-ava-d"></use>-->
+                                <!--</svg>-->
+                            <!--</div>-->
+                            <!--<div class="tt-col-description">-->
+                                <!--<h6 class="tt-title"><a href="#">帖子标题？？</a></h6>-->
+                                <!--<div class="tt-content">回复内容？？？</div>-->
+                            <!--</div>-->
+                            <!--<div class="tt-col-category"><a href="#"><span class="tt-color06 tt-badge">电影</span></a></div>-->
+                            <!--<div class="tt-col-value-large hide-mobile">？ Jan,19</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="tab-pane tt-indent-none" id="tt-tab-04" role="tabpanel">
-                    <div class="tt-topic-list">
+                    <div class="tt-topic-list" id="postComment">
                         <div class="tt-list-header">
                             <div class="tt-col-topic">帖子</div>
                             <div class="tt-col-category">分类</div>
                             <div class="tt-col-value">时间</div>
                         </div>
-                        <div class="tt-item">
-                            <div class="tt-col-avatar">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-ava-d"></use>
-                                </svg>
-                            </div>
-                            <div class="tt-col-description">
-                                <h6 class="tt-title"><a href="#">
-                                    帖子标题？？
-                                </a></h6>
-                                <!--可删？-->
-                                <!--<div class="row align-items-center no-gutters hide-desktope">-->
-                                <!--<div class="col-9">-->
-                                <!--<ul class="tt-list-badge">-->
-                                <!--<li class="show-mobile"><a href="#"><span class="tt-color06 tt-badge">movies</span></a></li>-->
-                                <!--</ul>-->
-                                <!--</div>-->
-                                <!--<div class="col-3 ml-auto show-mobile">-->
-                                <!--<div class="tt-value">5 Jan,19</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <div class="tt-content">
-                                    回复内容？？？
-                                </div>
-                            </div>
-                            <div class="tt-col-category"><a href="#"><span class="tt-color06 tt-badge">校园</span></a></div>
-                            <div class="tt-col-value-large hide-mobile">？ Jan,19</div>
-                        </div>
-                        <div class="tt-row-btn">
-                            <button type="button" class="btn-icon js-topiclist-showmore">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-load_lore_icon"></use>
-                                </svg>
-                            </button>
-                        </div>
+                        <!--<div class="tt-item">-->
+                            <!--<div class="tt-col-avatar">-->
+                                <!--<img src="" class="login_img3">-->
+                            <!--</div>-->
+                            <!--<div class="tt-col-description">-->
+                                <!--<h6 class="tt-title">-->
+                                    <!--<a href="#">发表的评论的帖子标题</a>-->
+                                <!--</h6>-->
+                                <!--<div class="tt-content">发表的评论内容</div>-->
+                            <!--</div>-->
+                            <!--<div class="tt-col-category"><a href="#"><span class="tt-color06 tt-badge">校园</span></a></div>-->
+                            <!--<div class="tt-col-value-large hide-mobile">？ Jan,19</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <!--管理的栏目-->

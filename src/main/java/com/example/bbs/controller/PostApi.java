@@ -2,6 +2,7 @@ package com.example.bbs.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.entity.Comment;
+import com.example.bbs.entity.CommentInfoForUser;
 import com.example.bbs.entity.Post;
 import com.example.bbs.service.PostService;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @RestController
@@ -98,5 +100,23 @@ public class PostApi {
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
+    }
+
+    //18-通过postUserId获取帖子
+    @RequestMapping("/getPostById")
+    public List<Post> findByPostUserId(@Param("postUserId") int postUserId){
+        return postService.findByPostUserId(postUserId);
+    }
+
+    //19-个人中心-用户发表的评论
+    @RequestMapping("/getPostCommentInfo")
+    public List<CommentInfoForUser> centerPostCommentInfo(@Param("userId") int userId){
+        return postService.centerPostCommentInfo(userId);
+    }
+
+    //20-个人中心-用户收到的评论
+    @RequestMapping("/getReceiveCommentInfo")
+    public List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId){
+        return postService.centerReceiveCommentInfo(userId);
     }
 }

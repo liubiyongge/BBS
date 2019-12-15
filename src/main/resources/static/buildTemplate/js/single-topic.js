@@ -147,7 +147,7 @@ function getPost($postId) {
         url:"/post/getPost",
         data:{
             'postId':$postId,
-        } ,
+        },
         success:function (data) {
             //console.log(data);
             post=data;

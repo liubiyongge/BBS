@@ -79,5 +79,5 @@ public interface PostDao {
     //20-个人中心-用户收到的评论
     List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId);
 
-    //21-
+
 }
