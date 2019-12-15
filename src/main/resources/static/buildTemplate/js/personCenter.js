@@ -211,15 +211,13 @@ function addReceiveCommentToList(post) {
     console.log(post);
     var $html="<div class=\"tt-item\">\n" +
         "                            <div class=\"tt-col-avatar\">\n" +
-        "                               <svg class=\"tt-icon\">\n" +
-        "                                  <use xlink:href=\"#icon-ava-d\"></use>\n" +
-        "                                </svg>\n" +
+        "                               <img src=\""+post.postPhoto+"\" class=\"login_img3\">\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-description\">\n" +
         "                                <h6 class=\"tt-title\"><a href=\"#\">"+post.postTitle+"</a></h6>\n" +
         "                                <div class=\"tt-content\">"+post.briefCommentContent+"</div>\n" +
         "                            </div>\n" +
-        "                            <div class=\"tt-col-category\"><a href=\"#\"><span class=\"tt-color06 tt-badge\">"+post.categoryName+"</span></a></div>\n" +
+        "                            <div class=\"tt-col-category\"><a href=\"#\"><span class=\"tt-color06 tt-badge\">"+post.postCategoryName+"</span></a></div>\n" +
         "                            <div class=\"tt-col-value-large hide-mobile\">"+post.commentTime+"</div>\n" +
         "                        </div>";
     $("#receiveComment").append($html);
