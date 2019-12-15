@@ -29,4 +29,6 @@ public interface CommentDao {
 
     //4-删除评论
     void deleteComment(@Param("commentId")int commentId);
+    Comment findCommentByToUserId(@Param("toUserId") int toUserId);
+    void deleteCommentByCategoryId(@Param("categoryId") int categoryId);
 }

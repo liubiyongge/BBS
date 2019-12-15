@@ -102,3 +102,7 @@ function getAllPosts() {
         })
 }
 getAllPosts();
+
+function getComments() {
+    
+}

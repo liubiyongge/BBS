@@ -40,6 +40,7 @@ public interface PostDao {
     /*9-通过帖子id获取帖子所属用户的头像*/
     String getPostUserHeader(@Param("userId")int userId);
 
+
     //10-统计置顶帖数目
     int countTopPost();
 
@@ -74,4 +75,6 @@ public interface PostDao {
     List<Post> findByPostUserId(@Param("postUserId") int postUserId);
 
     List<PostForAdmin> getAllPost();
+
+    void deleteByCategoryId(@Param("postCategoryId")  int postCategoryId);
 }

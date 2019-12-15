@@ -21,8 +21,7 @@ public interface UserDao {
     User findByUserId(@Param("userId")int userId) throws DataAccessException;
     void modifyUser(@Param("newUser") User newUser) throws DataAccessException;
     int findIdByUserName(@Param("userName") String userName);
-
-    void addCredit(@Param("userId")int userId, @Param("postScore")int postScore);
+    void addCredit(@Param("userId")int userId);
 
 
 }

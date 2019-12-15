@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -49,5 +50,11 @@ public class CommentApi {
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
+    }
+    //根据用户名返回回复该用户的评论
+    @RequestMapping("/findCommentByUserName")
+    public Object findCommentByUserName(@RequestBody HashMap data){
+        String userName= (String)data.get("userName");
+        return 1;
     }
 }

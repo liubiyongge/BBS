@@ -23,8 +23,18 @@
         select count(commentId) from `comment` where commentToId=#{commentId}
     </select>
 
+<!--  通过用户名查找回复该用户的评论  -->
+    <select id="findCommentByToUserId" resultType="Comment">
+        select * from comment where commentToUserId=${commentToUserId}
+    </select>
+
     <!--4-删除评论-->
     <delete id="deleteComment">
         delete from `comment` where commentId=#{commentId}
+    </delete>
+
+<!--    删除某个栏目的所有帖子下的所有的评论-->
+    <delete id="deleteCommentByCategoryId">
+        delete from comment where commentPostId in(select postId from post where postCategoryId=12 )
     </delete>
 </mapper>

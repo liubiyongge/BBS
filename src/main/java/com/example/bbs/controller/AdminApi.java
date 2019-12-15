@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -115,9 +116,8 @@ public class AdminApi {
         return i;
     }
 
-    @RequestMapping("deleteCategory")
-    public Object deteCategory(@RequestBody Category category){
-        System.out.println(category.getCategoryId());
+    @RequestMapping("/deleteCategory")
+    public Object deleteCategory(@RequestBody Category category){
         categoryService.deleteCategory(category.getCategoryId());
         return true;
     }
