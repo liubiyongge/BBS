@@ -152,6 +152,13 @@ public class UserApi {
         return jsonArray;
     }
 
+    @RequestMapping("/findByCategoryUserId")
+    public Object findByCategoryUserId(@RequestBody HashMap data){
+        String userName= (String)data.get("userName");
+        int categoryUserId=userService.findIdByUserName(userName);
+        return categoryService.findByCategoryUserId(categoryUserId);
+    }
+
     //给用户加积分
     @RequestMapping("/addCredit")
     public String addCredit(@RequestParam("userId")int userId, @RequestParam("postId") int postId){

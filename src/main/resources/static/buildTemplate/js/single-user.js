@@ -109,8 +109,67 @@ function getAllPosts() {
 
         })
 }
-getAllPosts();
 
-function getComments() {
-    
+function addCategoryToList(category){
+    let html="<div class=\"col-md-6 col-lg-4\">\n" +
+        "                                    <div class=\"tt-item\">\n" +
+        "                                        <div class=\"tt-item-header\">\n" +
+        "                                            <ul class=\"tt-list-badge\">\n" +
+        "                                                <li><a href=\"#\"><span class=\"tt-color01 tt-badge\">"+category.categoryName+"</span></a></li>\n" +
+        "                                            </ul>\n" +
+        "                                            <h6 class=\"tt-title\"><a href=\"#\">Threads - 1,245</a></h6>\n" +
+        "                                        </div>\n" +
+        "                                        <div class=\"tt-item-layout\">\n" +
+        "                                           <div class=\"innerwrapper\">\n" +
+        "                                               Lets discuss about whats happening around the world "+ category.categoryName+".\n" +
+        "                                           </div>\n" +
+        "                                           <div class=\"innerwrapper\">\n" +
+        // "                                                <h6 class=\"tt-title\">Similar TAGS</h6>\n" +
+        // "                                                <ul class=\"tt-list-badge\">\n" +
+        // "                                                    <li><a href=\"#\"><span class=\"tt-badge\">world politics</span></a></li>\n" +
+        // "                                                    <li><a href=\"#\"><span class=\"tt-badge\">human rights</span></a></li>\n" +
+        // "                                                    <li><a href=\"#\"><span class=\"tt-badge\">trump</span></a></li>\n" +
+        // "                                                    <li><a href=\"#\"><span class=\"tt-badge\">climate change</span></a></li>\n" +
+        // "                                                    <li><a href=\"#\"><span class=\"tt-badge\">foreign policy</span></a></li>\n" +
+        // "                                                </ul>\n" +
+        "                                           </div>\n" +
+        "                                           <a href=\"#\" class=\"tt-btn-icon\">\n" +
+        "                                                <i class=\"tt-icon\"><svg><use xlink:href=\"#icon-favorite\"></use></svg></i>\n" +
+        "                                            </a>\n" +
+        "                                        </div>\n" +
+        "                                    </div>\n" +
+        "                                </div>";
+    $("#clearCategory").append(html);
 }
+function findCategory(){
+    $("#clearCategory").empty();
+    var token=localStorage.getItem("bbsNCU");
+    var param=parseJwt(token).userName;
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/User/findByCategoryUserId',
+        contentType: "application/json",
+        headers:{
+            "token":token
+        },
+        dataType:"json",
+        data:JSON.stringify({
+            "userName":param
+        }),
+        success:function (jsonArray) {
+            if(jsonArray.length>1){
+                console.log(jsonArray);
+                var category={};
+                for(var i=0;i<jsonArray.length;i++){
+                    category.categoryName=jsonArray[i].categoryName;
+                    category.postCategoryName=jsonArray[i].postCategoryName;
+                    addCategoryToList(category);
+                }
+            }
+        }
+
+    })
+}
+getAllPosts();
+findCategory();
