@@ -5,6 +5,7 @@ import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import com.example.bbs.service.PostService;
 
+import com.example.bbs.service.UserService;
 import javafx.geometry.Pos;
 import org.apache.ibatis.annotations.Param;
 import org.hibernate.validator.constraints.pl.REGON;
@@ -21,6 +22,9 @@ import java.util.List;
 public class PostApi {
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserService userService;
 
     /*1-查找全部帖子*/
     @RequestMapping(value = "/findAll")
@@ -72,16 +76,20 @@ public class PostApi {
     }
 
     //15-创建帖子
-    @RequestMapping("/create")
+    /*此操作需要权限，移到UserApi当中*/
+   /* @RequestMapping("/create")
     public String createPost(@RequestBody Post post){
         System.out.println(post.toString());
         JSONObject result=new JSONObject();
         result.put("state",1);
         postService.createPost(post.getPostTitle(),post.getPostContent(),post.getPostScore(),post.getPostUserId(),
                 post.getPostPhoto(),post.getHighlight(),post.getPostTime(),post.getPostType(),post.getPostCategoryId(),post.getTop());
+        *//*扣除用户积分*//*
+        userService.addCredit(post.getPostUserId(),-post.getPostScore());
         return result.toJSONString();
-    }
+    }*/
 
+    /*此操作需要权限，移到AdminApi*/
     //16-修改帖子信息
     @RequestMapping("/update")
     public String updatePost(@RequestBody Post post){
@@ -92,11 +100,12 @@ public class PostApi {
         return result.toJSONString();
     }
     //17-需求贴完成需求->postType=2
-    @RequestMapping("/changeDemand")
+    /*此操作需要权限，移到AdminApi*/
+   /* @RequestMapping("/changeDemand")
     public String changeDemandPostType(@RequestParam("postId") int postId){
         postService.changeDemandPostType(postId);
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
-    }
+    }*/
 }

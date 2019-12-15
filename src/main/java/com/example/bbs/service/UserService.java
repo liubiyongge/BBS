@@ -21,6 +21,6 @@ public class UserService {
     public int findIdByUserName(String userName){return userDao.findIdByUserName(userName);}
 
     public void addCredit(int userId, int postScore){
-         userDao.addCredit(userId, postScore);
+         userDao.addCredit(userId,postScore);
     }
 }

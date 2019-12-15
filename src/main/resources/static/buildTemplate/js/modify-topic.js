@@ -1,13 +1,19 @@
 var post={};
+var post0={};
 $(function () {
+    console.log(token);
+    if (token==null||token==="null"){
+        alert("请先登录");
+        window.location.href="page-login.html";
+    }
     var p=GetRequest();
     var $postId=p["postId"];
-    var $userName=p["userName"];
+    //var $userName=p["userName"];
     /*获取修改前的信息*/
     getPost($postId);
 
-    $("#inputTopicTitle").val(post.postTitle);
-    $("#postContent").val(post.postContent);
+    $("#inputTopicTitle").val(post0.postTitle);
+    $("#postContent").val(post0.postContent);
     /*获取栏目列表*/
     getCategoriesOption();
 
@@ -71,20 +77,26 @@ $(function () {
         }
         else if (($inputCredit==""||isNaN($inputCredit)||$inputCredit===0)&&post.postType==1){
             alert("请设置有效的积分");
-        }else{
+        }
+        else{
             console.log("post.postScore:"+post.postScore);
             if (post.postType==1){
                 post.postScore=$inputCredit;
             }
             post.postCategoryId=parseInt(post.postCategoryId);
             post.postType=parseInt(post.postType);
-           // post.highlight=0;
-            //post.top=0;
-            post.postUserId=user.userId;
-            // post.postPhoto=undefined;
-            post.postTime=getTime();
+            if (post0.type==2){
+                /*帖子需求已解决，不能再加减积分或者换类型*/
+                alert("您的帖子已完成需求，不能再更改帖子类型和修改积分");
+                post.postType=post0.type;
+                post.postScore=post0.postScore;
+            }
+            post.highlight=post0.highlight;
+            post.top=post0.top;
+            post.postTime=post0.postTime;
+            post.postId=post0.postId;
+            post.postUserId=post0.postUserId;
            modifyPost(post);
-            //console.log(post);
         }
     });
 });
@@ -101,17 +113,17 @@ function getPost($postId) {
         success:function (data) {
            // console.log(data);
             //return data;
-            post.postId=data.postId;
-            post.postTitle=data.postTitle;
-            post.postContent=data.postContent;
-            post.postScore=data.postScore;
-            post.postUserId=data.postUserId;
-            post.postPhoto=data.postPhoto;
-            post.highlight=data.highlight;
-            post.postTime=data.postTime;
-            post.postType=data.postType;
-            post.top=data.top;
-            post.postCategoryId=data.postCategoryId;
+            post0.postId=data.postId;
+            post0.postTitle=data.postTitle;
+            post0.postContent=data.postContent;
+            post0.postScore=data.postScore;
+            post0.postUserId=data.postUserId;
+            post0.postPhoto=data.postPhoto;
+            post0.highlight=data.highlight;
+            post0.postTime=data.postTime;
+            post0.postType=data.postType;
+            post0.top=data.top;
+            post0.postCategoryId=data.postCategoryId;
         },
         error:function () {
             console.log("获取帖子信息失败");
@@ -126,7 +138,7 @@ function modifyPost(post) {
         headers:{
             'token':token,
         },
-        url: "/post/update",
+        url: "/User/updatePost",
         contentType: "application/json",
         data:JSON.stringify({
             "postId":post.postId,

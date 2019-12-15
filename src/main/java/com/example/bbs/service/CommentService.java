@@ -34,4 +34,7 @@ public class CommentService {
     public void deleteComment(int commentId){
         commentDao.deleteComment(commentId);
     }
+    Comment findCommentByToUserId(int toUserId){
+        return commentDao.findCommentByToUserId(toUserId);
+    };
 }

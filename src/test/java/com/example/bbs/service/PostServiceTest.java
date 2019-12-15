@@ -102,4 +102,14 @@ public class PostServiceTest {
     public void updatePost() {
         postDao.updatePost(2, "最新的标题",0,"测试修改内容", "",1,1,0,1);
     }
+
+    @Test
+    public void centerPostCommentInfo() {
+      System.out.println(postDao.centerPostCommentInfo(4).size());
+    }
+
+    @Test
+    public void centerReceiveCommentInfo(){
+        System.out.println(postDao.centerReceiveCommentInfo(3));
+    }
 }

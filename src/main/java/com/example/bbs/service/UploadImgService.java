@@ -31,7 +31,12 @@ public class UploadImgService {
             map.put("msg","图片不能为空");
             return map;
         }
-
+        String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        if(!suffixName.equalsIgnoreCase(".jpeg") && !suffixName.equalsIgnoreCase(".png") && !suffixName.equalsIgnoreCase(".jpg")){
+            map.put("code","500");
+            map.put("msg","图片格式不正确");
+            return map;
+        }
         String originalFilename = file.getOriginalFilename();
         //随机生成文件名
         String fileName = RandomUtils.createRandomString(10) + originalFilename;

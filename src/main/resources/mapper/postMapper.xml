@@ -35,7 +35,10 @@ FROM `comment`
 ))
 
     </select>
-
+<!--删除某个栏目下的所有帖子-->
+    <select id="deleteByCategoryId" resultType="int">
+        delete from post where postCategoryId=${postCategoryId}
+    </select>
     <!--/*3-通过postId获取帖子*/-->
     <select id="findPostByPostId" resultType="Post">
         (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
@@ -53,7 +56,7 @@ FROM `comment`
 
     <!--/*4-根据postId删除一条帖子*/-->
     <delete id="deletePostByPostId">
-        delete from post where postId=#{postId}
+        delete from post where postCategoryId=#{postCategoryId}
     </delete>
 
     <!--/*5-置顶一条帖子*/-->
@@ -145,5 +148,19 @@ FROM `comment`
     <select id="getAllPost" resultType="PostForAdmin">
         select p.postId, p.postTitle, p.postScore, u.userName, p.highlight, p.postTime, p.postType, p.top, c.categoryName
         from post p left join user u on p.postUserId = u.userId left join category c on p.postCategoryId = c.categoryId;
+    </select>
+
+    <!--个人中心-获取用户发表的评论的相关信息-->
+    <select id="centerPostCommentInfo" resultType="com.example.bbs.entity.CommentInfoForUser">
+        select postPhoto,postTitle,categoryName,commentContent,commentTime
+        from post p,comment co,category ca
+        where p.postId=co.commentPostId and ca.categoryId=p.postCategoryId and co.commentUserId=${userId}
+    </select>
+
+    <!--个人中心-获取收到的评论的相关信息-->
+    <select id="centerReceiveCommentInfo" resultType="com.example.bbs.entity.CommentInfoForUser">
+        select postPhoto,postTitle,categoryName,commentContent,commentTime
+        from post p,comment co,category ca
+        where p.postId=co.commentPostId and ca.categoryId=p.postCategoryId and co.commentToUserId=${userId}
     </select>
 </mapper>
