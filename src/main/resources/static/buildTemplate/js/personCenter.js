@@ -25,8 +25,14 @@ $(function () {
     if(token!=null){
         $userName=parseJwt(token).userName;
         let $userId=getUserId($userName);
-        showUserName($userName);
-        // alert("当前用户名："+$userName+"  用户Id："+$userId);
+
+        //在所有需要的地方显示用户名
+        $(".nowUserName").text($userName);
+        //多处显示用户头像
+        $(".login_img2 .login_img1 .login_img2").text(getUserHeader($userId));
+
+
+        alert("当前用户名："+$userName+"  用户Id："+$userId);
         getPostCommentInfo($userId);
         getReceiveCommentInfo($userId);
     }
@@ -35,12 +41,26 @@ $(function () {
     /*点击 退出登录 按钮*/
     $(".log-out-bt").click(function () {
         clearUserInfo();
+        //localStorage.clear();
         localStorage.setItem("bbsNCU",null);
         window.location.href="index.html";
     });
 
 });
 
+/*退出登陆时清空用户信息*/
+function clearUserInfo() {
+    user.userId=undefined;
+    user.userName=undefined;
+    user.sex=undefined;
+    user.credit=undefined;
+    user.telephone=undefined;
+    user.profilePhoto=undefined;
+    user.briefIntro=undefined;
+    user.location=undefined;
+    user.type=undefined;
+    user.birthday=undefined;
+}
 function getUserId($userName){
     var $userId;
     $.ajax({
@@ -71,7 +91,7 @@ function getUserId($userName){
 
 /*通过userId查询用户头像*/
 function getUserHeader($userId) {
-    let $userHeader="defaultUserHeader.jpg";
+    var $userHeader="defaultUserHeader.jpg";
     $.ajax({
         cache:false,
         async:false,
@@ -87,7 +107,7 @@ function getUserHeader($userId) {
                 $userHeader="defaultUserHeader.jpg";
             }
             //console.log("success:"+$userId);
-            //console.log("success:"+$userHeader);
+            console.log("success:"+$userHeader);
             return $userHeader;
         },
         error:function () {
@@ -98,9 +118,6 @@ function getUserHeader($userId) {
     return $userHeader;
 }
 
-function showUserName($userName){
-
-}
 /*获取发表的评论要显示的所有信息*/
 function getPostCommentInfo($userId) {
     $.ajax({
@@ -120,7 +137,7 @@ function getPostCommentInfo($userId) {
                 post.postPhoto=data[i].postPhoto;
                 //帖子没有照片，显示一张默认的图片
                 if(post.postPhoto==undefined || typeof(post.postPhoto)=="undefined")
-                    post.postPhoto="";
+                    post.postPhoto="defaultUserHeader.jpg";
                 post.postTitle=data[i].postTitle;
                 post.categoryName=data[i].categoryName;
                 post.commentTime=data[i].commentTime;
@@ -138,7 +155,6 @@ function getPostCommentInfo($userId) {
         }
     });
 }
-
 function getReceiveCommentInfo($userId) {
     $.ajax({
         cache:false,
@@ -157,7 +173,7 @@ function getReceiveCommentInfo($userId) {
                 post.postPhoto=data[i].postPhoto;
                 //帖子没有照片，显示一张默认的图片
                 if(post.postPhoto==undefined || typeof(post.postPhoto)=="undefined")
-                    post.postPhoto="";
+                    post.postPhoto="defaultUserHeader.jpg";
                 post.postTitle=data[i].postTitle;
                 post.categoryName=data[i].categoryName;
                 post.commentTime=data[i].commentTime;
