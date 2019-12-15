@@ -46,6 +46,13 @@ $(function () {
         window.location.href="index.html";
     });
 
+    $(".tit").click(function () {
+        alert("click");
+      let $postId= $(this).attr("id");
+       $(this).attr("href","page-single-topic.html?postId="+$postId);
+    });
+
+
 });
 
 /*退出登陆时清空用户信息*/
@@ -192,13 +199,14 @@ function getReceiveCommentInfo($userId) {
 }
 function addPostCommentToList(post) {
     console.log(post);
+    post.postId=2;
     var $html="<div class=\"tt-item\">\n" +
         "                            <div class=\"tt-col-avatar\">\n" +
         "                                <img src=\""+post.postPhoto+"\" class=\"login_img3\">\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-description\">\n" +
         "                                <h6 class=\"tt-title\">\n" +
-        "                                    <a href=\"#\">"+post.postTitle+"</a>\n" +
+        "                                    <a  class='tit' id='"+post.postId+"' href=\"#\">"+post.postTitle+"</a>\n" +
         "                                </h6>\n" +
         "                                <div class=\"tt-content\">"+post.commentContent+"</div>\n" +
         "                            </div>\n" +
@@ -209,12 +217,13 @@ function addPostCommentToList(post) {
 }
 function addReceiveCommentToList(post) {
     console.log(post);
+    post.postId=2;
     var $html="<div class=\"tt-item\">\n" +
         "                            <div class=\"tt-col-avatar\">\n" +
         "                               <img src=\""+post.postPhoto+"\" class=\"login_img3\">\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-description\">\n" +
-        "                                <h6 class=\"tt-title\"><a href=\"#\">"+post.postTitle+"</a></h6>\n" +
+        "                                <h6 class=\"tt-title\"><a class='tit' id='"+post.postId+"' href=\"#\">"+post.postTitle+"</a></h6>\n" +
         "                                <div class=\"tt-content\">"+post.briefCommentContent+"</div>\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-category\"><a href=\"#\"><span class=\"tt-color06 tt-badge\">"+post.postCategoryName+"</span></a></div>\n" +
