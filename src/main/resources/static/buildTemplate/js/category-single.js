@@ -71,7 +71,7 @@ function getCategoryPosts($categoryId) {
   $.ajax({
     cache:false,
     async:false,
-    url:"http://localhost:8080/post/postInCategory",
+    url:"/post/postInCategory",
     type:"post",
     dataType: "json",
     data:{
@@ -153,7 +153,7 @@ function addCategoryPostToList(post) {
   //let $top="";
   if (post.top===1){
     let $html=" <div class=\"tt-item tt-itemselect\" id=\"\">\n" +
-        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
+        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\""+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
         "                <div class=\"tt-col-description\">\n" +
         "                    <h6 class=\"tt-title\"><a href=\"page-single-topic.html\">\n" +
         "                      <svg class=\"tt-icon\"><use xlink:href=\"#icon-pinned\"></use></svg>\n" +post.postTitle+
@@ -182,8 +182,9 @@ function addCategoryPostToList(post) {
     $(".topArea1").append($html);
   }
   else {
+    //console.log(post.postUserHeader);
     let $html=" <div class=\"tt-item \" id=\"\">\n" +
-        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
+        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\""+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
         "                <div class=\"tt-col-description\">\n" +
         "                    <h6 class=\"tt-title\"><a href=\"page-single-topic.html\">\n" +
         "                      <svg class=\"tt-icon\"><use xlink:href=\"#icon-pinned\"></use></svg>\n" +post.postTitle+

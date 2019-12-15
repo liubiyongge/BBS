@@ -2,22 +2,16 @@ var user={};
 var token;
 
 $(function () {
-  /* let test=undefined;
-   console.log("null:" + typeof (test)+test);
-   if (test==undefined){
-     console.log("value");
-   }
-   if (typeof (test)=="undefined"){
-     console.log("type");
-   }*/
+  var $userName;
   /*获取token*/
   token=localStorage.getItem("bbsNCU");
-  var $userName=parseJwt(token).userName;/*获取用户信息*/
-  var $userType=parseJwt(token).type;
+  console.log(typeof (token));
   console.log(token);
-  /*if (token==null){
-    console.log("token-null");
-  }*/
+  if (token==null||token=="null"){
+    console.log("no token");
+  }else{
+    $userName=parseJwt(token).userName;/*获取用户信息*/
+  }
   /*1.鼠标移入移出右上角*/
   $(".user-settings").mouseenter(function () {
     $(".toUserCenter").removeClass("notShow").addClass("currentShow");
@@ -29,7 +23,8 @@ $(function () {
   $(".manage-content").hide();
 
   /*判断是否为未登录用户*/
-  if (token==null||typeof ($userName)=="undefined"||$userName==undefined){//未登录
+
+  if (token==null||token=="null"||typeof ($userName)=="undefined"||$userName==undefined){//未登录
     console.log("未登录");
     localStorage.setItem("bbsNCU",null);
     $(".sign-in-up").addClass("currentShow").removeClass("notShow");/*显示登录-注册*/
@@ -38,7 +33,7 @@ $(function () {
     getUserInfo($userName);      /*ajax请求获取用户信息，存放在user全局变量*/
     //setTimeout(showHeader,100);/*等待ajax请求完成再执行*/
     if (user.profilePhoto==null){
-      user.profilePhoto="defaultUserHeader.jpg";
+      user.profilePhoto="/images/defaultUserHeader.jpg";
     }
     showHeader();
   }
@@ -51,7 +46,7 @@ $(function () {
   });
   /*点击 发表帖子 按钮*/
   $(".to-create-post").click(function () {
-    if (token==null||typeof (user.userId)=="undefined"||user.userId==undefined){
+    if (token==null||token=="null"||typeof (user.userId)=="undefined"||user.userId==undefined){
       alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
@@ -63,7 +58,7 @@ $(function () {
   });
   /*点击"+"发表新帖子*/
   $(".tt-btn-create-topic").click(function () {
-    if (typeof (user.userId)=="undefined"||user.userId==undefined||token==null){
+    if (typeof (user.userId)=="undefined"||user.userId==undefined||token==null||token=="null"){
       alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
@@ -82,7 +77,7 @@ $(function () {
   });
   /*点击个人中心按钮*/
   $(".user-center-bt").click(function () {
-    if (typeof (user.userId)=="undefined"||user.userId==undefined||token==null){
+    if (typeof (user.userId)=="undefined"||user.userId==undefined||token==null||token=="null"){
       alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
@@ -96,6 +91,7 @@ $(function () {
   /*点击 退出登录 按钮*/
   $(".log-out-bt").click(function () {
     clearUserInfo();
+    //localStorage.clear();
     localStorage.setItem("bbsNCU",null);
     window.location.href="index.html";
   });
@@ -162,7 +158,6 @@ $(function () {
     getAllPosts();
   });*/
 });
-
 /*显示顶部*/
 function showHeader() {
   //console.log(user);
@@ -172,19 +167,21 @@ function showHeader() {
   $(".user-settings .userName a").text(user.userName);/*显示用户名*/
   var path;
   if (user.profilePhoto==undefined||typeof (user.profilePhoto)=="undefined"||token==null){
+    //alert("no header");
     //console.log("Header-undefined");
-    path="images/defaultUserHeader.jpg";/*用户未设置头像，显示默认头像*/
+    path="/images/defaultUserHeader.jpg";/*用户未设置头像，显示默认头像*/
   }else {
-    path="images/"+user.profilePhoto;
+    path=user.profilePhoto;
   }
   $(".defaultUserHeader").attr("src",path);/*显示头像*/
+  console.log(path);
 }
 /*获取用户信息*/
 function getUserInfo($userName) {
   //console.log("getUSerInfo:");
   $.ajax({
     async:false,
-    cache:false,
+    //cache:false,
     headers:{
       'token':token,
     },
@@ -231,15 +228,12 @@ function getAllPosts()  {
   /*显示标题栏*/
   showPostListHeader();
   $.ajax({
-    cache:false,
+   // cache:false,
     async:false,
     headers:{
       "token":token
     },
-    url:"/post/findAll",//"./sources/post.json",
-    /*beforeSend: function(request){
-      request.setRequestHeader("token",token);
-    },*/
+    url:"/post/findAll",
     type:"post",
     dataType: "json",
     success:function (data) {/*要求返回的数据data已按回复数排序*/
@@ -311,7 +305,7 @@ function addPostToList(post) {
     //console.log("top:"+post.top);
     //$top="tt-itemselect";
     let $html=" <div class=\"tt-item tt-itemselect\" id=\"\">\n" +
-      "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
+      "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\""+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
       "                <div class=\"tt-col-description\">\n" +
       "                    <h6 class=\"tt-title\"><a href=\"page-single-topic.html\">\n" +
       "                      <svg class=\"tt-icon\"><use xlink:href=\"#icon-pinned\"></use></svg>\n" +post.postTitle+
@@ -341,7 +335,7 @@ function addPostToList(post) {
   }
   else {
     let $html=" <div class=\"tt-item \" id=\"\">\n" +
-      "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
+      "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\""+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
       "                <div class=\"tt-col-description\">\n" +
       "                    <h6 class=\"tt-title\"><a href=\"page-single-topic.html\">\n" +
       "                      <svg class=\"tt-icon\"><use xlink:href=\"#icon-pinned\"></use></svg>\n" +post.postTitle+
@@ -378,9 +372,9 @@ function getCategoryName($categoryId) {
   //console.log("111:::"+$categoryId);
   let $categoryName="你好";
   $.ajax({
-    cache:false,
+    //cache:false,
     async:false,
-    url:"http://localhost:8080/category/getCategoryName",//./sources/categoryName.json
+    url:"/category/getCategoryName",//./sources/categoryName.json
     type:"post",
     dataType:"json",
     data:{
@@ -402,9 +396,9 @@ function getCommentsNum($postId) {
   //console.log("getCommentsNum-postId:"+$postId);
   let $commentsNum=0;
   $.ajax({
-    cache:false,
+   // cache:false,
     async: false,
-    url:"http://localhost:8080/post//countCommentsNum",//./sources/commentsNum.json
+    url:"/post/countCommentsNum",//./sources/commentsNum.json
     type:"post",
     dataType:"json",
     data:{
@@ -428,9 +422,9 @@ function getUserName($userId) {
    /* headers:{
       'token':token,
     },*/
-    cache:false,
+   // cache:false,
     async:false,
-    url:"http://localhost:8080/post/getPostUserName",
+    url:"/post/getPostUserName",
     type:"post",
     dataType:"json",
     data:{
@@ -450,11 +444,11 @@ function getUserName($userId) {
 }
 /*通过userId查询用户头像*/
 function getUserHeader($userId) {
-  let $userHeader="defaultUserHeader.jpg";
+  let $userHeader="/images/defaultUserHeader.jpg";
   $.ajax({
-    cache:false,
+   // cache:false,
     async:false,
-    url:"http://localhost:8080/post/getHeader",
+    url:"/post/getHeader",
     type:"post",
     dataType:"json",
     data:{
@@ -462,8 +456,8 @@ function getUserHeader($userId) {
     },
     success:function (data) {
       $userHeader=data.profilePhoto;
-      if ($userHeader==="undefined"||typeof ($userHeader)=="undefined"){
-        $userHeader="defaultUserHeader.jpg";
+      if ($userHeader==undefined||typeof ($userHeader)=="undefined"){
+        $userHeader="/images/defaultUserHeader.jpg";
       }
       //console.log("success:"+$userId);
       //console.log("success:"+$userHeader);
@@ -479,7 +473,7 @@ function getUserHeader($userId) {
 /*通过postId删除帖子*/
 function deletePost($postId) {
   $.ajax({
-    cache:false,
+    //cache:false,
     async:false,
     headers:{
       'token':token,
@@ -502,7 +496,7 @@ function deletePost($postId) {
 /*通过postId置顶帖子*/
 function toTop($postId) {
   $.ajax({
-    cache:false,
+    //cache:false,
     async:false,
     headers:{
       'token':token,
@@ -524,7 +518,7 @@ function toTop($postId) {
 /*通过postId给帖子加精*/
 function toHighlight($postId) {
   $.ajax({
-    cache:false,
+    //cache:false,
     async:false,
     headers:{
       'token':token,
@@ -707,9 +701,9 @@ function Base64() {
 function getCategoryUserId($categoryId) {
   let $categoryUserId=0;
   $.ajax({
-    cache: false,
+   // cache: false,
     async: false,
-    url: "http://localhost:8080/category/getCategoryUserId",
+    url: "/category/getCategoryUserId",
     type: "post",
     dataType: "json",
     data:{
@@ -730,9 +724,9 @@ function getCategoryUserId($categoryId) {
 function getCategoriesOption() {
   $(".category-option-list").empty();
   $.ajax({
-    cache:false,
+    //cache:false,
     async:false,
-    url:"http://localhost:8080/category/findAll",
+    url:"/category/findAll",
     type:"post",
     dataType:"json",
     success:function (data) {
@@ -760,15 +754,21 @@ function getCategoriesOption() {
 function uploadImg($img) {
   var formData=new FormData();
   formData.append("file",$img);
+  let postPhoto;
   $.ajax({
+    async:false,
     type:"post",
-    url:"/upload/images",
+    headers:{
+      'token':token,
+    },
+    url:"/User/uploadImg",
     data:formData,
     contentType: false,
     processData: false,
     dataType:"json",
     success:function(data){
-      if (data==1){
+      console.log(data);
+      if (data.code==200){
         $(".begin-upload").text("重新上传");
         let $html=" <div class=\"photoArea\">\n" +
             "                                <img src=\"\" alt=\"\" class=\"showPhoto\">\n" +
@@ -776,13 +776,19 @@ function uploadImg($img) {
         $(".load-and-place-photo").append($html);
         let $imgURL=window.URL.createObjectURL($img);
         $(".showPhoto").attr("src",$imgURL);
+        postPhoto=data.imgUrl;
+        return postPhoto;
         alert("上传成功");
+      }else {
+        alert("上传失败，只能上传jpg,jpeg,png格式的图片");
+        return postPhoto;
       }
     },
     error:function (msg) {
-      alert("上传失败，请重新上传");
+      alert("上传失败，只能上传jpg,jpeg,png格式的图片,请重新上传");
     }
   });
+  return postPhoto;
 }
 /*获取token里面的用户数据*/
 function parseJwt (token) {
@@ -793,39 +799,7 @@ function parseJwt (token) {
   }).join(''));
   return JSON.parse(jsonPayload);
 }
-/*给用户追加或者减少积分*/
-function changeCredit($userId,$postScore) {
-  let $state=0;
-  $.ajax({
-    headers: {
-      'token':token,
-    } ,
-    async:false,
-    type:"post",
-    dataType:"json",
-    url:"/User/addCredit",
-    data:{
-      'userId':$userId,
-      'postScore':$postScore,
-    },
-    success:function (data) {
-      if (data.state==1){
-        // alert("采纳成功，积分已到对方的账号中");
-        $state=1;
-        return $state;
-      }else {
-        //alert("操作失败,请重试");
-        $state=0;
-        return $state;
-      }
-    },error:function () {
-      //alert("操作失败，请重试...");
-      $state=0;
-      return $state;
-    }
-  });
-  return $state;
-}
+
 
 
 

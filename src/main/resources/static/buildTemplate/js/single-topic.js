@@ -130,7 +130,7 @@ $(function () {
             window.location.href="page-login.html";
         }
         let $userId=$(evt.target).parents(".info-bottom").attr("id");
-        let $addScore=changeCredit($userId,post.postScore);
+        let $addScore=changeCredit($userId,post.postId);
         let $changePostType=changePostType(post.postId);
         if ($addScore==1&&$changePostType==1){
             $(".acceptComment").attr("hidden","hidden");
@@ -184,7 +184,7 @@ function getPost($postId) {
             //console.log(data);
             post=data;
             /*1.帖子的用户头像*/
-            let $userHeader="images/"+getUserHeader(data.postUserId);
+            let $userHeader=getUserHeader(data.postUserId);
             $(".userHeader").attr("src",$userHeader);
             /*2.帖子积分*/
             if (data.postScore==0){
@@ -219,9 +219,9 @@ function getPost($postId) {
             /*9.帖子图片*/
             // console.log(data.postPhoto);
             if (data.postPhoto==null||typeof (data.postPhoto)=="undefined"||data.postPhoto==="undefined"){
-                $(".postPhoto").attr("src","images/testHeader1.jpg");
+                $(".postPhoto").attr("hidden","hidden");
             }else {
-                $(".postPhoto").attr("src","images/"+data.postPhoto);
+                $(".postPhoto").attr("src",data.postPhoto);
             }
             /*10.帖子正文文字内容*/
             $(".postContent").text(data.postContent);
@@ -266,7 +266,7 @@ function showComment($comment) {
         "                <div class=\"tt-item-header pt-noborder\">\n" +
         "                  <div class=\"tt-item-info info-top\">\n" +
         "                    <div class=\"tt-avatar-icon\">\n" +
-        "                      <img src=\"images/"+$commentUserHeader+"\" alt=\"UserHeader\" class=\"defaultUserHeader\">\n" +
+        "                      <img src=\""+$commentUserHeader+"\" alt=\"UserHeader\" class=\"defaultUserHeader\">\n" +
         "                    </div>\n" +
         "                    <div class=\"tt-avatar-title\">\n" +
         "                      <a href=\"javascript:;\">"+$commentUserName+"@"+$commentToUserName+"</a>\n" +
@@ -330,7 +330,7 @@ function deleteComment($commentId,$postId) {
         },
         type:"post",
         dataType:"json",
-        url:"/comment/delete",
+        url:"/User/deleteComm",
         data:{
             'commentId':$commentId,
         },success:function (data) {
@@ -348,7 +348,39 @@ function deleteComment($commentId,$postId) {
         }
     });
 }
-
+/*采纳：给用户追加积分*/
+function changeCredit($userId,$postId) {
+    let $state=0;
+    $.ajax({
+        headers: {
+            'token':token,
+        } ,
+        async:false,
+        type:"post",
+        dataType:"json",
+        url:"/User/addCredit",
+        data:{
+            'userId':$userId,
+            'postId':$postId,
+        },
+        success:function (data) {
+            if (data.state==1){
+                // alert("采纳成功，积分已到对方的账号中");
+                $state=1;
+                return $state;
+            }else {
+                //alert("操作失败,请重试");
+                $state=0;
+                return $state;
+            }
+        },error:function () {
+            //alert("操作失败，请重试...");
+            $state=0;
+            return $state;
+        }
+    });
+    return $state;
+}
 /*采纳：将postType改为2*/
 function changePostType($postId) {
     let $state=0;
@@ -359,7 +391,7 @@ function changePostType($postId) {
         async:false,
         type:"post",
         dataType:"json",
-        url:"/post/changeDemand",
+        url:"/User/changeDemand",
         data:{
            'postId':$postId
         },
@@ -388,7 +420,7 @@ function  sendComment($comment) {
         headers:{
             'token':token,
         } ,
-        url:"/comment/addComment",
+        url:"/User/addComment",
         contentType: "application/json",
         data:JSON.stringify({
             "commentUserId":$comment.commentUserId,

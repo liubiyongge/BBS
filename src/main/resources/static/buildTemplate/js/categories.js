@@ -14,6 +14,7 @@ $(function () {
   });*/
   /*点击 进入栏目*/
  $(".into-category").click(function () {
+  // alert("111");
    let $categoryId=$(this).parents(".tt-item-header").find(".saveCategoryId").attr("id");
    //alert($categoryId);
    let page="page-categories-single.html?";
@@ -29,7 +30,7 @@ function showAllCategories() {
   $.ajax({
     cache:false,
     async:false,
-    url:"http://localhost:8080/category/findAll",
+    url:"/category/findAll",
     type:"post",
     dataType:"json",
     success:function (data) {
@@ -122,7 +123,7 @@ function getPostByCategoryId($categoryId) {
   $.ajax({
     cache:false,
     async:false,
-    url:"http://localhost:8080/post/postInCategory",
+    url:"/post/postInCategory",
     type: "post",
     dataType: "json",
     data:{

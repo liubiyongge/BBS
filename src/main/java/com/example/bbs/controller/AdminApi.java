@@ -6,19 +6,11 @@ import com.example.bbs.dao.CommentDao;
 import com.example.bbs.dao.PostDao;
 import com.example.bbs.entity.*;
 import com.example.bbs.dao.AdminDao;
-import com.example.bbs.service.CategoryService;
-import com.example.bbs.service.TokenService;
-import com.example.bbs.service.UserService;
+import com.example.bbs.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import com.example.bbs.dao.UserDao;
-import com.example.bbs.service.AdminService;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -50,6 +42,12 @@ public class AdminApi {
 
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private CommentService commentService;
 
 
 
@@ -174,7 +172,14 @@ public class AdminApi {
 //    }
 
     @RequestMapping("/deletePost/{id}")
-    public void deletePost(@PathVariable int id){postDao.deletePostByPostId(id);}
+    public void deletePost(@PathVariable int id){
+        Post post=postService.findPostByPostId(id);
+        /*未采纳答案，退还积分*/
+        if (post.getPostType()==1){
+            userService.addCredit(post.getPostUserId(),post.getPostScore());
+        }
+        postDao.deletePostByPostId(id);
+    }
 
     @RequestMapping("/getAllComment")
     public List<CommentForAdmin> getAllComment(){
@@ -185,5 +190,7 @@ public class AdminApi {
     public void deleteComment(@PathVariable int commentId){
         commentDao.deleteComment(commentId);
     }
+
+
 }
 

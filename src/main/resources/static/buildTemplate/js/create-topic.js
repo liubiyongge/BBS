@@ -32,8 +32,8 @@ $(function () {
         if (typeof ($img)=="undefined"){
             alert("请选择图片");
         }else {
-          uploadImg($img);
-          post.postPhoto=$img.name;
+          post.postPhoto=uploadImg($img);
+          //post.postPhoto=$img.name;
            // console.log(post.postPhoto);
         }
     });
@@ -61,10 +61,11 @@ $(function () {
         else if ( post.postContent==""){
             alert("内容不能为空");
         }
-        else if (($inputCredit==""||isNaN($inputCredit)||$inputCredit===0)&&post.postType==1){
+        else if (($inputCredit==""||isNaN($inputCredit)||$inputCredit==0)&&post.postType==1){
             alert("请设置有效的积分");
-        }else if (user.credit<$inputCredit){
+        }else if (user.credit<$inputCredit&&post.postType==1){
             alert("剩余积分不足");
+            $(".input-credit").val("");
         }
         else{
             console.log("post.postScore:"+post.postScore);
@@ -79,7 +80,6 @@ $(function () {
            // post.postPhoto=undefined;
             post.postTime=getTime();
             createPost(post);
-            changeCredit(user.userId,-post.postScore);
         }
 
     });

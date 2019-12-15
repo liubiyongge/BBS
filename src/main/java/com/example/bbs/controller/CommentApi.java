@@ -21,9 +21,9 @@ public class CommentApi {
     public List<Comment> listComments(){
         return commentService.listComments();
     }
-
+    /*此操作需要权限，已移入AdminApi*/
     //2-创建一条comment
-    @RequestMapping("/addComment")
+  /*  @RequestMapping("/addComment")
     public String createComment(@RequestBody Comment comment){
         System.out.println(comment.toString());
         JSONObject result=new JSONObject();
@@ -31,7 +31,7 @@ public class CommentApi {
         commentService.addComment(comment.getCommentUserId(),comment.getCommentToId(),comment.getCommentToUserId(),
                 comment.getCommentContent(),comment.getCommentPostId(),comment.getCommentTime());
         return result.toJSONString();
-    }
+    }*/
 
     //3-返回当前回复的被回复数
     @RequestMapping("/countComments")
@@ -41,13 +41,13 @@ public class CommentApi {
         result.put("CommentNumToThisComment", commentService.countCommentNumToThisComment(commentId));
         return result.toJSONString();
     }
-
+    /*此操作需要权限，已移入AdminApi*/
     //4-删除评论
-    @RequestMapping("/delete")
+   /* @RequestMapping("/delete")
     public String deleteComment(@RequestParam("commentId") int commentId){
         commentService.deleteComment(commentId);
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
-    }
+    }*/
 }

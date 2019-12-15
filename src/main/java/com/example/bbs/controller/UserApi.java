@@ -2,13 +2,11 @@ package com.example.bbs.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.dao.UserDao;
+import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.LoginUser;
 import com.example.bbs.entity.Post;
 import com.example.bbs.entity.User;
-import com.example.bbs.service.PostService;
-import com.example.bbs.service.TokenService;
-import com.example.bbs.service.UploadImgService;
-import com.example.bbs.service.UserService;
+import com.example.bbs.service.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,6 +33,9 @@ public class UserApi {
 
     @Autowired
     private UploadImgService uploadImgService;
+
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
@@ -87,9 +88,14 @@ public class UserApi {
     /*权限操作：删除帖子，参数：postId*/
     @RequestMapping("/deletePost")
     public String deletePostByPostId(@RequestParam(value = "postId")int postId){
+        Post post=postService.findPostByPostId(postId);
+        /*未采纳答案，退还积分*/
+        if (post.getPostType()==1){
+            userService.addCredit(post.getPostUserId(),post.getPostScore());
+        }
         postService.deletePostByPostId(postId);
         JSONObject result=new JSONObject();
-        result.put("state","delete successfully");
+        result.put("state",1);
         System.out.println(postId+": delete successfully");
         return  result.toJSONString();
     }
@@ -115,17 +121,10 @@ public class UserApi {
     /*发表帖子*/
     @RequestMapping("/creatPost")
     public  String createPost(@RequestBody Post post){
-        /*
-        @RequestParam("postTitle")String postTitle,@RequestParam("postContent")String postContent,
-                              @RequestParam("postScore")int postScore,@RequestParam("postUserId")int postUserId,
-                              @RequestParam("postPhoto")String postPhoto, @RequestParam("highlight")int highlight,
-                              @RequestParam("postTime")String postTime,@RequestParam("postType")int postType,
-                              @RequestParam("postCategoryId")int postCategoryId, @RequestParam("top")int top
-        */
-        //System.out.print("在这里.....");
-        //System.out.println(post.toString());
         postService.createPost(post.getPostTitle(),post.getPostContent(),post.getPostScore(),post.getPostUserId(),post.getPostPhoto(),
                 post.getHighlight(),post.getPostTime(),post.getPostType(),post.getPostCategoryId(),post.getTop());
+        /*扣除用户积分*/
+        userService.addCredit(post.getPostUserId(),-post.getPostScore());
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
@@ -133,8 +132,9 @@ public class UserApi {
 
     //给用户加积分
     @RequestMapping("/addCredit")
-    public String addCredit(@RequestParam("userId")int userId, @RequestParam("postScore") int postScore){
-        userService.addCredit(userId, postScore);
+    public String addCredit(@RequestParam("userId")int userId, @RequestParam("postId") int postId){
+        Post post=postService.findPostByPostId(postId);
+        userService.addCredit(userId, post.getPostScore());
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
@@ -144,5 +144,49 @@ public class UserApi {
     @ResponseBody
     public Map uploadImg(@RequestParam(value = "file",required = false) MultipartFile file){
         return uploadImgService.uploadImg(file);
+    }
+
+    //16-修改帖子信息
+    @RequestMapping("/updatePost")
+    public String updatePost(@RequestBody Post post){
+        /*获取原来的帖子*/
+        Post post0=postService.findPostByPostId(post.getPostId());
+        /*获取原来帖子的积分*/
+        int originPostScore=post0.getPostScore();
+        /*计算前后差值*/
+        int change=originPostScore-post.getPostScore();
+        /*修改用户积分*/
+        userService.addCredit(post.getPostUserId(),change);
+        postService.updatePost(post.getPostId(), post.getPostTitle(),post.getPostScore(),post.getPostContent(),post.getPostPhoto(),post.getHighlight(),post.getPostCategoryId(),post.getPostType(),post.getTop());
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        return result.toJSONString();
+    }
+    //17-需求贴完成需求->postType=2
+    @RequestMapping("/changeDemand")
+    public String changeDemandPostType(@RequestParam("postId") int postId){
+        postService.changeDemandPostType(postId);
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        return result.toJSONString();
+    }
+    //2-创建一条comment
+    @RequestMapping("/addComment")
+    public String createComment(@RequestBody Comment comment){
+        System.out.println(comment.toString());
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        commentService.addComment(comment.getCommentUserId(),comment.getCommentToId(),comment.getCommentToUserId(),
+                comment.getCommentContent(),comment.getCommentPostId(),comment.getCommentTime());
+        return result.toJSONString();
+    }
+
+    //4-删除评论
+    @RequestMapping("/deleteComm")
+    public String deleteComm(@RequestParam("commentId") int commentId){
+        commentService.deleteComment(commentId);
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        return result.toJSONString();
     }
 }
