@@ -17,6 +17,7 @@ create table category(
 categoryId integer primary key not null,
 categoryName varchar(45) not null unique,
 categoryUserId integer not null,
+categoryName varchar(100) not null,
 foreign key (categoryUserId) references user(userId) on delete cascade on update cascade
 )
 //帖子表
@@ -44,6 +45,7 @@ commentToUserId integer not null,
 commentContent varchar(100) not null,
 commentPostId integer not null,
 commentTime datetime not null,
+adopt integer not null default 0,
 foreign key (commentUserId) references user(userId) on delete cascade on update cascade,
 foreign key (commentToUserId) references user(userId) on delete cascade on update cascade,
 foreign key (commentPostId) references post(postId) on delete cascade on update cascade
