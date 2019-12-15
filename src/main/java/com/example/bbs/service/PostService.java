@@ -33,7 +33,7 @@ public class PostService {
         return postDao.findPostByPostId(postId);
     }
 
-//    通过postUserId获取帖子
+    //    通过postUserId获取帖子
     public List<Post> findByPostUserId(int postUserId){return postDao.findByPostUserId(postUserId);}
 
     /*4-根据postId删除一条帖子*/
@@ -103,10 +103,10 @@ public class PostService {
 
     //16-修改帖子信息
     public void updatePost(@Param("postId") int postId, @Param("postTitle") String postTitle,
-                           @Param("postContent") String postContent, @Param("postPhoto") String postPhoto,
-                           @Param("highlight") int highlight, @Param("postType")int postType, @Param("top") int top,
-                           @Param("postCategoryId")int postCategoryId,@Param("postScore")int postScore){
-        postDao.updatePost(postId, postTitle,postContent,postPhoto,highlight,postType,top,postCategoryId,postScore);
+                           @Param("postScore") int postScore, @Param("postContent") String postContent,
+                           @Param("postPhoto") String postPhoto, @Param("highlight") int highlight,
+                           @Param("postCategoryId")int postCategoryId, @Param("postType")int postType, @Param("top") int top){
+        postDao.updatePost(postId, postTitle,postScore,postContent,postPhoto,highlight,postCategoryId,postType,top);
     }
 
     //17-需求贴完成需求->postType=2
