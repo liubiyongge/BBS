@@ -117,7 +117,7 @@ function addCategoryToList(category,categoryId){
         "                                            <ul class=\"tt-list-badge\">\n" +
         "                                                <li><a href=\"#\"><span class=\"tt-color03 tt-badge\">"+category.categoryName+"</span></a></li>\n" +
         "                                            </ul>\n" +
-        "                                            <h6 class=\"tt-title\"><a href=\"page-categories-single.html?&categoryId="+categoryId+"\" style='color:#ff8d46'>点此进入栏目</a></h6>\n" +
+        "                                            <h6 class=\"tt-title\"><a href=\"page-categories-single.html?&categoryId="+category.categoryId+"\" style='color:#ff8d46'>点此进入栏目</a></h6>\n" +
         "                                        </div>\n" +
         "                                        <div class=\"tt-item-layout\">\n" +
         "                                           <div class=\"innerwrapper\">\n" +
@@ -167,6 +167,7 @@ function findCategory(){
                 var category={};
                 for(var i=0;i<jsonArray.length;i++){
                     category.categoryName=jsonArray[i].categoryName;
+                    category.categoryId=jsonArray[i].categoryId;
                     category.postCategoryName=jsonArray[i].postCategoryName;
                     addCategoryToList(category);
                 }
