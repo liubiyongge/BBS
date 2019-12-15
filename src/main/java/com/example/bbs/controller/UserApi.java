@@ -7,11 +7,15 @@ import com.example.bbs.entity.Post;
 import com.example.bbs.entity.User;
 import com.example.bbs.service.PostService;
 import com.example.bbs.service.TokenService;
+import com.example.bbs.service.UploadImgService;
 import com.example.bbs.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 
 @RestController
@@ -28,6 +32,9 @@ public class UserApi {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UploadImgService uploadImgService;
 
     @RequestMapping("/login")
     public Object login(@RequestBody LoginUser loginUser){
@@ -131,5 +138,11 @@ public class UserApi {
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
+    }
+
+    @RequestMapping(value = "/uploadImg",method = RequestMethod.POST)
+    @ResponseBody
+    public Map uploadImg(@RequestParam(value = "file",required = false) MultipartFile file){
+        return uploadImgService.uploadImg(file);
     }
 }
