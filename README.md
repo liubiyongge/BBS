@@ -60,6 +60,8 @@
 
 栏目版主：categoryUserId-integer-NOT NULL,FOREIGN KEY REFERENCES user(userId) 
 
+栏目描述：categoryDescription-varchar(100)-NOT NULL
+
 
 #### 4.回复表comment
 
@@ -76,5 +78,7 @@
 当前帖子ID：commentPostId-integer-NOT NULL,FOREIGN KEY REFERENCES post(postId) 
 
 回复时间：commentTime-datetime-NOT NULL
+
+回复是否被采纳：adopt-integer-NOT NULL,default(0) 0:普通评论 1:被采纳评论(针对需求贴)
 
 
