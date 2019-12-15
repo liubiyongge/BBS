@@ -381,6 +381,7 @@ function getCategoryName($categoryId) {
       'categoryId':$categoryId,
     },
     success:function (data) {
+      console.log(data);
       $categoryName=data.categoryName;//
       //console.log($categoryId+":"+$categoryName);
       return $categoryName;

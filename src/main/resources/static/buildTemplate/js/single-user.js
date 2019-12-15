@@ -45,10 +45,24 @@ function addSvg(){
         "                            </div>";
     $("#tt1").append($html)
 }
+function addHead(){
+    let html="<div class=\"tt-list-header\">\n" +
+        "                            <div class=\"tt-col-topic\">帖子</div>\n" +
+        "                            <div class=\"tt-col-category\">分类</div>\n" +
+        "                            <div class=\"tt-col-value hide-mobile\">回复数</div>\n" +
+        "                            <!--<div class=\"tt-col-value\">Activity</div>-->\n" +
+        "                        </div>"
+    $("#tt1").append(html);
+}
 function addPostToList(post){
-    let $html="" +
+    let $html="<div class=\"tt-item\">\n" +
+        "                            <div class=\"tt-col-avatar\">\n" +
+        "                                <svg class=\"tt-icon\">\n" +
+        "                                  <use xlink:href=\"#icon-ava-d\"></use>\n" +
+        "                                </svg>\n" +
+        "                            </div>" +
         "                            <div class=\"tt-col-description\">\n" +
-        "                               <h6 class=\"tt-title\"><a href=\"#\">\n" +
+        "                               <h6 class=\"tt-title\"><a href=\"page-single-topic.html?&postId="+post.postId+"\">\n" +
         "                                   <!--前面的小图标可省-->\n" +
         "                                    <!--<svg class=\"tt-icon\">-->\n" +
         "                                      <!--<use xlink:href=\"#icon-pinned\"></use>-->\n" +
@@ -72,9 +86,13 @@ function addPostToList(post){
         "                            <div class=\"tt-col-category\"><span class=\"tt-color01 tt-badge\">"+post.postCategoryName+"</span></div>\n" +
         "                            <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
         "                            <!--<div class=\"tt-col-value hide-mobile\">1h</div>-->\n" +
-        "";
+        "</div>";
     $("#tt1").append($html);
 }
+// function addFoot(){
+//     let html="";
+//     $("#tt1").append(html);
+// }
 function getAllPosts() {
     $("#tt1").empty();
     var token=localStorage.getItem("bbsNCU");
@@ -94,11 +112,12 @@ function getAllPosts() {
         }),
         success:function (jsonArray) {
             console.log(jsonArray);
-            addSvg();
+            addHead();
             var post={};
             for(var i=0;i<jsonArray.length;i++){
                 post.postTitle=jsonArray[i].postTitle;
                 post.postCategoryName=jsonArray[i].postCategoryName;
+                post.postId=jsonArray[i].postId;
                 console.log(getCommentsNum(jsonArray[i].postId));
                 console.log(getCommentsNum(2));
                 var num=getCommentsNum(jsonArray[i].postId);

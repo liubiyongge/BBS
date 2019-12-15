@@ -18,11 +18,11 @@ public class CategoryApi {
     @Autowired
     private CategoryService categoryService;
     @RequestMapping("/getCategoryName")
-    public String getCategoryName(@RequestParam(value="categoryId") String categoryId){
+    public String getCategoryName(@RequestParam(value="categoryId") int categoryId){
         //System.out.println("categoryId:"+categoryId);
         //System.out.println(categoryService.getCategoryName(Integer.parseInt(categoryId)));
         JSONObject result = new JSONObject();
-        result.put("categoryName", categoryService.getCategoryName(Integer.parseInt(categoryId)));
+        result.put("categoryName", categoryService.getCategoryName(categoryId));
         return result.toJSONString();
     }
     @RequestMapping("/findAll")
