@@ -110,18 +110,18 @@ function getAllPosts() {
         })
 }
 
-function addCategoryToList(category){
+function addCategoryToList(category,categoryId){
     let html="<div class=\"col-md-6 col-lg-4\">\n" +
         "                                    <div class=\"tt-item\">\n" +
         "                                        <div class=\"tt-item-header\">\n" +
         "                                            <ul class=\"tt-list-badge\">\n" +
-        "                                                <li><a href=\"#\"><span class=\"tt-color01 tt-badge\">"+category.categoryName+"</span></a></li>\n" +
+        "                                                <li><a href=\"#\"><span class=\"tt-color03 tt-badge\">"+category.categoryName+"</span></a></li>\n" +
         "                                            </ul>\n" +
-        "                                            <h6 class=\"tt-title\"><a href=\"#\">Threads - 1,245</a></h6>\n" +
+        "                                            <h6 class=\"tt-title\"><a href=\"page-categories-single.html?&categoryId="+categoryId+"\" style='color:#ff8d46'>点此进入栏目</a></h6>\n" +
         "                                        </div>\n" +
         "                                        <div class=\"tt-item-layout\">\n" +
         "                                           <div class=\"innerwrapper\">\n" +
-        "                                               Lets discuss about whats happening around the world "+ category.categoryName+".\n" +
+        "                                               在此分享你的 "+ category.categoryName+" 趣事.\n" +
         "                                           </div>\n" +
         "                                           <div class=\"innerwrapper\">\n" +
         // "                                                <h6 class=\"tt-title\">Similar TAGS</h6>\n" +
@@ -141,6 +141,10 @@ function addCategoryToList(category){
         "                                </div>";
     $("#clearCategory").append(html);
 }
+
+function addHintCategoryToList(){
+    $("#clearCategory").append("抱歉，您不是版主，没有管理的栏目");
+}
 function findCategory(){
     $("#clearCategory").empty();
     var token=localStorage.getItem("bbsNCU");
@@ -158,7 +162,7 @@ function findCategory(){
             "userName":param
         }),
         success:function (jsonArray) {
-            if(jsonArray.length>1){
+            if(jsonArray.length>0){
                 console.log(jsonArray);
                 var category={};
                 for(var i=0;i<jsonArray.length;i++){
@@ -166,6 +170,9 @@ function findCategory(){
                     category.postCategoryName=jsonArray[i].postCategoryName;
                     addCategoryToList(category);
                 }
+            }
+            else{
+                addHintCategoryToList();
             }
         }
 
