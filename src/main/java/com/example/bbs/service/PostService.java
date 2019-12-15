@@ -4,6 +4,7 @@ import com.example.bbs.dao.PostDao;
 import com.example.bbs.dao.UserDao;
 import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
+import com.example.bbs.entity.CommentInfoForUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,4 +114,6 @@ public class PostService {
     public void changeDemandPostType(int postId){
         postDao.changeDemandPostType(postId);
     }
+
+
 }
