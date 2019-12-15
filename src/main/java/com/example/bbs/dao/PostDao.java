@@ -2,11 +2,11 @@ package com.example.bbs.dao;
 
 import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
+import com.example.bbs.entity.CommentInfoForUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Component
@@ -73,4 +73,11 @@ public interface PostDao {
     //18-查找用户发表的所有帖子
     List<Post> findByPostUserId(@Param("postUserId") int postUserId);
 
+    //19-个人中心-用户发表的评论
+    List<CommentInfoForUser> centerPostCommentInfo(@Param("userId") int userId);
+
+    //20-个人中心-用户收到的评论
+    List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId);
+
+    //21-
 }
