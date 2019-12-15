@@ -27,4 +27,10 @@
     <delete id="deleteComment">
         delete from `comment` where commentId=#{commentId}
     </delete>
+
+    <!--5.管理员查看所有帖子    -->
+    <select id="getAllCommentsForAdmin" resultType="CommentForAdmin">
+        select c.commentId, u1.userName , c.commentContent, p.postId, p.postTitle from comment c left join post p on c.commentPostId = p.postId
+        left join user u1 on c.commentUserId = u1.userId;
+    </select>
 </mapper>

@@ -127,37 +127,44 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">用户表</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th>用户名</th>
-                                            <th>用户身份</th>
-                                            <th>积分</th>
-                                            <th>用户详情</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>用户名</th>
-                                            <th>用户身份</th>
-                                            <th>积分</th>
-                                            <th>用户详情</th>
-                                            <th></th>
-                                        </tr>
-                                        </tfoot>
-                                        <tbody >
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">用户表</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>帖子ID</th>
+                                    <th>帖子名</th>
+                                    <th>帖子栏目</th>
+                                    <th>帖子积分</th>
+                                    <th>帖子属主</th>
+                                    <th>帖子类型</th>
+                                    <th>帖子详情</th><!--查看帖子-->
+                                    <th></th><!--删除贴子-->
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>帖子ID</th>
+                                    <th>帖子名</th>
+                                    <th>帖子栏目</th>
+                                    <th>帖子积分</th>
+                                    <th>帖子属主</th>
+                                    <th>帖子类型</th>
+                                    <th>帖子详情</th><!--查看帖子-->
+                                    <th></th><!--删除贴子-->
+                                </tr>
+                                </tfoot>
+                                <tbody >
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                </div>
 
             </div>
             <!-- /.container-fluid -->
@@ -203,49 +210,42 @@
 
 <!-- Page level custom scripts -->
 <script type="text/javascript">
-    function deleteUser(userId){
+    function deletePost(postId){
         $.ajax({
             type: "POST",
-            url: '/admin/deleteUser/' + userId,
+            url: '/admin/deletePost/' + postId,
             contentType: "application/json",
             headers: {'token': localStorage.getItem("bbsNCU")},
             success: function (data, result) {
                 console.log(result);
-                    location.reload();
+                location.reload();
 
             }
         })
     }
 
-
+    var highlight = [" ", " 加精贴"];
+    var istop = [" ", " 置顶"];
+    var postType = [" 普通贴", " 需求贴", " 需求贴"];
     $(document).ready(function(){
         $.ajax({
             type: "POST",
-            url: '/admin/getAllUser',
+            url: '/admin/getAllPost',
             contentType: "application/json",
             headers:{'token': localStorage.getItem("bbsNCU")},
             success: function (jsonData, result) {
                 for(var i = 0; i < jsonData.length; i++){
-                    if(jsonData[i]['type'] != 2){
-                        if( jsonData[i]['type'] == 1) {
-                            $('#dataTable').DataTable().row.add([
-                                jsonData[i]['userName'],
-                                "版主",
-                                jsonData[i]['credit'],
-                                "<a href='userManagerOne.html?id=" + jsonData[i]['userId'] + "'>" + "<i class='fas fa-fw fa-asterisk'></i>" + "</a>",
-                                "<button onclick='deleteUser(" + jsonData[i]['userId'] + ")'>删除</button>"
-                            ]).draw( false );
-                        }else {
-                            $('#dataTable').DataTable().row.add([
-                                jsonData[i]['userName'],
-                                "普通用户",
-                                jsonData[i]['credit'],
-                                "<a href='userManagerOne.html?id=" + jsonData[i]['userId'] + "'>" + "<i class='fas fa-fw fa-asterisk'></i>" + "</a>",
-                                "<button onclick='deleteUser(" + jsonData[i]['userId'] + ")'>删除</button>"
+                    $('#dataTable').DataTable().row.add([
+                        jsonData[i]["postId"],
+                        jsonData[i]['postTitle'],
+                        jsonData[i]["categoryName"],
+                        jsonData[i]['postScore'],
+                        jsonData[i]["userName"],
+                        postType[jsonData[i]["postType"]] + highlight[jsonData[i]["highlight"]] + istop[jsonData[i]["top"]],
+                        "<a href='page-single-topic.html?postId=" + jsonData[i]["postId"] + "'>" + "<i class='fas fa-fw fa-asterisk'></i>" + "</a>",
+                        "<button onclick='deletePost(" + jsonData[i]["postId"] + ")'>删除</button>"
+                    ]).draw( false );
 
-                            ]).draw( false );
-                        }
-                    }
                 }
 
             }

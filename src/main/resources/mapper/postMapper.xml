@@ -141,4 +141,9 @@ FROM `comment`
   FROM `comment`
   ))
     </select>
+    <!--显示所有post信息    -->
+    <select id="getAllPost" resultType="PostForAdmin">
+        select p.postId, p.postTitle, p.postScore, u.userName, p.highlight, p.postTime, p.postType, p.top, c.categoryName
+        from post p left join user u on p.postUserId = u.userId left join category c on p.postCategoryId = c.categoryId;
+    </select>
 </mapper>
