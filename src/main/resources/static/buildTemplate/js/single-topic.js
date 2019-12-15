@@ -130,12 +130,15 @@ $(function () {
             window.location.href="page-login.html";
         }
         let $userId=$(evt.target).parents(".info-bottom").attr("id");
+        let $commentId=$(evt.target).parents(".tt-single-topic").attr("id");
         let $addScore=changeCredit($userId,post.postId);
         let $changePostType=changePostType(post.postId);
-        if ($addScore==1&&$changePostType==1){
+        let $changeCommentAdopt=changeCommentAdopt($commentId);
+        if ($addScore==1&&$changePostType==1&&$changeCommentAdopt==1){
             $(".acceptComment").attr("hidden","hidden");
             $(evt.target).parents(".tt-item").removeClass("answer").addClass("tt-wrapper-success");
             alert("采纳成功，积分已转入回复者账号中");
+            window.location.reload();
         }else {
             alert("操作失败，请重试");
         }
@@ -256,14 +259,20 @@ function getAllComments($postId) {
 }
 /*显示一条回复*/
 function showComment($comment) {
-   // console.log($comment);
+   console.log($comment);
     let $commentUserHeader=getUserHeader($comment.commentUserId);
     let $commentUserName=getUserName($comment.commentUserId);
     let $commentToUserName=getUserName($comment.commentToUserId);
     let $commentCommentNum=getCommentCommentNum($comment.commentId);
-    let $html=" <div class=\"tt-item answer\">\n" +/*tt-wrapper-success*/
+
+    /*采纳的答案*/
+    let $color="answer";
+    if ($comment.adopt==1){
+      $color="tt-wrapper-success";
+    }
+    let $html=" <div class=\"tt-item "+$color+" \">\n" +/*tt-wrapper-success*/
         "              <div class=\"tt-single-topic\" id=\""+$comment.commentId+"\">\n" +
-        "                <div class=\"tt-item-header pt-noborder\">\n" +
+        "                <div class=\"tt-item-header pt-noborder\"'>\n" +
         "                  <div class=\"tt-item-info info-top\">\n" +
         "                    <div class=\"tt-avatar-icon\">\n" +
         "                      <img src=\""+$commentUserHeader+"\" alt=\"UserHeader\" class=\"defaultUserHeader\">\n" +
@@ -301,6 +310,7 @@ function showComment($comment) {
         "              </div>\n" +
         "            </div>";
     $(".commentList").append($html);
+
 }
 /*获取评论的回复数*/
 function getCommentCommentNum($commentId) {
@@ -443,4 +453,30 @@ function  sendComment($comment) {
             alert("评论失败，请重试...");
         }
     });
+}
+function  changeCommentAdopt($commentId) {
+    let state=0;
+    $.ajax({
+       async:false,
+       type:"post",
+        dataType:"json",
+        headers:{
+           'token':token,
+        },
+        url:"/User/changeCommentAdopt",
+        data:{
+           'commentId':$commentId,
+        },
+        success:function (data) {
+            if (data.state==1){
+                state=1;return state;
+            }else {
+                return  state;
+            }
+        },error:function () {
+            return state;
+        }
+
+    });
+    return state;
 }

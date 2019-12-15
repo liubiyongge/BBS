@@ -35,4 +35,6 @@ public interface CommentDao {
     List<CommentForAdmin> getAllCommentsForAdmin();
     Comment findCommentByToUserId(@Param("toUserId") int toUserId);
     void deleteCommentByCategoryId(@Param("categoryId") int categoryId);
+    /*根据commentId修改adopt-已被采纳*/
+    void changeCommentAdopt(@Param("commentId")int commentId);
 }
