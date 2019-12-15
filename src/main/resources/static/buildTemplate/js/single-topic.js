@@ -77,9 +77,17 @@ $(function () {
     /*(1).点击帖子底下的回复*/
     $(".toComment").click(function () {
         /*默认*/
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
     });
     /*(2).点击某条回复底下的回复按钮*/
     $(".commentList").delegate(".toComment-comment","click",function (evt) {
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
         comment.commentToUserId=$(evt.target).parents(".info-bottom").attr("id");
         //console.log(comment.commentToUserId);
         comment.commentToId=$(evt.target).parents(".tt-single-topic").attr("id");
@@ -87,12 +95,20 @@ $(function () {
     });
    /*点击设置为精华帖*/
     $(".toHighlight").click(function () {
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
         toHighlight($postId);
         getPost($postId);
         $(this).attr("hidden","hidden");
     });
     /*点击删除此回复*/
     $(".commentList").delegate(".deleteComment","click",function (evt) {
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
         let $id=$(evt.target).parents(".tt-single-topic").attr("id");
         let $commentId=$id/*.substr(1)*/;
         console.log("id:"+$commentId);
@@ -100,16 +116,24 @@ $(function () {
     });
     /*点击删除此帖子*/
     $(".deletePost").click(function () {
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
         deletePost($postId);
-        window.location.href="page-categories-single.html?userName="+user.userName+"&categoryId="+post.postCategoryId;
+        window.location.href="page-categories-single.html?categoryId="+post.postCategoryId;
     });
     /*点击 采纳*/
     $(".commentList").delegate(".acceptComment","click",function (evt) {
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
         let $userId=$(evt.target).parents(".info-bottom").attr("id");
-        $(".acceptComment").attr("hidden","hidden");
-        let $addScore=acceptComment($userId);
+        let $addScore=changeCredit($userId,post.postScore);
         let $changePostType=changePostType(post.postId);
         if ($addScore==1&&$changePostType==1){
+            $(".acceptComment").attr("hidden","hidden");
             $(evt.target).parents(".tt-item").removeClass("answer").addClass("tt-wrapper-success");
             alert("采纳成功，积分已转入回复者账号中");
         }else {
@@ -118,7 +142,11 @@ $(function () {
     });
     /*点击发送*/
     $(".sendComment").click(function () {
-        if (user.userName==="undefined"||typeof (user.userName)=="undefined"){
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
+        if (user.userName==undefined||typeof (user.userName)=="undefined"){
             alert("请先登录");
             window.location.href="page-login.html";
         }else {
@@ -134,7 +162,11 @@ $(function () {
     });
     /*点击  修改*/
     $(".rewritePost").click(function () {
-       $(this).attr("href","page-modify-topic.html?userName="+user.userName+"&postId="+post.postId);
+        if (token==null||token==="null"){
+            alert("请先登录");
+            window.location.href="page-login.html";
+        }
+       $(this).attr("href","page-modify-topic.html?postId="+post.postId);
     });
 
 });
@@ -316,39 +348,7 @@ function deleteComment($commentId,$postId) {
         }
     });
 }
-/*采纳：给此回复的用户追加积分*/
-function acceptComment($userId) {
-    let $state=0;
-    $.ajax({
-       headers: {
-           'token':token,
-       } ,
-        async:false,
-        type:"post",
-        dataType:"json",
-        url:"User/addCredit",
-        data:{
-           'userId':$userId,
-            'score':post.postScore,
-        },
-        success:function (data) {
-            if (data.state==1){
-               // alert("采纳成功，积分已到对方的账号中");
-                $state=1;
-                return $state;
-            }else {
-                //alert("操作失败,请重试");
-                $state=0;
-                return $state;
-            }
-        },error:function () {
-            //alert("操作失败，请重试...");
-            $state=0;
-            return $state;
-        }
-    });
-    return $state;
-}
+
 /*采纳：将postType改为2*/
 function changePostType($postId) {
     let $state=0;

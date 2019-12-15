@@ -2,33 +2,34 @@ var user={};
 var token;
 
 $(function () {
+  /* let test=undefined;
+   console.log("null:" + typeof (test)+test);
+   if (test==undefined){
+     console.log("value");
+   }
+   if (typeof (test)=="undefined"){
+     console.log("type");
+   }*/
   /*获取token*/
   token=localStorage.getItem("bbsNCU");
- /* if (token===null||token==="null"){
-    clearUserInfo();
-   // console.log("token null");
-  }*/
- // console.log("token:");
+  var $userName=parseJwt(token).userName;/*获取用户信息*/
+  var $userType=parseJwt(token).type;
   console.log(token);
-  //console.log("user:");
-  //console.log(user);
+  /*if (token==null){
+    console.log("token-null");
+  }*/
   /*1.鼠标移入移出右上角*/
   $(".user-settings").mouseenter(function () {
-   // alert("123");
-    $(".toUserCenter").removeClass("notShow").addClass("currentShow");//
+    $(".toUserCenter").removeClass("notShow").addClass("currentShow");
   }).mouseleave(function () {
-   // alert("321");
-    $(".toUserCenter").removeClass("currentShow").addClass("notShow");//
+    $(".toUserCenter").removeClass("currentShow").addClass("notShow");
   });
   /*管理权限显示*/
   $(".manage").hide();
   $(".manage-content").hide();
 
   /*判断是否为未登录用户*/
-  var p=GetRequest();
-  var $userName=p["userName"];   /*在路径中获取用户ID*/
-  var $userId=p["userId"];
-  if (typeof ($userName)=="undefined"||$userName==="undefined"){//未登录
+  if (token==null||typeof ($userName)=="undefined"||$userName==undefined){//未登录
     console.log("未登录");
     localStorage.setItem("bbsNCU",null);
     $(".sign-in-up").addClass("currentShow").removeClass("notShow");/*显示登录-注册*/
@@ -36,60 +37,60 @@ $(function () {
   }else{            //已登录
     getUserInfo($userName);      /*ajax请求获取用户信息，存放在user全局变量*/
     //setTimeout(showHeader,100);/*等待ajax请求完成再执行*/
-    $userId=user.userId;
     if (user.profilePhoto==null){
-      //console.log("1");
       user.profilePhoto="defaultUserHeader.jpg";
     }
     showHeader();
   }
   /*点击 所有栏目 按钮*/
   $(".to-all-column").click(function () {
-    let page="page-categories.html?";
+    /*let page="page-categories.html?";
     let para="userName="+user.userName;
-    let path=page+para;
-    $(this).attr("href",path);
+    let path=page+para;*/
+    $(this).attr("href","page-categories.html");
   });
   /*点击 发表帖子 按钮*/
   $(".to-create-post").click(function () {
-    if (typeof (user.userId)=="undefined"||user.userId==="undefined"){
+    if (token==null||typeof (user.userId)=="undefined"||user.userId==undefined){
+      alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
-      let page="page-create-topic.html?";
+     /* let page="page-create-topic.html?";
       let para="userName="+user.userName;
-      let path=page+para;
-      $(this).attr("href",path);
+      let path=page+para;*/
+      $(this).attr("href","page-create-topic.html");
     }
   });
   /*点击"+"发表新帖子*/
   $(".tt-btn-create-topic").click(function () {
-    if (typeof (user.userId)=="undefined"||user.userId==="undefined"||token==null){
+    if (typeof (user.userId)=="undefined"||user.userId==undefined||token==null){
       alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
-      let page="page-create-topic.html?";
+    /*  let page="page-create-topic.html?";
       let para="userName="+user.userName;
-      let path=page+para;
-      $(this).attr("href",path);
+      let path=page+para;*/
+      $(this).attr("href","page-create-topic.html");
     }
   });
   /*点击 主页 按钮*/
   $(".to-home").click(function () {
-    let page="index.html?";
+   /* let page="index.html?";
     let para="userName="+user.userName;
-    let path=page+para;
-    $(this).attr("href",path);
+    let path=page+para;*/
+    $(this).attr("href","index.html");
   });
   /*点击个人中心按钮*/
   $(".user-center-bt").click(function () {
-    if (typeof (user.userId)=="undefined"||user.userId==="undefined"){
+    if (typeof (user.userId)=="undefined"||user.userId==undefined||token==null){
+      alert("请先登录");
       $(this).attr("href","page-login.html");
     }else {
-      let page="page-single-user.html?";
+     /* let page="page-single-user.html?";
       let para="userName="+user.userName;
-      let path=page+para;
+      let path=page+para;*/
       // $(this).attr("href",path);
-      window.location.href=path;
+      window.location.href="page-single-user.html";
     }
   });
   /*点击 退出登录 按钮*/
@@ -100,7 +101,6 @@ $(function () {
   });
   /*显示所有帖子的列表*/
   getAllPosts();
-  /*置顶帖置顶显示*/
 
   /*/!*帖子管理权限*!/
   if (user.type===2){
@@ -110,12 +110,12 @@ $(function () {
     $(".manage").hide();
     $(".manage-content").hide();
     }*/
-  //},50);
+
   /*点击帖子进入详情*/
   $(".index-post-list").delegate(".tt-col-description","click",function (evt) {
     let page="page-single-topic.html?";
     let $postId=$(evt.target).parents(".tt-col-description").find(".tt-value").text();
-    let para="userName="+user.userName+"&postId="+$postId;
+    let para="&postId="+$postId;/*"userName="+user.userName+*/
     let path=page+para;
     $(".tt-col-description a").attr("href",path);
   });
@@ -131,11 +131,10 @@ $(function () {
   });*/
   /*点击栏目图标*/
   $(".tt-col-category").click(function (evt) {
-   let $id=$(evt.target).parents(".tt-item").find(".saveCategoryId").attr("id");
+    let $id=$(evt.target).parents(".tt-item").find(".saveCategoryId").attr("id");
     let $categoryId=$id.substr(1);
-    //alert("saveCategoryId:"+$categoryId);
     let page="page-categories-single.html?";
-    let para="userName="+user.userName+"&categoryId="+$categoryId;
+    let para="&categoryId="+$categoryId;/*"userName="+user.userName+*/
     let path=page+para;
     window.location.href=path;
   });
@@ -172,8 +171,8 @@ function showHeader() {
   $(".user-settings").addClass("currentShow").removeClass("notShow");/*显示个人中心入口和头像*/
   $(".user-settings .userName a").text(user.userName);/*显示用户名*/
   var path;
-  if (user.profilePhoto==="undefined"||typeof (user.profilePhoto)=="undefined"){
-    console.log("Header-undefined");
+  if (user.profilePhoto==undefined||typeof (user.profilePhoto)=="undefined"||token==null){
+    //console.log("Header-undefined");
     path="images/defaultUserHeader.jpg";/*用户未设置头像，显示默认头像*/
   }else {
     path="images/"+user.profilePhoto;
@@ -189,7 +188,7 @@ function getUserInfo($userName) {
     headers:{
       'token':token,
     },
-    url:"http://localhost:8080/User/getByUserName",/*1*/
+    url:"/User/getByUserName",/*1*/
     type:"post",         /*2*/
     dataType:"json",
     data:{
@@ -214,17 +213,16 @@ function getUserInfo($userName) {
 }
 /*退出登陆时清空用户信息*/
 function clearUserInfo() {
-
-  user.userId="undefined";
-  user.userName="undefined";
-  user.sex="undefined";
-  user.credit="undefined";
-  user.telephone="undefined";
-  user.profilePhoto="undefined";
-  user.briefIntro="undefined";
-  user.location="undefined";
-  user.type="undefined";
-  user.birthday="undefined";
+  user.userId=undefined;
+  user.userName=undefined;
+  user.sex=undefined;
+  user.credit=undefined;
+  user.telephone=undefined;
+  user.profilePhoto=undefined;
+  user.briefIntro=undefined;
+  user.location=undefined;
+  user.type=undefined;
+  user.birthday=undefined;
 }
 /*获取所有的帖子*/
 function getAllPosts()  {
@@ -238,7 +236,7 @@ function getAllPosts()  {
     headers:{
       "token":token
     },
-    url:"http://localhost:8080/post/findAll",//"./sources/post.json",
+    url:"/post/findAll",//"./sources/post.json",
     /*beforeSend: function(request){
       request.setRequestHeader("token",token);
     },*/
@@ -785,6 +783,48 @@ function uploadImg($img) {
       alert("上传失败，请重新上传");
     }
   });
+}
+/*获取token里面的用户数据*/
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload);
+}
+/*给用户追加或者减少积分*/
+function changeCredit($userId,$postScore) {
+  let $state=0;
+  $.ajax({
+    headers: {
+      'token':token,
+    } ,
+    async:false,
+    type:"post",
+    dataType:"json",
+    url:"/User/addCredit",
+    data:{
+      'userId':$userId,
+      'postScore':$postScore,
+    },
+    success:function (data) {
+      if (data.state==1){
+        // alert("采纳成功，积分已到对方的账号中");
+        $state=1;
+        return $state;
+      }else {
+        //alert("操作失败,请重试");
+        $state=0;
+        return $state;
+      }
+    },error:function () {
+      //alert("操作失败，请重试...");
+      $state=0;
+      return $state;
+    }
+  });
+  return $state;
 }
 
 

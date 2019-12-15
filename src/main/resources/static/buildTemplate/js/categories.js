@@ -17,7 +17,7 @@ $(function () {
    let $categoryId=$(this).parents(".tt-item-header").find(".saveCategoryId").attr("id");
    //alert($categoryId);
    let page="page-categories-single.html?";
-   let para="userName="+user.userName+"&categoryId="+$categoryId;
+   let para="&categoryId="+$categoryId;/*"userName="+user.userName+*/
    let path=page+para;
    $(this).attr("href",path);
  });

@@ -1,8 +1,13 @@
 var post={};
 $(function () {
+    console.log(token);
+    if (token==null||token==="null"){
+        alert("请先登录");
+        window.location.href="page-login.html";
+    }
     var p=GetRequest();
     var $postId=p["postId"];
-    var $userName=p["userName"];
+    //var $userName=p["userName"];
     /*获取修改前的信息*/
     getPost($postId);
 
