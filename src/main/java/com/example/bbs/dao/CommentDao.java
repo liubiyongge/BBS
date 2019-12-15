@@ -1,6 +1,7 @@
 package com.example.bbs.dao;
 
 import com.example.bbs.entity.Comment;
+import com.example.bbs.entity.CommentForAdmin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

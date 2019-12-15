@@ -1,20 +1,18 @@
 package com.example.bbs.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.bbs.dao.UserDao;
-import com.example.bbs.entity.LoginUser;
-import com.example.bbs.entity.Post;
-import com.example.bbs.entity.User;
-import com.example.bbs.service.PostService;
-import com.example.bbs.service.TokenService;
-import com.example.bbs.service.UploadImgService;
-import com.example.bbs.service.UserService;
+import com.example.bbs.entity.*;
+import com.example.bbs.service.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +30,9 @@ public class UserApi {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private UploadImgService uploadImgService;
@@ -80,7 +81,7 @@ public class UserApi {
     @RequestMapping("/getByUserName")
     public  User getByUserName(@RequestParam(value="userName")String userName){
         //JSONObject result=new JSONObject();
-        // System.out.println(userName);
+       // System.out.println(userName);
         return userService.findByUserName(userName);
     }
 
@@ -93,7 +94,6 @@ public class UserApi {
         System.out.println(postId+": delete successfully");
         return  result.toJSONString();
     }
-
     /*帖子加精*/
     @RequestMapping("/toHighlight")
     public String toHighlight(@RequestParam(value = "postId")int postId){
@@ -102,7 +102,6 @@ public class UserApi {
         result.put("state","Highlight successfully");
         return result.toJSONString();
     }
-
     /*置顶*/
     @RequestMapping("/toTop")
     public String toTop(@RequestParam(value = "postId")int postId){
@@ -111,7 +110,6 @@ public class UserApi {
         result.put("state","toTop successfully");
         return result.toJSONString();
     }
-
     /*发表帖子*/
     @RequestMapping("/creatPost")
     public  String createPost(@RequestBody Post post){
@@ -129,6 +127,25 @@ public class UserApi {
         JSONObject result=new JSONObject();
         result.put("state",1);
         return result.toJSONString();
+
+    }
+
+    @RequestMapping("/findByPostUserId")
+    public Object findByPostUserId(@RequestBody HashMap data){
+        String userName= (String)data.get("userName");
+        int userId=userService.findIdByUserName(userName);
+        List<Post> post=postService.findByPostUserId(userId);
+
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<post.size();i++){
+            String categoryName=categoryService.getCategoryName(post.get(i).getPostCategoryId());
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("postTitle",post.get(i).getPostTitle());
+            jsonObject.put("postId",post.get(i).getPostId());
+            jsonObject.put("postCategoryName",categoryName);
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 
     //给用户加积分
@@ -136,7 +153,7 @@ public class UserApi {
     public String addCredit(@RequestParam("userId")int userId, @RequestParam("postScore") int postScore){
         userService.addCredit(userId, postScore);
         JSONObject result=new JSONObject();
-        result.put("state",1);
+        result.put("state","add credit successfully!");
         return result.toJSONString();
     }
 
@@ -145,4 +162,6 @@ public class UserApi {
     public Map uploadImg(@RequestParam(value = "file",required = false) MultipartFile file){
         return uploadImgService.uploadImg(file);
     }
+
+
 }

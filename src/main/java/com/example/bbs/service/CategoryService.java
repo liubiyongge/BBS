@@ -38,4 +38,5 @@ public class CategoryService {
     public int setCategory(String categoryName, int categoryUserId, int categoryId){
         return categoryDao.setCategory(categoryName,categoryUserId,categoryId);
     }
+    public Category findByCategoryId(int categoryUserId){return categoryDao.findByCategoryUserId(categoryUserId);}
 }

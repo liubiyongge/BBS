@@ -3,6 +3,7 @@ package com.example.bbs.dao;
 import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import com.example.bbs.entity.CommentInfoForUser;
+import com.example.bbs.entity.PostForAdmin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,6 @@ public interface PostDao {
 
     /*9-通过帖子id获取帖子所属用户的头像*/
     String getPostUserHeader(@Param("userId")int userId);
-
 
     //10-统计置顶帖数目
     int countTopPost();
