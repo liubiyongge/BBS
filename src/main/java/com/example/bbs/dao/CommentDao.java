@@ -1,6 +1,7 @@
 package com.example.bbs.dao;
 
 import com.example.bbs.entity.Comment;
+import com.example.bbs.entity.CommentForAdmin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -29,4 +30,7 @@ public interface CommentDao {
 
     //4-删除评论
     void deleteComment(@Param("commentId")int commentId);
+
+    //5-列出所有comment给admin
+    List<CommentForAdmin> getAllCommentsForAdmin();
 }

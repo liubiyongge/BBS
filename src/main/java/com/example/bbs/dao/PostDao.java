@@ -73,5 +73,6 @@ public interface PostDao {
     //18-查找用户发表的所有帖子
     List<Post> findByPostUserId(@Param("postUserId") int postUserId);
 
+    //19.列出所有帖子给Admin
     List<PostForAdmin> getAllPost();
 }
