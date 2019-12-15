@@ -23,15 +23,16 @@
         select count(commentId) from `comment` where commentToId=#{commentId}
     </select>
 
-<!--  通过用户名查找回复该用户的评论  -->
-    <select id="findCommentByToUserId" resultType="Comment">
-        select * from comment where commentToUserId=${commentToUserId}
-    </select>
-
     <!--4-删除评论-->
     <delete id="deleteComment">
         delete from `comment` where commentId=#{commentId}
     </delete>
+
+    <!--5.管理员查看所有帖子    -->
+    <select id="getAllCommentsForAdmin" resultType="CommentForAdmin">
+        select c.commentId, u1.userName , c.commentContent, p.postId, p.postTitle from comment c left join post p on c.commentPostId = p.postId
+        left join user u1 on c.commentUserId = u1.userId;
+    </select>
 
 <!--    删除某个栏目的所有帖子下的所有的评论-->
     <delete id="deleteCommentByCategoryId">
