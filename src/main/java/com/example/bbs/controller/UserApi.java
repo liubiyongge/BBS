@@ -211,4 +211,11 @@ public class UserApi {
         result.put("state",1);
         return result.toJSONString();
     }
+    @RequestMapping("/changeCommentAdopt")
+    public String changeCommentAdopt(@RequestParam("commentId")int commentId){
+        commentService.changeCommentAdopt(commentId);
+        JSONObject result=new JSONObject();
+        result.put("state",1);
+        return result.toJSONString();
+    }
 }

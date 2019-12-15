@@ -106,7 +106,7 @@ FROM `comment`
 
     <!--//14-根据postId返回当前帖子的回复列表-->
     <select id="getAllComments" resultType="Comment">
-        (select commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
+        (select commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime,adopt
         FROM `comment`
         WHERE commentPostId=#{postId}
         )
