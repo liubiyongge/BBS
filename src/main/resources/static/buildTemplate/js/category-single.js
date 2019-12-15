@@ -6,7 +6,7 @@ $(function () {
   $(".manage").hide();
   $(".manage-content").hide();
   var $categoryUserId=getCategoryUserId($categoryId);
-  if ((user.userId===$categoryUserId&&user.type===1)/*||user.type==="2"*/){
+  if (((user.userId===$categoryUserId&&user.type===1)||user.type===2)&&token!=null){
     $(".manage").show();
     $(".manage-content").show();
   }else{
@@ -17,20 +17,27 @@ $(function () {
   $(".category-post-list").delegate(".tt-col-description","click",function (evt) {
     let page="page-single-topic.html?";
     let $postId=$(evt.target).parents(".tt-col-description").find(".tt-value").text();
-    let para="userName="+user.userName+"&postId="+$postId;
+    let para="&postId="+$postId;/*"userName="+user.userName+*/
     let path=page+para;
     $(".tt-col-description a").attr("href",path);
   });
   /*帖子管理-版主和管理员可操作*/
   /*删除*/
   $(".category-post-list").delegate(".manage-content a.delete","click",function (evt) {
+    if (token==null||token==="null"){
+      alert("请先登录");
+      window.location.href="page-login.html";
+    }
     let $postId=$(evt.target).parent().siblings(".tt-col-description").find(".tt-value").text();
-    //console.log($postId);
     deletePost($postId);
     getCategoryPosts($categoryId);
   });
   /*置顶*/
   $(".category-post-list").delegate(".manage-content a.top","click",function (evt) {
+    if (token==null||token==="null"){
+      alert("请先登录");
+      window.location.href="page-login.html";
+    }
     let $postId=$(evt.target).parent().siblings(".tt-col-description").find(".tt-value").text();
     //console.log($postId);
     toTop($postId);
@@ -38,16 +45,14 @@ $(function () {
   });
   /*加精*/
   $(".category-post-list").delegate(".manage-content a.highlight","click",function (evt) {
+    if (token==null||token==="null"){
+      alert("请先登录");
+      window.location.href="page-login.html";
+    }
     let $postId=$(evt.target).parent().siblings(".tt-col-description").find(".tt-value").text();
     //console.log($postId);
     toHighlight($postId);
     getCategoryPosts($categoryId);
-  });
-  $(".category-post-list").delegate(".tt-col-description","click",function () {
-    let page="page-single-topic.html?";
-    let para=encodeStr("userId="+$userId);/*+"&userName="+user.userName+"&profilePhoto="+user.profilePhoto*/
-    let path=page+para;
-    $(".tt-col-description a").attr("href",path);
   });
 });
 
@@ -66,7 +71,7 @@ function getCategoryPosts($categoryId) {
   $.ajax({
     cache:false,
     async:false,
-    url:"http://localhost:8080/post/postInCategory",
+    url:"/post/postInCategory",
     type:"post",
     dataType: "json",
     data:{
@@ -148,7 +153,7 @@ function addCategoryPostToList(post) {
   //let $top="";
   if (post.top===1){
     let $html=" <div class=\"tt-item tt-itemselect\" id=\"\">\n" +
-        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
+        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\""+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
         "                <div class=\"tt-col-description\">\n" +
         "                    <h6 class=\"tt-title\"><a href=\"page-single-topic.html\">\n" +
         "                      <svg class=\"tt-icon\"><use xlink:href=\"#icon-pinned\"></use></svg>\n" +post.postTitle+
@@ -177,8 +182,9 @@ function addCategoryPostToList(post) {
     $(".topArea1").append($html);
   }
   else {
+    //console.log(post.postUserHeader);
     let $html=" <div class=\"tt-item \" id=\"\">\n" +
-        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\"images/"+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
+        "                <div class=\"tt-col-avatar\"><svg class=\"tt-icon\"><img src=\""+post.postUserHeader+"\" alt=\"postUserHeader\" class=\"postUserHeader\"></svg></div>\n" +
         "                <div class=\"tt-col-description\">\n" +
         "                    <h6 class=\"tt-title\"><a href=\"page-single-topic.html\">\n" +
         "                      <svg class=\"tt-icon\"><use xlink:href=\"#icon-pinned\"></use></svg>\n" +post.postTitle+

@@ -33,4 +33,9 @@
         select c.commentId, u1.userName , c.commentContent, p.postId, p.postTitle from comment c left join post p on c.commentPostId = p.postId
         left join user u1 on c.commentUserId = u1.userId;
     </select>
+
+<!--    删除某个栏目的所有帖子下的所有的评论-->
+    <delete id="deleteCommentByCategoryId">
+        delete from comment where commentPostId in(select postId from post where postCategoryId=12 )
+    </delete>
 </mapper>

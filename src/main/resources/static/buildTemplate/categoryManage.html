@@ -10,12 +10,12 @@
     <title>BBS管理员界面</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="css/googleapicss.css" rel="stylesheet">
+    <link href="admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="admin/css/googleapicss.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -28,7 +28,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin/admin.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -40,7 +40,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="admin.html">
+            <a class="nav-link" href="admin/admin.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>信息中心</span></a>
         </li>
@@ -62,7 +62,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" id="userManage" href="userManage.html">
+            <a class="nav-link" id="userManage" href="admin/userManage.html">
                 <i class="fas fa-fw fa-user-tie"></i>
                 <span>用户管理</span></a>
         </li>
@@ -106,6 +106,10 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">管理员</span>
+                            <i class="fas fa-fw fa-user-cog"></i>
+                        </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">
@@ -113,7 +117,7 @@
                                 个人中心
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" onclick="loginout()" href="javascript:void(0)">
+                            <a class="dropdown-item" href="login.html">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 退出
                             </a>
@@ -135,32 +139,25 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
+                                    <th>栏目ID</th>
                                     <th>栏目名</th>
                                     <th>栏目版主</th>
-                                    <th>栏目详情</th>
-                                    <th>删除</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
+                                <tfoot style="border: 0px">
                                 <tr>
-                                    <th>栏目名</th>
-                                    <th>栏目版主</th>
-                                    <th>栏目详情</th>
-                                    <th>删除</th>
+                                    <td style="border-left: 0px"></td>
+                                    <td colspan="2" style="border-left: 0px;text-align: center"><button class="add">增加栏目</button></td>
+                                    <td style="border-left: 0px"></td>
                                 </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody  id="tbody">
                                 <tr>
-                                    <td>栏目名1</td>
-                                    <td>栏目版主</td>
-                                    <td>栏目详情</td>
-                                    <td>删除</td>
-                                </tr>
-                                <tr>
-                                    <td>栏目名2</td>
-                                    <td>栏目版主</td>
-                                    <td>栏目详情</td>
-                                    <td>删除</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -197,27 +194,103 @@
 
 
 <!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="admin/vendor/jquery/jquery.min.js"></script>
+<script src="admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
+<script src="admin/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+<script src="admin/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="admin/js/demo/datatables-demo.js"></script>
 <!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+
+<!--<script src="../js/jquery-3.1.1.min.js"></script>-->
 <script>
-    function loginout(){
-        localStorage.clear();
-        window.location.href = "page-login.html";
-    }
+
+    // $(window).on("load",function(){
+    //     console.log($(".dele").length);
+    //     for(let i=0;i<$(".dele").length;i=i+1){
+    //         alert($(".dele")[i].id)
+    //     }})
+    // $(".dele").each(function(){alert($(this).id);}
+    //
+    //     )
+
+    // $(this).click(function (event) {
+    //     // alert(rs);
+    //     event.preventDefault();
+    //     alert($(this).prop("id"));
+    //
+    //     var token = localStorage.getItem("bbsNCU");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: '/admin/deleteCategory',
+    //         contentType: "application/json",
+    //         headers: {
+    //             "token": token
+    //         },
+    //         data: JSON.stringify({
+    //             "categoryUserId": rs
+    //         }),
+    //         success: function () {
+    //             window.location.href = "categoryManage.html";
+    //         }
+    //     })
+    // })
 </script>
+
+<script>
+    $(document).ready(function () {
+            var token=localStorage.getItem("bbsNCU");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/admin/categoryManage',
+                contentType: "application/json",
+                headers:{
+                    "token":token
+                },
+                success: function (jsonData,result) {
+                    console.log(result);
+                    console.log(jsonData);
+                    $("#tbody").empty();
+                    for(var i=0;i<jsonData.length;i++){
+                        var categoryId=jsonData[i].categoryId;
+                        var categoryName=jsonData[i].categoryName;
+                        console.log(categoryName);
+                        var categoryUserId=jsonData[i].categoryUserId;
+                        var tbody=document.getElementById("tbody");
+                        var newtr=document.createElement("tr");
+                        var newtd1=document.createElement("td");newtd1.innerHTML=categoryId;
+                        var newtd2=document.createElement("td");newtd2.innerHTML=categoryName;
+                        var newtd3=document.createElement("td");newtd3.innerHTML=categoryUserId;
+                        var newtd4=document.createElement("td");newtd4.innerHTML="<a href="+"'deleteCategory.html?categoryId="+categoryId+"'>删除</a>" +
+                            "&nbsp&nbsp<a href='setCategory.html?categoryId="+categoryId+"'>修改</a>";
+                        newtr.appendChild(newtd1);
+                        newtr.appendChild(newtd2);
+                        newtr.appendChild(newtd3);
+                        newtr.appendChild(newtd4);
+                        tbody.appendChild(newtr);
+                    }
+                }
+            })
+        console.log($(".dele").length)
+        }
+
+    )
+</script>
+
+<script>
+    $(".add").click(function () {
+        window.location.href="addCategory.html";
+    })
+</script>
+
 </body>
 
 </html>

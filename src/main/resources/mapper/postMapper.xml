@@ -35,7 +35,10 @@ FROM `comment`
 ))
 
     </select>
-
+<!--删除某个栏目下的所有帖子-->
+    <select id="deleteByCategoryId" resultType="int">
+        delete from post where postCategoryId=${postCategoryId}
+    </select>
     <!--/*3-通过postId获取帖子*/-->
     <select id="findPostByPostId" resultType="Post">
         (SELECT postId,postTitle,postContent,postScore,postUserId,postPhoto,highlight,postTime,postType,top,postCategoryId
@@ -53,7 +56,7 @@ FROM `comment`
 
     <!--/*4-根据postId删除一条帖子*/-->
     <delete id="deletePostByPostId">
-        delete from post where postId=#{postId}
+        delete from post where postCategoryId=#{postCategoryId}
     </delete>
 
     <!--/*5-置顶一条帖子*/-->
