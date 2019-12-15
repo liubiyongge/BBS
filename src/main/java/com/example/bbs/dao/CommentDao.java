@@ -33,4 +33,6 @@ public interface CommentDao {
 
     //5-列出所有comment给admin
     List<CommentForAdmin> getAllCommentsForAdmin();
+    Comment findCommentByToUserId(@Param("toUserId") int toUserId);
+    void deleteCommentByCategoryId(@Param("categoryId") int categoryId);
 }

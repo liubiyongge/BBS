@@ -28,4 +28,7 @@
     <update id="setCategory">
         update category set categoryName="${categoryName}", categoryUserId=${categoryUserId} where categoryId=${categoryId}
     </update>
+    <select id="findByCategoryUserId" resultType="Category">
+        select * from category where categoryUserId=${categoryUserId}
+    </select>
 </mapper>
