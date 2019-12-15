@@ -149,4 +149,18 @@ FROM `comment`
         select p.postId, p.postTitle, p.postScore, u.userName, p.highlight, p.postTime, p.postType, p.top, c.categoryName
         from post p left join user u on p.postUserId = u.userId left join category c on p.postCategoryId = c.categoryId;
     </select>
+
+    <!--个人中心-获取用户发表的评论的相关信息-->
+    <select id="centerPostCommentInfo" resultType="com.example.bbs.entity.CommentInfoForUser">
+        select postPhoto,postTitle,categoryName,commentContent,commentTime
+        from post p,comment co,category ca
+        where p.postId=co.commentPostId and ca.categoryId=p.postCategoryId and co.commentUserId=${userId}
+    </select>
+
+    <!--个人中心-获取收到的评论的相关信息-->
+    <select id="centerReceiveCommentInfo" resultType="com.example.bbs.entity.CommentInfoForUser">
+        select postPhoto,postTitle,categoryName,commentContent,commentTime
+        from post p,comment co,category ca
+        where p.postId=co.commentPostId and ca.categoryId=p.postCategoryId and co.commentToUserId=${userId}
+    </select>
 </mapper>

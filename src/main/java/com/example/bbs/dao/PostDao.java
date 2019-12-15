@@ -2,7 +2,7 @@ package com.example.bbs.dao;
 
 import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
-import com.example.bbs.entity.PostForAdmin;
+import com.example.bbs.entity.CommentInfoForUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -64,9 +64,10 @@ public interface PostDao {
                     @Param("postCategoryId")int postCategoryId, @Param("top")int top);
 
     //16-修改帖子信息
-    void updatePost(@Param("postId")int postId, @Param("postTitle")String postTitle, @Param("postContent")String postContent,
-                    @Param("postPhoto")String postPhoto, @Param("highlight")int highlight, @Param("postType")int postType,
-                    @Param("top")int top,@Param("postCategoryId")int postCategoryId,@Param("postScore")int postScore);
+    void updatePost(@Param("postId") int postId, @Param("postTitle") String postTitle,
+                    @Param("postScore") int postScore, @Param("postContent") String postContent,
+                    @Param("postPhoto") String postPhoto, @Param("highlight") int highlight,
+                    @Param("postCategoryId")int postCategoryId, @Param("postType")int postType, @Param("top") int top);
 
     //17-需求贴完成需求->postType=2
     void changeDemandPostType(@Param("postId") int postId);
@@ -74,6 +75,13 @@ public interface PostDao {
     //18-查找用户发表的所有帖子
     List<Post> findByPostUserId(@Param("postUserId") int postUserId);
 
+    //19-个人中心-用户发表的评论
+    List<CommentInfoForUser> centerPostCommentInfo(@Param("userId") int userId);
+
+    //20-个人中心-用户收到的评论
+    List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId);
+
+    //21-
     //19.列出所有帖子给Admin
     List<PostForAdmin> getAllPost();
 
