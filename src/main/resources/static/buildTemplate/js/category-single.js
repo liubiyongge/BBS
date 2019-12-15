@@ -161,7 +161,7 @@ function addCategoryPostToList(post) {
         "                    <div class=\"row align-items-center no-gutters\">\n" +
         "                        <div class=\"col-11\">\n" +
         "                            <ul class=\"tt-list-badge\">\n" +
-        "                                <li class=\"show-mobile\"><a href=\"#\"><span class=\"tt-color05 tt-badge\">"+post.postCategoryName+"</span></a></li>\n" +
+        "                                <li class=\"show-mobile\"><a href=\"javascript:;\"><span class=\"tt-color05 tt-badge\">"+post.postCategoryName+"</span></a></li>\n" +
         "                                <li><a href=\"javascript:;\"><span class=\"tt-badge\">"+post.postUserName+"</span></a></li>\n" +
         "                                <li><a href=\"javascript:;\"><span class=\"tt-badge\">"+post.postContentBrief+"</span></a></li>\n" +
         "                            </ul>\n" +
@@ -169,7 +169,7 @@ function addCategoryPostToList(post) {
         "                        <div class=\"col-1 ml-auto show-mobile\"><div class=\"tt-value\">"+post.postId+"</div></div>\n" +
         "                    </div>\n" +
         "                </div>\n" +
-        "                <div class=\"tt-col-category\"><span class=\"tt-color"+post.icon_2+" tt-badge\">"+$postType+"</span></div>\n" +
+        "                <div class=\"tt-col-category\"><span class=\"tt-color03 tt-badge\">"+$postType+"</span></div>\n" +
         "                <div class=\"tt-col-value  hide-mobile\"></div>\n" +
         "                <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
         "                <div class=\"tt-col-value  hide-mobile wirte-time\">"+post.postTime+"</div>\n" +
@@ -233,7 +233,7 @@ function showCategoryTitle($categoryId,$categoryName) {
     icon="06";
   }
   $(".categoryTitle").empty();
-  let $html="<li><a href=\"javascript:;\"><span class=\"tt-color"+icon+" tt-badge\">"+$categoryName+"</span></a></li>";
+  let $html="<li><a href=\"javascript:;\"><span class=\"tt-color03 tt-badge\">"+$categoryName+"</span></a></li>";
   $(".categoryTitle").append($html);
 }
 /*显示标题栏*/
