@@ -1,0 +1,52 @@
+[{
+  "postId": "0004",
+  "postTitle": "南大趣闻",
+  "postContent": "分享你的南大趣闻吧！",
+  "postScore": "0",
+  "postUserId": "111",
+  "postPhoto": "testUserHeader.jpg",
+  "highlight": "1",
+  "top": "1",
+  "postTime": "2019-11-12 09:00:00",
+  "postType": "0",
+  "postCategoryId": "1"
+},
+  {
+    "postId": "0007",
+    "postTitle": "双12还要不要继续剁手？",
+    "postContent": "双11过后还剩几只手",
+    "postScore": "5",
+    "postUserId": "112",
+    "postPhoto": "testUserHeader.jpg",
+    "highlight": "1",
+    "top": "0",
+    "postTime": "2019-11-12 10:00:00",
+    "postType": "1",
+    "postCategoryId": "100"
+  },
+  {
+    "postId": "0007",
+    "postTitle": "双12还要不要继续剁手？",
+    "postContent": "双11过后还剩几只手",
+    "postScore": "5",
+    "postUserId": "112",
+    "postPhoto": "testUserHeader.jpg",
+    "highlight": "1",
+    "top": "0",
+    "postTime": "2019-11-12 10:00:00",
+    "postType": "1",
+    "postCategoryId": "20"
+  },
+  {
+    "postTitle": "南大趣闻",
+    "postContent": "分享你的南大趣闻吧！",
+    "postScore": "0",
+    "postUserId": "111",
+    "postPhoto": "testUserHeader.jpg",
+    "highlight": "1",
+    "top": "1",
+    "postTime": "2019-11-12 09:00:00",
+    "postType": "0",
+    "postCategoryId": "22"
+  }
+  ]

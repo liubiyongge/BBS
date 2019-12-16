@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BBS登录页面</title>
+    <meta name="author" content="Forum">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<!-- tt-mobile menu -->
+<nav class="panel-menu" id="mobile-menu">
+    <ul>
+
+    </ul>
+    <div class="mm-navbtn-names">
+        <div class="mm-closebtn">
+            Close
+            <div class="tt-icon">
+                <svg>
+                  <use xlink:href="#icon-cancel"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="mm-backbtn">Back</div>
+    </div>
+</nav>
+<main id="tt-pageContent" class="tt-offset-none">
+    <div class="container">
+        <div class="tt-loginpages-wrapper">
+            <div class="tt-loginpages">
+                <a href="index.html" class="tt-block-title">
+                    <img src="images/logo.png" alt="">
+                    <div class="tt-title">
+                        欢迎来到BBS
+                    </div>
+                    <div class="tt-description">
+                       登录你的账号进入BBS
+                    </div>
+                </a>
+                <form class="form-default">
+                    <div class="form-group">
+                        <label for="loginUserName">用户名</label>
+                        <input type="text" name="name" class="form-control" id="loginUserName">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginUserPassword">密码</label>
+                        <input type="password" name="name" class="form-control" id="loginUserPassword">
+                    </div>
+                    <div class="row">
+                        <div class="col ml-auto text-right">
+                            <a href="#" class="tt-underline">忘记密码</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- 这里吧<a>标签改成<button>，结果显示样式依然管用 -->
+                        <input type="button" id="submit" class="btn btn-secondary btn-block" value="log in">
+                    </div>
+                    <a href="page-signup.html" class="tt-underline">点击注册</a>
+
+</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</main>
+
+<!-- 配置json解析，将登陆信息发送给/login -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script>
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+</script>
+<script type="text/javascript">
+    $("#submit").click(function(){
+        var username=$("#loginUserName").val();
+        var password=$("#loginUserPassword").val();
+        $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/User/login',
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "userName": ""+username,
+                    "password": ""+password
+                }),
+                success: function (jsonData,result) {
+                    console.log("data is :" + result)
+                    if (jsonData["token"]) {
+                        localStorage.setItem("bbsNCU",jsonData["token"]);
+                        if(parseJwt(jsonData["token"]).type == 2 ){
+                            window.location.href = "admin.html"
+                        }else {
+                            window.location.href = "index.html";
+                        }
+
+                    }else {
+                        alert("登录失败，请重试");
+                        }
+                    }
+        });
+    })
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.bbs.dao.CommentDao">
+
+    <!--1-查询所有的回复-->
+    <select id="listComments" resultType="Comment">
+       (SELECT commentId,commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime
+         FROM `comment`
+         )
+    </select>
+
+    <!--2-创建一条comment-->
+    <insert id="addComment">
+        insert into `comment`(commentUserId,commentToId,commentToUserId,commentContent,commentPostId,commentTime)
+        values(${commentUserId},${commentToId},${commentToUserId},
+        #{commentContent},${commentPostId},#{commentTime})
+    </insert>
+
+    <!--3-返回当前回复的被回复数-->
+    <select id="countCommentNumToThisComment" resultType="int">
+        select count(commentId) from `comment` where commentToId=#{commentId}
+    </select>
+
+    <!--4-删除评论-->
+    <delete id="deleteComment">
+        delete from `comment` where commentId=#{commentId}
+    </delete>
+
+    <!--5.管理员查看所有帖子    -->
+    <select id="getAllCommentsForAdmin" resultType="CommentForAdmin">
+        select c.commentId, u1.userName , c.commentContent, p.postId, p.postTitle from comment c left join post p on c.commentPostId = p.postId
+        left join user u1 on c.commentUserId = u1.userId;
+    </select>
+
+<!--    删除某个栏目的所有帖子下的所有的评论-->
+    <delete id="deleteCommentByCategoryId">
+        delete from comment where commentPostId in(select postId from post where postCategoryId=12 )
+    </delete>
+    <!--被采纳：修改comment的adopt属性-->
+    <update id="changeCommentAdopt">
+        UPDATE `comment` set adopt=1 WHERE commentId=${commentId}
+    </update>
+</mapper>

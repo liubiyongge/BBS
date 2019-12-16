@@ -1,0 +1,102 @@
+.icon {
+  width: 2em; height: 2em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.sign-in-up{
+  display: none;
+}
+.user-settings{
+  display: none;
+}
+
+/*首页帖子列表*/
+.tt-list-header{
+  font-size: 20px!important;
+}
+.wirte-time{
+  width: 150px!important;
+}
+/*默认用户头像*/
+.defaultUserHeader{
+  width: 50px;
+  height: 44px;
+}
+.user-settings{
+  position: relative;
+  padding-right: 20px;
+ /* padding-top: 15px;*/
+}
+.user-settings .userName{
+  margin-top: 8px;
+}
+.user-settings .userName a{
+  color: #182730;
+}
+.toUserCenter{
+  width: 75px;
+  height: 65px;
+  position: absolute;
+  /*top: 40px;*/
+  padding-left: 0px;
+  background-color: #f8f9fb;
+  display: none;
+  font-weight: normal!important;
+}
+.showToUserCenter{
+  display: block;
+}
+.toUserCenter li{
+  list-style: none;
+}
+.toUserCenter li a{
+  color: #182730;
+}
+/*帖子内容中的图片*/
+.content-photo{
+  max-width: 300px;
+  max-height: 300px;
+}
+/*栏目分类页的栏目图标*/
+.saveCategoryId{
+  color: white !important;
+}
+/*进入栏目  字样*/
+.into-category{
+  color: #ff8d46!important;
+}
+/*帖子列表中的用户头像*/
+.postUserHeader{
+  width: 50px;
+  height: 44px;
+}
+/*登录后显示头像以及个人中心入口*/
+
+.currentShow{
+  display: block!important;
+}
+.notShow{
+  display: none!important;
+}
+/*发表帖子页图片显示区*/
+.photoArea{
+  width: 250px;
+  height: 200px;
+}
+.showPhoto{
+  max-width: 250px;
+  max-height: 200px;
+}
+a.begin-upload{
+  color: #3b3b3b;
+  border: 0.5px solid #878787;
+  display: inline-block;
+  padding: 3px;
+  background-color: #ebebeb;
+}
+/*被采纳的回复*/
+.answer{
+  background-color: #eeeeee !important;
+}

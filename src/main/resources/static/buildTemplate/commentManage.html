@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>BBS管理员界面</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/googleapicss.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">BBS后台管理</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="admin.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>信息中心</span></a>
+        </li>
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            管理模块
+        </div>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" id="categoryManage" href="categoryManage.html">
+                <i class="fas fa-fw fa-layer-group"></i>
+                <span>栏目管理</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="userManage" href="userManage.html">
+                <i class="fas fa-fw fa-user-tie"></i>
+                <span>用户管理</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="postManage" href="postManage.html">
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                <span>帖子管理</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="commentManage" href="commentManage.html">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+                <span>回复管理</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">管理员</span>
+                            <i class="fas fa-fw fa-user-cog"></i>
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" onclick="loginout()">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                退出
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">用户表</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>评论ID</th>
+                                    <th>评论人</th>
+                                    <th>评论内容</th>
+                                    <th>评论帖子ID</th>
+                                    <th>评论帖子标题</th>
+                                    <th></th><!--删除评论-->
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>评论ID</th>
+                                    <th>评论人</th>
+                                    <th>评论内容</th>
+                                    <th>评论帖子ID</th>
+                                    <th>评论帖子标题</th>
+                                    <th></th><!--删除评论-->
+                                </tr>
+                                </tfoot>
+                                <tbody >
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2019</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script type="text/javascript">
+    function deleteComment(commentId){
+        $.ajax({
+            type: "POST",
+            url: '/admin/deleteComment/' + commentId,
+            contentType: "application/json",
+            headers: {'token': localStorage.getItem("bbsNCU")},
+            success: function (data, result) {
+                console.log(result);
+                location.reload();
+
+            }
+        })
+    }
+
+    var highlight = [" ", " 加精贴"];
+    var istop = [" ", " 置顶"];
+    var postType = [" 普通贴", " 需求贴", " 需求贴"];
+    $(document).ready(function(){
+        $.ajax({
+            type: "POST",
+            url: '/admin/getAllComment',
+            contentType: "application/json",
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            success: function (jsonData, result) {
+                for(var i = 0; i < jsonData.length; i++){
+                    $('#dataTable').DataTable().row.add([
+                        jsonData[i]["commentId"],
+                        jsonData[i]['userName'],
+                        jsonData[i]["commentContent"],
+                        jsonData[i]['postId'],
+                        jsonData[i]["postTitle"],
+                        "<button onclick='deleteComment(" + jsonData[i]["commentId"] + ")'>删除</button>"
+                    ]).draw( false );
+
+                }
+
+            }
+        });
+    })
+</script>
+<script>
+    function loginout(){
+        localStorage.clear();
+        window.location.href = "page-login.html";
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+
+   { "userId": "111",
+    "userName": "aaa",
+    "sex":"1",
+    "credit":"0",
+    "telephone":"12365678",
+    "profilePhoto":"testUserHeader.jpg",
+    "briefIntro":"这个人很懒，什么也没留下",
+    "location":"南昌大学",
+    "status":"1",
+    "birthday":"9-7"
+  }
