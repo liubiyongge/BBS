@@ -82,34 +82,6 @@ function getUserId($userName){
     return $userId;
 }
 
-/*通过userId查询用户头像*/
-// function getUserHeader($userId) {
-//     var $userHeader="defaultUserHeader.jpg";
-//     $.ajax({
-//         cache:false,
-//         async:false,
-//         url:"/post/getHeader",
-//         type:"post",
-//         dataType:"json",
-//         data:{
-//             'userId':$userId,
-//         },
-//         success:function (data) {
-//             $userHeader=data.profilePhoto;
-//             if ($userHeader==="undefined"||typeof ($userHeader)=="undefined"){
-//                 $userHeader="defaultUserHeader.jpg";
-//             }
-//             //console.log("success:"+$userId);
-//             console.log("success:"+$userHeader);
-//             return $userHeader;
-//         },
-//         error:function () {
-//             //console.log("获取用户头像失败");
-//             return $userHeader;
-//         }
-//     });
-//     return $userHeader;
-// }
 
 /*获取发表的评论要显示的所有信息*/
 function getPostCommentInfo($userId) {
@@ -220,21 +192,6 @@ function addReceiveCommentToList(post) {
         "                        </div>";
     $("#receiveComment").append($html);
 }
-//上传个人信息头像
-function UploadImg(obj){
-    //方法1：
-    //  var show = new FileReader();
-    //  show.readAsDataURL(obj.files[0]);
-    //  alert(obj.files[0].src);
-    //  show.onload = function (ev) {
-    //    $("#profilePhoto").attr("src", ev.target.result);
-    //  }
-    //方法2：
-    alert("photo");
-    var url = window.URL.createObjectURL(obj.files[0]);
-    $('.login_img2').attr("src",url);
-    //alert(url);
-}
 
 // 在键盘按下并释放及提交后验证提交表单
 function validform(){
@@ -289,15 +246,15 @@ function validform(){
         });
 }
 $(validform());
-function savaInfo(){
-    if(validform().form()) {
-        alert("YES!");
-    } else {
-        alert("NO!");
-        //校验不通过，什么都不用做，校验信息已经正常显示在表单上
-    }
-    alert("xx");
-}
+// function savaInfo(){
+//      if(validform().form()) {
+//          alert("YES!");
+//      } else {
+//          alert("NO!");
+//          //校验不通过，什么都不用做，校验信息已经正常显示在表单上
+//      }
+//      alert("xx");
+//  }
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
@@ -309,4 +266,41 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 }
 
+function submitChange(){
+    if(validform().form()){
+        $.ajax({
+            type: "POST",
+            url: '/User/modifyUserBySelf',
+            contentType: "application/json",
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            data:JSON.stringify({
+                "userId": "",
+                "userName": "",
+                "password": $("#settingsUserPassword").val(),
+                "sex": $("#settingsUserSex").val(),
+                "credit": 0,
+                "telephone": $("#settingsUserTelephone").val(),
+                "profilePhoto": mypicture,
+                "briefIntro": $("#settingsUserAbout").val(),
+                "location": $("#settingsUserLocation").val(),
+                "type": 0,
+                "birthday": $("#settingsUserBirthday").val(),
+            }),
+            success: function (jsonData, result) {
+                if(result == "success" && jsonData["message"] == undefined){
+                    alert("修改成功");
+                    location.reload();
+                }else {
+                    alert("修改失败");
+                    location.reload();
+                }
+            },
+        });
+        alter("修改信息成功");
+    }
+    else {
+        alert("信息格式有误，请重新填写！");
+        return;
+    }
+}
 
