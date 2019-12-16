@@ -14,10 +14,9 @@ birthday date
 )
 //栏目表
 create table category(
-categoryId integer primary key not null,
+categoryId integer primary key auto_increment not null,
 categoryName varchar(45) not null unique,
 categoryUserId integer not null,
-categoryName varchar(100) not null,
 foreign key (categoryUserId) references user(userId) on delete cascade on update cascade
 )
 //帖子表
