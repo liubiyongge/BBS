@@ -2,7 +2,7 @@
 create table user(
 userId integer primary key auto_increment,
 password varchar(45) not null,
-userName varchar(80) not null,
+userName varchar(80) not null unique,
 sex integer default 0,
 credit integer default 0,
 telephone varchar(45) unique,
