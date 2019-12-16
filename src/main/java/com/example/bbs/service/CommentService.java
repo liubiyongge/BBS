@@ -37,4 +37,9 @@ public class CommentService {
     Comment findCommentByToUserId(int toUserId){
         return commentDao.findCommentByToUserId(toUserId);
     };
+
+    /*comment被采纳：修改adopt属性*/
+    public void changeCommentAdopt(int commentId){
+        commentDao.changeCommentAdopt(commentId);
+    }
 }

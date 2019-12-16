@@ -38,4 +38,8 @@
     <delete id="deleteCommentByCategoryId">
         delete from comment where commentPostId in(select postId from post where postCategoryId=12 )
     </delete>
+    <!--被采纳：修改comment的adopt属性-->
+    <update id="changeCommentAdopt">
+        UPDATE `comment` set adopt=1 WHERE commentId=${commentId}
+    </update>
 </mapper>

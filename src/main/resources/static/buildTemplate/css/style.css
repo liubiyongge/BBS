@@ -89,6 +89,33 @@
     color:red;
 }
 
+/*ustom-select-01 user-settings user-settings*/
+/*右上角*/
+.toUserCenter{
+  text-align: center;
+  list-style: none;
+  font-family: "Heiti SC";
+  font-size: 17px;
+  font-weight: bold;
+
+}
+.lin:active{
+  background-color: #3ebafa;
+}
+.tr{
+  display: block;
+  width: 100px;
+  height: 30px;
+  margin-top: 5px;
+  border-radius: 5%;
+  background-color: #5000B8;
+}
+
+/*.user-settings{*/
+  /*display: none;*/
+/*}*/
+
+
 html {
   font-family: sans-serif;
   line-height: 1.15;

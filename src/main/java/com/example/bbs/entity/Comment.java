@@ -9,6 +9,15 @@ public class Comment {
     private String commentContent;
     private int commentPostId;
     private String commentTime;
+    private  int adopt;
+
+    public int getAdopt() {
+        return adopt;
+    }
+
+    public void setAdopt(int adopt) {
+        this.adopt = adopt;
+    }
 
     public int getCommentId() {
         return commentId;

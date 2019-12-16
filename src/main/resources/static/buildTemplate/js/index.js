@@ -271,8 +271,8 @@ function getAllPosts()  {
        // console.log("data[i].postTime:" + data[i].postTime);
         post.postTime=data[i].postTime.substr(0,10);
         post.postType=data[i].postType;/*是否需求贴*/
-        post.icon_1=String.fromCharCode(97+parseInt(post.postCategoryId));/*帖子项中第一个有颜色图标的类名后缀*/
-        /*帖子项中第2个有颜色图标的类名后缀*/
+       /* post.icon_1=String.fromCharCode(97+parseInt(post.postCategoryId));/!*帖子项中第一个有颜色图标的类名后缀*!/
+        /!*帖子项中第2个有颜色图标的类名后缀*!/
         if (post.postCategoryId.length>=2){
           post.icon_2=post.postCategoryId.substr( post.postCategoryId.length-2,2);
           if (post.icon_2>21){
@@ -287,7 +287,7 @@ function getAllPosts()  {
         }
         if (post.icon_2==="10"){
           post.icon_2="06";
-        }
+        }*/
         addPostToList(post);
       }
     },
@@ -321,7 +321,7 @@ function addPostToList(post) {
       "                        <div class=\"col-1 ml-auto show-mobile\"><div class=\"tt-value\">"+post.postId+"</div></div>\n" +
       "                    </div>\n" +
       "                </div>\n" +
-      "                <div class=\"tt-col-category\"><span id='a"+post.postCategoryId+"' class=\"tt-color"+post.icon_2+" tt-badge saveCategoryId\">"+post.postCategoryName+"</span></div>\n" +
+      "                <div class=\"tt-col-category\"><span id='a"+post.postCategoryId+"' class=\"tt-color03 tt-badge saveCategoryId\">"+post.postCategoryName+"</span></div>\n" +
       "                <div class=\"tt-col-value  hide-mobile\"></div>\n" +
       "                <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
       "                <div class=\"tt-col-value  hide-mobile wirte-time\">"+post.postTime+"</div>\n" +
@@ -351,7 +351,7 @@ function addPostToList(post) {
       "                        <div class=\"col-1 ml-auto show-mobile\"><div class=\"tt-value\">"+post.postId+"</div></div>\n" +
       "                    </div>\n" +
       "                </div>\n" +
-      "                <div class=\"tt-col-category\"><span id='a"+post.postCategoryId+"' class=\"tt-color"+post.icon_2+" tt-badge saveCategoryId\">"+post.postCategoryName+"</span></div>\n" +
+      "                <div class=\"tt-col-category\"><span id='a"+post.postCategoryId+"' class=\"tt-color03 tt-badge saveCategoryId\">"+post.postCategoryName+"</span></div>\n" +
       "                <div class=\"tt-col-value  hide-mobile\"></div>\n" +
       "                <div class=\"tt-col-value tt-color-select  hide-mobile\">"+post.commentsNum+"</div>\n" +
       "                <div class=\"tt-col-value  hide-mobile wirte-time\">"+post.postTime+"</div>\n" +
@@ -381,7 +381,7 @@ function getCategoryName($categoryId) {
       'categoryId':$categoryId,
     },
     success:function (data) {
-      console.log(data);
+      //console.log(data);
       $categoryName=data.categoryName;//
       //console.log($categoryId+":"+$categoryName);
       return $categoryName;

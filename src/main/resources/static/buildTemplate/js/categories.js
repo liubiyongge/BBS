@@ -54,21 +54,7 @@ function showAllCategories() {
         category.categoryUserId=data[i].categoryUserId;
         category.categoryUserName=getUserName(category.categoryUserId);
         category.icon_color="21";
-        if (category.categoryId.length>=2){
-          category.icon_color=category.categoryId.substr( category.categoryId.length-2,2);
-          if (category.icon_color>21){
-            //console.log(post.icon_2);
-            category.icon_color="0"+Math.ceil(category.icon_color/21);
-          }else if (post.icon_2==="00"){
-            category.icon_color=21;
-          }
-        }
-        else {
-          category.icon_color="0"+category.categoryId;
-        }
-        if (category.icon_color==="10"){
-          category.icon_color="06";
-        }
+        category.icon_color=category.categoryId;
         addCategoryToList(category);
       }
     },
@@ -82,8 +68,8 @@ function  addCategoryToList(category) {
   let $html="<div class=\"col-md-6 col-lg-4\">\n" +
     "          <div class=\"tt-item\">\n" +
     "            <div class=\"tt-item-header\">\n" +
-    "              <ul class=\"tt-list-badge\">\n" +
-    "                <li><a href=\"javascript:;\"><span class=\"saveCategoryId tt-color"+category.icon_color+" tt-badge\" id='"+category.categoryId+"'>"+category.categoryName+"</span></a></li>\n" +
+    "              <ul class=\"tt-list-badge \">\n" +
+    "                <li><a href=\"javascript:;\"><span class=\"saveCategoryId tt-color03 tt-badge\" id='"+category.categoryId+"'>"+category.categoryName+"</span></a></li>\n" +
     "              </ul>\n" +
     "              <h6 class=\"tt-title\"><a href=\"page-categories-single.html\" class='into-category'>进入栏目</a></h6>\n" +
     "            </div>\n" +
