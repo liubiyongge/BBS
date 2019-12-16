@@ -1,22 +1,18 @@
-# README
-
-## 数据库描述
-
 显示格式：
 
 中文列名：英文列名-类型-说明
 
-#### 1.用户表users
+#### 1.用户表user
 
-用户ID：userId-int(11)-PRIMARY KEY,NOT NULL, AUTO_INCREMENT
+用户ID：userId-integer-PRIMARY KEY, AUTO_INCREMENT
 
 密码：password-varchar(45)-NOT NULL
 
-用户名：userName-varchar(80)-NOT NULL
+用户名：userName-varchar(80)-NOT NULL unique
 
-性别：sex-/-enum("男","女")
+性别：sex-integer-default(0) 0:男 1:女
 
-积分：credit-int(11)
+积分：credit-integer-default(0)
 
 电话：telephone-varchar(45)-unique
 
@@ -26,116 +22,62 @@
 
 所在地：location-varchar(100)
 
-身份：status-int(11)-NOT NULL 0:普通用户 1:管理员
+身份：type-integer-NOT NULL default(0) 0:普通用户 1:版主 2:管理员
 
 出生日期：birthday-date
 
-建表代码：
 
-```mysql
-use BBS;
-create table users(
-userId int(11) primary key not null auto_increment,
-password varchar(45) not null,
-userName varchar(80) not null,
-sex enum('男','女'),
-credit int(11),
-telephone varchar(45) unique,
-profilePhoto varchar(45),
-briefIntro varchar(600),
-location varchar(100),
-status int(11) not null,
-birthday date
-)
-```
+#### 2.帖子表post
 
-#### 2.帖子表posts
-
-帖子ID：postId-int(11)-PRIMARY KEY,NOT NULL,AUTO_INCREMENT
+帖子ID：postId-integer-PRIMARY KEY,AUTO_INCREMENT
 
 帖子标题：postTitle-varchar(100)-NOT NULL
 
 帖子内容：postContent-varchar(500)-NOT NULL
 
-帖子积分：postScore-int(11) default(0)//普通贴无积分
+帖子积分：postScore-integer-default(0)//普通贴无积分
 
-帖子发起人：postUserId-int(11)-NOT NULL, FOREIGN KEY REFERENCES users(userId) 
+帖子发起人：postUserId-integer-NOT NULL, FOREIGN KEY REFERENCES user(userId) 
 
 帖子图片：postPhoto-varchar(100)
 
-是否加精：highlight-int(11)-NOT NULL, 0:不加精 1:加精 default(0)
+是否加精：highlight-integer-NOT NULL, default(0) 0:不加精 1:加精 
 
 发帖时间：postTime-datetime()-NOT NULL
 
-帖子类别：postType-int(11)-NOT NULL, 0:普通贴 1:需求贴 2:置顶帖 default(0)
+帖子类别：postType-integer-NOT NULL,default(0)  0:普通贴 1:需求贴 2:需求贴已获得需求
 
-建表代码：
+是否置顶：top-integer-NOT NULL,default(0)  0:不置顶 1:置顶 
 
-```mysql
-use BBS;
-create table posts(
-postId int(11) primary key not null auto_increment,
-postTitle varchar(100) not null,
-postContent varchar(500) not null,
-postScore int(11) default 0,
-postUserId int(11) not null,
-postPhoto varchar(100),
-highlight int(11) not null,
-postTime datetime not null,
-postType int(11) default 0,
-foreign key (postUserId) references users(userId)
-)
-```
+帖子所在栏目：postCategoryId-integer-NOT NULL,FOREIGN KEY REFERENCES category(categoryId) 
 
-#### 3.栏目表columnss
 
-(columns与mysql中的关键字冲突，故取名为columnss)
+#### 3.栏目表category
 
-栏目ID：columnId-int(11)-PRIMARY KEY, NOT NULL
+栏目ID：categoryId-integer-PRIMARY KEY, NOT NULL
 
-栏目名：columnName-varchar(45)-NOT NULL
+栏目名：categoryName-varchar(45)-NOT NULL,UNIQUE
 
-建表代码：
+栏目版主：categoryUserId-integer-NOT NULL,FOREIGN KEY REFERENCES user(userId) 
 
-```mysql
-use BBS;
-create table columnss(
-columnId int(11) primary key not null,
-columnName varchar(45) not null
-)
-```
 
-#### 4.回复表comments
 
-回复ID：commentId-int(11)-PRIMARY KEY, NOT NULL， AUTO_INCREMENT
+#### 4.回复表comment
 
-回复用户ID：commentUserId-int(11)-NOT NULL, FOREIGN KEY REFERENCES users(userId) 
+回复ID：commentId-integer-PRIMARY KEY,  AUTO_INCREMENT
 
-被回复评论ID：commentToId-int(11)
+回复用户ID：commentUserId-integer-NOT NULL, FOREIGN KEY REFERENCES user(userId) 
 
-被回复用户ID：commentToUserId-int(11)-NOT NULL,FOREIGN KEY REFERENCES users(userId) 
+被回复评论ID：commentToId-integer
+
+被回复用户ID：commentToUserId-integer-NOT NULL,FOREIGN KEY REFERENCES user(userId) 
 
 回复内容：commentContent-varchar(100)-NOT NULL
 
-当前帖子ID：commentPostId-int(11)-NOT NULL,FOREIGN KEY REFERENCES posts(postId) 
+当前帖子ID：commentPostId-integer-NOT NULL,FOREIGN KEY REFERENCES post(postId) 
 
 回复时间：commentTime-datetime-NOT NULL
 
-建表代码：
+回复是否被采纳：adopt-integer-NOT NULL,default(0) 0:普通评论 1:被采纳评论(针对需求贴)
 
-```mysql
-use BBS;
-create table comments(
-commentId int(11) primary key not null auto_increment,
-commentUserId int(11) not null,
-commentToId int(11),
-commentToUserId int(11) not null,
-commentContent varchar(100) not null,
-commentPostId int(11) not null,
-commentTime datetime not null,
-foreign key (commentUserId) references users(userId),
-foreign key (commentToUserId) references users(userId),
-foreign key (commentPostId) references posts(postId)
-)
-```
 
