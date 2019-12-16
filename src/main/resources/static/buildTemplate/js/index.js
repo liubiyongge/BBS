@@ -472,7 +472,7 @@ function getUserHeader($userId) {
   return $userHeader;
 }
 /*通过postId删除帖子*/
-function deletePost($postId) {
+function deletePost1($postId) {
   $.ajax({
     //cache:false,
     async:false,
@@ -486,7 +486,7 @@ function deletePost($postId) {
       'postId':$postId,
     },
     success:function (data) {
-      //console.log(data);
+      console.log(data);
       alert("删除帖子成功！");
       getAllPosts();
     },error:function () {

@@ -29,8 +29,9 @@ $(function () {
       window.location.href="page-login.html";
     }
     let $postId=$(evt.target).parent().siblings(".tt-col-description").find(".tt-value").text();
-    deletePost($postId);
-    getCategoryPosts($categoryId);
+    deletePost1($postId);
+    //getCategoryPosts($categoryId);
+    window.location.reload();
   });
   /*置顶*/
   $(".category-post-list").delegate(".manage-content a.top","click",function (evt) {
