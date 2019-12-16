@@ -13,7 +13,7 @@ function getCommentsNum($postId) {
     $.ajax({
         cache:false,
         async: false,
-        url:"http://localhost:8080/post//countCommentsNum",//./sources/commentsNum.json
+        url:"/post//countCommentsNum",//./sources/commentsNum.json
         type:"post",
         dataType:"json",
         data:{
