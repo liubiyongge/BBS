@@ -43,6 +43,7 @@
   padding-left: 0px;
   background-color: #f8f9fb;
   display: none;
+  font-weight: normal!important;
 }
 .showToUserCenter{
   display: block;
@@ -72,6 +73,7 @@
   height: 44px;
 }
 /*登录后显示头像以及个人中心入口*/
+
 .currentShow{
   display: block!important;
 }
