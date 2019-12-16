@@ -443,23 +443,25 @@
 				<div class="col-auto ml-auto">
                     <span class="fileinput-button">
                         <span class="btn btn-primary">上传头像</span>
-                        <input type="file" accept="image/*" class="upload_img" id="upload_img" onchange="UploadImg(this)">
+                        <input type="file" accept="image/png, image/jpeg, image/jpg" class="upload_img" id="upload_img" onchange="UploadImg(this)">
                     </span>
 				</div>
 			</div>
 		</div>
 		<div class="form-group">
 		    <label for="settingsUserName">用户名</label>
-		   <input type="text" name="username" class="form-control" id="settingsUserName" placeholder="5-13个字符">
+		   <input type="text" name="username" class="form-control" id="settingsUserName" readonly>
 		</div>
         <div class="form-group">
-            <label for="settingsUserName">性别</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="sex" class="" value="0" id="settingsUserSex1" checked>男&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="radio" name="sex" class="" value="1" id="settingsUserSex2">女
+            <label for="settingsUserName" >性别</label>
+            <select id="settingsUserSex">
+                <option type="radio" name="sex" class="" value="0"  checked>男</option>&nbsp;&nbsp;&nbsp;&nbsp;
+                <option type="radio" name="sex" class="" value="1" >女</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
         <div class="form-group">
             <label for="settingsUserPassword">出生日期</label>
-            <input type="date" name="birthday" class="form-control" id="settingsUserBirthday" value="2019-12-12">
+            <input type="date" name="birthday" class="form-control" id="settingsUserBirthday">
         </div>
 		<div class="form-group">
 		    <label for="settingsUserPassword">新密码</label>
@@ -470,11 +472,7 @@
             <input type="password" name="renewpassword" class="form-control" id="ConfirmUserPassword" placeholder="************">
         </div>
         <div class="form-group">
-            <label for="settingsUserEmail">电子邮箱</label>
-            <input type="email" name="email" class="form-control" id="settingsUserEmail" placeholder="Sample@sample.com">
-        </div>
-        <div class="form-group">
-            <label for="settingsUserEmail">电话</label>
+            <label for="settingsUserName">电话</label>
             <input type="tel" name="telephone" class="form-control" id="settingsUserTelephone" placeholder="11位电话号码">
         </div>
 		<div class="form-group">
@@ -486,7 +484,7 @@
 		    <textarea name="selfintro" placeholder="说点什么介绍下自己吧！" class="form-control" id="settingsUserAbout"></textarea>
 		</div>
 		<div class="form-group" align="center">
-            <button class="btn btn-secondary" onclick="savaInfo()">保存</button>
+            <a class="btn btn-secondary" onclick="submitChange()" style="color: white">保存</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="reset" class="btn btn-secondary">重置</button>
         </div>
@@ -555,7 +553,126 @@
 <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 <script src="js/single-user.js"></script>
+<script>
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
 
+        return JSON.parse(jsonPayload);
+    }
+</script>
+
+
+<script type="text/javascript">
+    var mypicture = "";
+
+    function UploadImg(obj){
+        //方法1：
+        //  var show = new FileReader();
+        //  show.readAsDataURL(obj.files[0]);
+        //  alert(obj.files[0].src);
+        //  show.onload = function (ev) {
+        //    $("#profilePhoto").attr("src", ev.target.result);
+        //  }
+        //方法2：
+        alert("photo");
+        var url = window.URL.createObjectURL(obj.files[0]);
+        $('.login_img2').attr("src",url);
+        var formData = new FormData();  //创建一个forData
+        formData.append('file', obj.files[0]); //把file添加进去  name命名为img
+        $.ajax({
+            url: '/User/uploadImg',
+            data: formData,
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            type: "POST",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data, result) {
+                if(result == "success"){
+                    mypicture = data["imgUrl"];
+                }else {
+                    alert("上传失败");
+                }
+        },
+        error: function() {
+            //失败
+        }
+        });
+
+    }
+
+    $(document).ready(function(){
+        $.ajax({
+            type: "POST",
+            url: '/User/getByUserNameCheck/' + parseJwt(localStorage.getItem("bbsNCU")).userName,
+            contentType: "application/json",
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            success: function (jsonData, result) {
+                if(result == "success"){
+                    $("#settingsUserName").val(jsonData["userName"]);
+                    $("#settingsUserSex").val(jsonData["sex"]);
+                    if(jsonData["telephone"] != null){
+                        $("#settingsUserTelephone").val(jsonData["telephone"]);
+                    }
+                    if(jsonData["briefIntro"] != null){
+                        $("#settingsUserAbout").text(jsonData["briefIntro"]);
+                    }
+                    if(jsonData["location"] != null){
+                        $("#settingsUserLocation").val(jsonData["location"]);
+                    }
+                    if(jsonData["profilePhoto"] !=null){
+                        $('.login_img2').attr("src", jsonData["profilePhoto"]);
+                    }
+                    if(jsonData["birthday"] != null){
+                        $("#settingsUserBirthday").val(jsonData["birthday"].substr(0,10));
+                    }
+                }
+                }
+
+
+            });
+    });
+
+    function submitChange(){
+        if($("#settingsUserPassword").val() !== $("#ConfirmUserPassword").val()){
+            alert("前后密码不一致");
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: '/User/modifyUserBySelf',
+            contentType: "application/json",
+            headers:{'token': localStorage.getItem("bbsNCU")},
+            data:JSON.stringify({
+                "userId": "",
+                "userName": "",
+                "password": $("#settingsUserPassword").val(),
+                "sex": $("#settingsUserSex").val(),
+                "credit": 0,
+                "telephone": $("#settingsUserTelephone").val(),
+                "profilePhoto": mypicture,
+                "briefIntro": $("#settingsUserAbout").val(),
+                "location": $("#settingsUserLocation").val(),
+                "type": 0,
+                "birthday": $("#settingsUserBirthday").val(),
+            }),
+            success: function (jsonData, result) {
+                if(result == "success" && jsonData["message"] == undefined){
+                    alert("修改成功");
+                    location.reload();
+                }else {
+                    alert("修改失败");
+                    location.reload();
+                }
+            },
+        });
+    }
+</script>
 
 <svg width="0" height="0" class="hidden">
 	 <symbol aria-hidden="true" data-prefix="fab" data-icon="facebook-f" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512" id="facebook-f-brands">

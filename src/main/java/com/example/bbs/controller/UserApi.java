@@ -9,12 +9,16 @@ import com.example.bbs.service.PostService;
 import com.example.bbs.service.TokenService;
 import com.example.bbs.service.UploadImgService;
 import com.example.bbs.service.UserService;
+import io.jsonwebtoken.Claims;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 
@@ -78,10 +82,29 @@ public class UserApi {
     }
 
     @RequestMapping("/getByUserName")
-    public  User getByUserName(@RequestParam(value="userName")String userName){
+    public  User getByUserName(@RequestParam(value="userName")String userName, HttpServletRequest request){
         //JSONObject result=new JSONObject();
         // System.out.println(userName);
-        return userService.findByUserName(userName);
+        Claims claims = tokenService.parseToken(request.getHeader("token"));
+        if (((String)claims.get("userName")).equals(userName)){
+            return userService.findByUserName(userName);
+        }else {
+            throw new RuntimeException("非法获取");
+        }
+
+    }
+
+    @RequestMapping("/getByUserNameCheck/{userName}")
+    public  User getByUserNameCheck(@PathVariable String userName, HttpServletRequest request){
+        //JSONObject result=new JSONObject();
+        // System.out.println(userName);
+        Claims claims = tokenService.parseToken(request.getHeader("token"));
+        if (((String)claims.get("userName")).equals(userName)){
+            return userService.findByUserName(userName);
+        }else {
+            throw new RuntimeException("非法获取");
+        }
+
     }
 
     /*权限操作：删除帖子，参数：postId*/
@@ -144,5 +167,17 @@ public class UserApi {
     @ResponseBody
     public Map uploadImg(@RequestParam(value = "file",required = false) MultipartFile file){
         return uploadImgService.uploadImg(file);
+    }
+
+    @RequestMapping("/modifyUserBySelf")
+    public void modifyUserBySelf( @RequestBody User user, HttpServletRequest request){
+        Claims claims = tokenService.parseToken(request.getHeader("token"));
+        user.setUserName((String)claims.get("userName"));
+        try {
+            userService.modifyUserService(user);
+        }catch (DataAccessException e){
+            throw new RuntimeException("修改失败");
+        }
+
     }
 }

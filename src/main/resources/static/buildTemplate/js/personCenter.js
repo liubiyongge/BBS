@@ -1,17 +1,4 @@
-function UploadImg(obj){
-    //方法1：
-    //  var show = new FileReader();
-    //  show.readAsDataURL(obj.files[0]);
-    //  alert(obj.files[0].src);
-    //  show.onload = function (ev) {
-    //    $("#profilePhoto").attr("src", ev.target.result);
-    //  }
-    //方法2：
-    alert("photo");
-    var url = window.URL.createObjectURL(obj.files[0]);
-    $('.login_img2').attr("src",url);
-    //alert(url);
-}
+
 
     // 在键盘按下并释放及提交后验证提交表单
 function validform(){
