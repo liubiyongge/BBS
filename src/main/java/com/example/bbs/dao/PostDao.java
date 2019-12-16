@@ -3,6 +3,7 @@ package com.example.bbs.dao;
 import com.example.bbs.entity.Comment;
 import com.example.bbs.entity.Post;
 import com.example.bbs.entity.CommentInfoForUser;
+import com.example.bbs.entity.PostForAdmin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -80,4 +81,5 @@ public interface PostDao {
     List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId);
 
     //21-
+    List<PostForAdmin> getAllPost();
 }
