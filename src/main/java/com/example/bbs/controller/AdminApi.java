@@ -166,10 +166,10 @@ public class AdminApi {
         }
     }
 
-//    @RequestMapping("/getAllPost")
-//    public List<PostForAdmin> getAllPost(){
-////        return postDao.getAllPost();
-//    }
+    @RequestMapping("/getAllPost")
+    public List<PostForAdmin> getAllPost(){
+        return postDao.getAllPost();
+    }
 
     @RequestMapping("/deletePost/{id}")
     public void deletePost(@PathVariable int id){

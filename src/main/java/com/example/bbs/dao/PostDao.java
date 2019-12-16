@@ -81,8 +81,7 @@ public interface PostDao {
     //20-个人中心-用户收到的评论
     List<CommentInfoForUser> centerReceiveCommentInfo(@Param("userId") int userId);
 
-    //21-
-    //19.列出所有帖子给Admin
+    //21-列出所有帖子给Admin
     List<PostForAdmin> getAllPost();
 
     void deleteByCategoryId(@Param("postCategoryId")  int postCategoryId);
