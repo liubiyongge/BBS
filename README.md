@@ -8,7 +8,7 @@
 
 密码：password-varchar(45)-NOT NULL
 
-用户名：userName-varchar(80)-NOT NULL
+用户名：userName-varchar(80)-NOT NULL unique
 
 性别：sex-integer-default(0) 0:男 1:女
 
