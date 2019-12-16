@@ -198,5 +198,80 @@ function findCategory(){
 
     })
 }
+/*获取用户信息*/
+function getUserInfo() {
+    var token=localStorage.getItem("bbsNCU");
+    var $userName=parseJwt(token).userName;
+    $.ajax({
+        //cache:false,
+        headers:{
+            'token':token,
+        },
+        url:"/User/getByUserName",/*1*/
+        type:"post",         /*2*/
+        dataType:"json",
+        data:{
+            'userName':$userName,
+        },
+        success:function (data) {
+            console.log(data)
+            user.userId=data.userId;
+            user.userName=data.userName;
+            user.sex=data.sex;
+            user.credit=data.credit;
+            user.telephone=data.telephone;
+            user.profilePhoto=data.profilePhoto;
+            user.briefIntro=data.briefIntro;
+            user.location=data.location;
+            user.type=data.type;
+            user.birthday=data.birthday;
+            $(".login_img1").attr("src",user.profilePhoto)
+            $(".login_img3").attr("src",user.profilePhoto)
+        },
+        error:function () {
+            alert("获取用户数据失败");
+        },
+    });
+}
+// function uploadImg($img) {
+//     var formData=new FormData();
+//     formData.append("file",$img);
+//     let postPhoto;
+//     $.ajax({
+//         async:false,
+//         type:"post",
+//         headers:{
+//             'token':token,
+//         },
+//         url:"/User/uploadImg",
+//         data:formData,
+//         contentType: false,
+//         processData: false,
+//         dataType:"json",
+//         success:function(data){
+//             console.log(data);
+//             if (data.code==200){
+//                 $(".begin-upload").text("重新上传");
+//                 let $html=" <div class=\"photoArea\">\n" +
+//                     "                                <img src=\"\" alt=\"\" class=\"showPhoto\">\n" +
+//                     "                            </div>";
+//                 $(".load-and-place-photo").append($html);
+//                 let $imgURL=window.URL.createObjectURL($img);
+//                 $(".showPhoto").attr("src",$imgURL);
+//                 postPhoto=data.imgUrl;
+//                 return postPhoto;
+//                 alert("上传成功");
+//             }else {
+//                 alert("上传失败，只能上传jpg,jpeg,png格式的图片");
+//                 return postPhoto;
+//             }
+//         },
+//         error:function (msg) {
+//             alert("上传失败，只能上传jpg,jpeg,png格式的图片,请重新上传");
+//         }
+//     });
+//     return postPhoto;
+// }
+getUserInfo();
 getAllPosts();
 findCategory();
