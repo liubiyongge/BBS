@@ -2,6 +2,9 @@ var user={};
 var token;
 
 $(function () {
+  /*去掉搜索框*/
+  $(".tt-search__input").attr("hidden","hidden");
+  $(".tt-search__btn").attr("hidden","hidden");
   var $userName;
   /*获取token*/
   token=localStorage.getItem("bbsNCU");
