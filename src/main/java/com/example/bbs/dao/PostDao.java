@@ -24,7 +24,7 @@ public interface PostDao {
     Post findPostByPostId(@Param("postId")int postId);
 
     /*4-根据postId删除一条帖子*/
-    void deletePostByPostId(@Param("postId")int postID);
+    void deletePostByPostId(@Param("postId")int postId);
 
     /*5-置顶一条帖子*/
     void toTop(@Param("postId")int postId);

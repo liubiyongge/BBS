@@ -5,22 +5,8 @@ $(function () {
     /*获取token*/
     token=localStorage.getItem("bbsNCU");
     console.log(token);
-    // /*1.鼠标移入移出右上角*/
-    // $(".user-settings").mouseenter(function () {
-    //     // alert("123");
-    //     $(".toUserCenter").removeClass("notShow").addClass("currentShow");//
-    // }).mouseleave(function () {
-    //     // alert("321");
-    //     $(".toUserCenter").removeClass("currentShow").addClass("notShow");//
-    // });
-    /*管理权限显示*/
     $(".manage").hide();
     $(".manage-content").hide();
-
-    /*判断是否为未登录用户*/
-    // var p=GetRequest();
-    // var $userName=p["userName"];   /*在路径中获取用户ID*/
-    // var $userId=p["userId"];
     let $userName;
     if(token!=null){
         $userName=parseJwt(token).userName;
@@ -29,10 +15,10 @@ $(function () {
         //在所有需要的地方显示用户名
         $(".nowUserName").text($userName);
         //多处显示用户头像
-        $(".login_img2 .login_img1 .login_img2").text(getUserHeader($userId));
-
-
-        alert("当前用户名："+$userName+"  用户Id："+$userId);
+        let $userHeader=getUserHeader($userId);
+        $(".login_img2").attr("src",$userHeader);
+        console.log("用户头像："+$userHeader);
+        // alert("当前用户名："+$userName+"  用户Id："+$userId);
         getPostCommentInfo($userId);
         getReceiveCommentInfo($userId);
     }
@@ -45,6 +31,13 @@ $(function () {
         localStorage.setItem("bbsNCU",null);
         window.location.href="index.html";
     });
+
+    $(".tit").click(function () {
+        // alert("click");
+      let $postId= $(this).attr("id");
+       $(this).attr("href","page-single-topic.html?postId="+$postId);
+    });
+
 
 });
 
@@ -134,6 +127,7 @@ function getPostCommentInfo($userId) {
             for(var i = 0; i < data.length; i++){
                 //alert(data[i].toString());
                 console.log(data[i]);
+                post.postId=data[i].postId;
                 post.postPhoto=data[i].postPhoto;
                 //帖子没有照片，显示一张默认的图片
                 if(post.postPhoto==undefined || typeof(post.postPhoto)=="undefined")
@@ -170,6 +164,7 @@ function getReceiveCommentInfo($userId) {
             for(var i = 0; i < data.length; i++){
                 //alert(data[i].toString());
                 console.log(data[i]);
+                post.postId=data[i].postId;
                 post.postPhoto=data[i].postPhoto;
                 //帖子没有照片，显示一张默认的图片
                 if(post.postPhoto==undefined || typeof(post.postPhoto)=="undefined")
@@ -190,15 +185,18 @@ function getReceiveCommentInfo($userId) {
         }
     });
 }
+///Users/zhangkanqi/Desktop/BBS/BBS-/src/main/resources/static/buildTemplate/images/defaultProfilePhoto.png
+// "<img src=\"images/defaultProfilePhoto.png\" class=\"login_img3\">\n" +
+
 function addPostCommentToList(post) {
     console.log(post);
     var $html="<div class=\"tt-item\">\n" +
         "                            <div class=\"tt-col-avatar\">\n" +
-        "                                <img src=\""+post.postPhoto+"\" class=\"login_img3\">\n" +
+        "                               <img src=\"images/"+post.postPhoto+"\" class=\"login_img3\">\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-description\">\n" +
         "                                <h6 class=\"tt-title\">\n" +
-        "                                    <a href=\"#\">"+post.postTitle+"</a>\n" +
+        "                                    <a  class='tit' id='"+post.postId+"' href=\"#\">"+post.postTitle+"</a>\n" +
         "                                </h6>\n" +
         "                                <div class=\"tt-content\">"+post.commentContent+"</div>\n" +
         "                            </div>\n" +
@@ -211,15 +209,13 @@ function addReceiveCommentToList(post) {
     console.log(post);
     var $html="<div class=\"tt-item\">\n" +
         "                            <div class=\"tt-col-avatar\">\n" +
-        "                               <svg class=\"tt-icon\">\n" +
-        "                                  <use xlink:href=\"#icon-ava-d\"></use>\n" +
-        "                                </svg>\n" +
+        "                               <img src=\""+post.postPhoto+"\" class=\"login_img3\">\n" +
         "                            </div>\n" +
         "                            <div class=\"tt-col-description\">\n" +
-        "                                <h6 class=\"tt-title\"><a href=\"#\">"+post.postTitle+"</a></h6>\n" +
+        "                                <h6 class=\"tt-title\"><a class='tit' id='"+post.postId+"' href=\"#\">"+post.postTitle+"</a></h6>\n" +
         "                                <div class=\"tt-content\">"+post.briefCommentContent+"</div>\n" +
         "                            </div>\n" +
-        "                            <div class=\"tt-col-category\"><a href=\"#\"><span class=\"tt-color06 tt-badge\">"+post.categoryName+"</span></a></div>\n" +
+        "                            <div class=\"tt-col-category\"><a href=\"#\"><span class=\"tt-color06 tt-badge\">"+post.postCategoryName+"</span></a></div>\n" +
         "                            <div class=\"tt-col-value-large hide-mobile\">"+post.commentTime+"</div>\n" +
         "                        </div>";
     $("#receiveComment").append($html);

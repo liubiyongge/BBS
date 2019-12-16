@@ -21,6 +21,6 @@ public interface CategoryDao {
     int addCategory(@Param("categoryName") String categoryName,@Param("categoryUserId") int categoryUserId);
     public int countCategory();
     int setCategory(@Param("categoryName") String categoryName,@Param("categoryUserId") int categoryUserId, @Param("categoryId") int categoryId);
-    Category findByCategoryUserId(@Param("categoryUserId") int categoryUserId);
+    List<Category> findByCategoryUserId(@Param("categoryUserId") int categoryUserId);
 
 }
