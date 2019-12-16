@@ -203,6 +203,25 @@
                     }
                 }
             })
+            function changeType(rs){
+                var token=localStorage.getItem("bbsNCU");
+                $.ajax({
+                    type:"POST",
+                    dataType: "json",
+                    url: '/admin/changeUserTypeToMaster',
+                    contentType: "application/json",
+                    data:JSON.stringify({
+                        "userId":rs
+                    }),
+                    headers:{
+                        "token":token
+                    },
+                    success: function (data) {
+                        alert("修改成功");
+                        window.location.href="categoryManage.html";
+                    }
+                })
+            }
             $(".set").click(function () {
                 var c=0;
                 var op;
@@ -232,8 +251,7 @@
                     }),
                     success: function (i, result) {
                         if (i > 0) {
-                            alert("修改成功");
-                            window.location.href="categoryManage.html"
+                            changeType(rs);
                         }
                     }
                 })}

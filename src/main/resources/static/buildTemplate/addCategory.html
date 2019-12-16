@@ -182,6 +182,25 @@
     </script>
 <!--增加栏目-->
     <script>
+        function changeType(rs){
+            var token=localStorage.getItem("bbsNCU");
+            $.ajax({
+                type:"POST",
+                dataType: "json",
+                url: '/admin/changeUserTypeToMaster',
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "userId":rs
+                }),
+                headers:{
+                    "token":token
+                },
+                success: function (data) {
+                    alert(data);
+                    window.location.href="categoryManage.html";
+                }
+            })
+        }
         $(".add").click(function () {
             var c=0;
             var op;
@@ -210,7 +229,7 @@
                         "categoryUserId":rs
                     }),
                     success: function () {
-                        window.location.href="categoryManage.html";
+                        changeType(rs);
                     }
                 })
             }
