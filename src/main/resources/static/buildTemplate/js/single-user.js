@@ -214,19 +214,28 @@ function getUserInfo() {
             'userName':$userName,
         },
         success:function (data) {
-            console.log(data)
-            user.userId=data.userId;
-            user.userName=data.userName;
-            user.sex=data.sex;
-            user.credit=data.credit;
-            user.telephone=data.telephone;
-            user.profilePhoto=data.profilePhoto;
-            user.briefIntro=data.briefIntro;
-            user.location=data.location;
-            user.type=data.type;
-            user.birthday=data.birthday;
-            $(".login_img1").attr("src",user.profilePhoto)
-            $(".login_img3").attr("src",user.profilePhoto)
+            console.log(typeof(data.profilePhoto))
+            user={}
+            if(data.profilePhoto!=undefined){
+                console.log(data)
+                user.userId=data.userId;
+                user.userName=data.userName;
+                user.sex=data.sex;
+                user.credit=data.credit;
+                user.telephone=data.telephone;
+                user.profilePhoto=data.profilePhoto;
+                user.briefIntro=data.briefIntro;
+                user.location=data.location;
+                user.type=data.type;
+                user.birthday=data.birthday;
+                $(".login_img1").attr("src",user.profilePhoto);
+                $(".login_img3").attr("src",user.profilePhoto);
+            }
+            else{
+                $(".login_img1").attr("src","/buildTemplate/images/defaultProfilePhoto.png");
+                $(".login_img3").attr("src","/buildTemplate/images/defaultProfilePhoto.png");
+            }
+
         },
         error:function () {
             alert("获取用户数据失败");

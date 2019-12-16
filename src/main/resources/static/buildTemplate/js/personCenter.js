@@ -15,9 +15,9 @@ $(function () {
         //在所有需要的地方显示用户名
         $(".nowUserName").text($userName);
         //多处显示用户头像
-        let $userHeader=getUserHeader($userId);
-        $(".login_img2").attr("src",$userHeader);
-        console.log("用户头像："+$userHeader);
+        // let $userHeader=getUserHeader($userId);
+        // $(".login_img2").attr("src",$userHeader);
+        // console.log("用户头像："+$userHeader);
         // alert("当前用户名："+$userName+"  用户Id："+$userId);
         getPostCommentInfo($userId);
         getReceiveCommentInfo($userId);
@@ -83,33 +83,33 @@ function getUserId($userName){
 }
 
 /*通过userId查询用户头像*/
-function getUserHeader($userId) {
-    var $userHeader="defaultUserHeader.jpg";
-    $.ajax({
-        cache:false,
-        async:false,
-        url:"/post/getHeader",
-        type:"post",
-        dataType:"json",
-        data:{
-            'userId':$userId,
-        },
-        success:function (data) {
-            $userHeader=data.profilePhoto;
-            if ($userHeader==="undefined"||typeof ($userHeader)=="undefined"){
-                $userHeader="defaultUserHeader.jpg";
-            }
-            //console.log("success:"+$userId);
-            console.log("success:"+$userHeader);
-            return $userHeader;
-        },
-        error:function () {
-            //console.log("获取用户头像失败");
-            return $userHeader;
-        }
-    });
-    return $userHeader;
-}
+// function getUserHeader($userId) {
+//     var $userHeader="defaultUserHeader.jpg";
+//     $.ajax({
+//         cache:false,
+//         async:false,
+//         url:"/post/getHeader",
+//         type:"post",
+//         dataType:"json",
+//         data:{
+//             'userId':$userId,
+//         },
+//         success:function (data) {
+//             $userHeader=data.profilePhoto;
+//             if ($userHeader==="undefined"||typeof ($userHeader)=="undefined"){
+//                 $userHeader="defaultUserHeader.jpg";
+//             }
+//             //console.log("success:"+$userId);
+//             console.log("success:"+$userHeader);
+//             return $userHeader;
+//         },
+//         error:function () {
+//             //console.log("获取用户头像失败");
+//             return $userHeader;
+//         }
+//     });
+//     return $userHeader;
+// }
 
 /*获取发表的评论要显示的所有信息*/
 function getPostCommentInfo($userId) {
