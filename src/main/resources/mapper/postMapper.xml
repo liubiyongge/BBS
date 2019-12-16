@@ -152,15 +152,17 @@ FROM `comment`
 
     <!--18-个人中心-获取用户发表的评论的相关信息-->
     <select id="centerPostCommentInfo" resultType="com.example.bbs.entity.CommentInfoForUser">
-        select postPhoto,postTitle,categoryName,commentContent,commentTime
+        select postId,postPhoto,postTitle,categoryName,commentContent,commentTime
         from post p,comment co,category ca
         where p.postId=co.commentPostId and ca.categoryId=p.postCategoryId and co.commentUserId=${userId}
+        order by postId desc
     </select>
 
     <!--19-个人中心-获取收到的评论的相关信息-->
     <select id="centerReceiveCommentInfo" resultType="com.example.bbs.entity.CommentInfoForUser">
-        select postPhoto,postTitle,categoryName,commentContent,commentTime
+        select postId,postPhoto,postTitle,categoryName,commentContent,commentTime
         from post p,comment co,category ca
         where p.postId=co.commentPostId and ca.categoryId=p.postCategoryId and co.commentToUserId=${userId}
+        order by postId desc
     </select>
 </mapper>

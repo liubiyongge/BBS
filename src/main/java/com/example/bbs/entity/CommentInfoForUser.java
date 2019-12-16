@@ -1,11 +1,21 @@
 package com.example.bbs.entity;
 
 public class CommentInfoForUser {
+    private int postId;
     private String postPhoto;
     private String postTitle;
     private String categoryName;
     private String commentContent;
     private String commentTime;
+
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
 
     public String getPostPhoto() {
         return postPhoto;
@@ -50,7 +60,8 @@ public class CommentInfoForUser {
     @Override
     public String toString() {
         return "CommentInfoForUser{" +
-                "postPhoto='" + postPhoto + '\'' +
+                "postId=" + postId +
+                ", postPhoto='" + postPhoto + '\'' +
                 ", postTitle='" + postTitle + '\'' +
                 ", categoryName='" + categoryName + '\'' +
                 ", commentContent='" + commentContent + '\'' +
