@@ -53,4 +53,8 @@ public class UserService {
         newUser.setType(oldUser.getType());
         userDao.modifyUser(newUser);
     }
+
+    public void changeUserTypeToMaster(int userId){
+        userDao.changeUserTypeToMaster(userId);
+    }
 }

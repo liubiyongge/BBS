@@ -49,7 +49,11 @@
         birthday = #{newUser.birthday}
         where userId = #{newUser.userId}
     </update>
-
+    <update id="changeUserTypeToMaster">
+        update user set
+        type=1
+        where userId=${userId}
+    </update>
     <update id="addCredit" >
         update `user` set credit=credit+#{postScore} where userId=#{userId}
     </update>

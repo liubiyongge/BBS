@@ -24,6 +24,6 @@ public interface UserDao {
     int findIdByUserName(@Param("userName") String userName);
     void addCredit(@Param("userId")int userId);
     void addCredit(@Param("userId")int userId,@Param("postScore") int postSore);
-
+    void changeUserTypeToMaster(@Param("userId") int userId);
 
 }

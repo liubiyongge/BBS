@@ -191,6 +191,11 @@ public class AdminApi {
         commentDao.deleteComment(commentId);
     }
 
+    @RequestMapping("/changeUserTypeToMaster")
+    public int changeUserTypeToMaster(@RequestBody User user){
+        userService.changeUserTypeToMaster(user.getUserId());
+        return user.getUserId();
+    }
 
 }
 

@@ -267,4 +267,6 @@ public class UserApi {
         result.put("state",1);
         return result.toJSONString();
     }
+
+
 }
