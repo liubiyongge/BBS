@@ -60,7 +60,6 @@
 
 栏目版主：categoryUserId-integer-NOT NULL,FOREIGN KEY REFERENCES user(userId) 
 
-栏目描述：categoryDescription-varchar(100)-NOT NULL
 
 
 #### 4.回复表comment
